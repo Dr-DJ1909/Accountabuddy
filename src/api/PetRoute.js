@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
-import ApiKeys from './ApiKeys.js'
-import firebase from 'firebase'
+import React, { Component } from 'react';
+import firebase from 'firebase';
 import '@firebase/firestore';
-
 
 // export async function newPet(petInfo, ){
 
