@@ -28,14 +28,14 @@ export default class SignUpLogIn extends React.Component {
   }
 
   loginUser = (email, password) => {
-    const { navigate } = this.props.navigation
+    // const { navigate } = this.props.navigation
     try {
       firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
         console.log(user)
-        navigate("UserProfile", {
-          user,
-          updateCurrUser: this.updateCurrUser
-        })
+        // navigate("UserProfile", {
+        //   user,
+        //   updateCurrUser: this.updateCurrUser
+        // })
       })
     }
     catch (err) {
