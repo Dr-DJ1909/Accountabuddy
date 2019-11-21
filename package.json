@@ -10,6 +10,7 @@
   "dependencies": {
     "eslint": "^6.6.0",
     "expo": "^35.0.0",
+    "expo-google-app-auth": "^7.0.0",
     "firebase": "^7.4.0",
     "native-base": "^2.13.8",
     "react": "16.8.3",
