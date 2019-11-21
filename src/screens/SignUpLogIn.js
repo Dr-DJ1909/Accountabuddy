@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
 import { newUser } from '../api/UserRoute';
+import * as Google from 'expo-google-app-auth';
 
 import * as firebase from 'firebase';
 
@@ -19,6 +20,25 @@ export default class SignUpLogIn extends React.Component {
       password: '',
       imageURI: '',
     };
+  }
+
+  signInWithGoogleAsync = async () => {
+    try {
+      const result = await Google.logInAsync({
+        behavior: 'web',
+        // androidClientId: YOUR_CLIENT_ID_HERE,
+        iosClientId: '666961844500-4hs4fj4f89m4talt3djo1echq9da2u2m.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      });
+
+      if (result.type === 'success') {
+        return result.accessToken;
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    }
   }
 
   signUpUser = (email, password) => {
@@ -45,7 +65,7 @@ export default class SignUpLogIn extends React.Component {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then(function(user) {
+        .then(function (user) {
           console.log('USER', user.user.uid);
           // navigate("UserProfile", {
           //   user,
@@ -106,6 +126,8 @@ export default class SignUpLogIn extends React.Component {
             >
               <Text style={{ color: 'white' }}>Sign Up</Text>
             </Button>
+
+            <Button style={{ marginTop: 10 }} title="Sign in with Google" onPress={() => this.signInWithGoogleAsync()}><Text>Log in with Google</Text></Button>
           </Form>
         </Container>
       </KeyboardAvoidingView>
