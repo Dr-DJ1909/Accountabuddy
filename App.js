@@ -1,21 +1,21 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ApiKeys from './ApiKeys.js'
 import * as firebase from 'firebase'
 
+import SignUpLogIn from './src/screens/SignUpLogIn'
+
 export default class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    if(!firebase.apps.length){firebase.initializeApp(ApiKeys.firebaseConfig)}
+    if (!firebase.apps.length) { firebase.initializeApp(ApiKeys.firebaseConfig) }
   }
 
 
-  render(){
+  render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <SignUpLogIn />
     );
   }
 }
