@@ -51,9 +51,6 @@ export default class SignUpLogIn extends React.Component {
         keyboardVerticalOffset={60}
       >
         <Container style={{ ...styles.container, backgroundColor: '#EFE2E5' }}>
-          <View style={{ alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: 0 }}>
-            <Image source={require('../assets/catIcon.png')} style={{ borderRadius: 75, borderWidth: 1, borderColor: 'grey', margin: 20, width: 150, height: 150 }} />
-          </View>
           <Form>
             <Item floatingLabel>
               <Label>Email</Label>
