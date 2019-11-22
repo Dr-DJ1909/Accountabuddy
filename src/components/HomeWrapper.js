@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { PageWrapperView, HeaderText } from '../styles';
+import { Image } from 'react-native';
+import { HeaderText } from '../styles';
+import Home from '../screens/Home';
 
 class HomeWrapper extends Component {
   constructor() {
@@ -19,13 +21,18 @@ class HomeWrapper extends Component {
 
   render() {
     let sprite = this.state.on
-      ? <HeaderText>(ง •̀_•́)ง</HeaderText>
-      : <HeaderText>（‐＾▽＾‐）</HeaderText>;
+      // ? <HeaderText>(ง •̀_•́)ง</HeaderText>
+      // : <HeaderText>（‐＾▽＾‐）</HeaderText>;
+      ? <Image
+        source={require('../assets/img/cat/CatWave01.png')}
+        style={{height: 300, width: 300}}
+        />
+      : <Image
+        source={require('../assets/img/cat/CatWave02.png')}
+        style={{height: 300, width: 300}}
+        />
     return (
-      <PageWrapperView>
-        <HeaderText>This is the home page</HeaderText>
-        {sprite}
-      </PageWrapperView>
+      <Home sprite={sprite}></Home>
     )
   }
 }
