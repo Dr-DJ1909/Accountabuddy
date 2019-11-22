@@ -17,9 +17,6 @@ const bottomTabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(bottomTabNavigator);
 export default class NavWrapper extends Component {
   render() {
-    const { navigation } = this.props
-    const { userdata } = navigation.getParam('userdata')
-    console.log("USER INFO from  props: ", userdata)
     return (
       <AppContainer />
     );

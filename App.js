@@ -9,7 +9,7 @@ import SignUpLogIn from "./src/screens/SignUpLogIn";
 import HomeWrapper from "./src/components/HomeWrapper";
 import TasksWrapper from "./src/components/TasksWrapper";
 import SettingsWrapper from "./src/components/SettingsWrapper";
-import PageWrapperView from "./src/styles";
+import { PageWrapperView } from "./src/styles";
 import NavWrapper from './src/components/NavWrapper'
 
 // import { StackActions } from 'react-navigation'

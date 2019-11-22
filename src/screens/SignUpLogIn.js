@@ -63,17 +63,12 @@ export default class SignUpLogIn extends React.Component {
   };
 
   loginUser = (email, password) => {
-    const { navigate } = this.props.navigation
     try {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(function (user) {
           console.log('USER', user.user.uid);
-          const userdata = user.user
-          navigate("NavWrapper", {
-            userdata
-          })
         });
     } catch (err) {
       console.log(err.toString());
