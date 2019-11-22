@@ -18,6 +18,7 @@ class HomeWrapper extends Component {
   }
 
   render() {
+
     let sprite = this.state.on
       ? <HeaderText>(ง •̀_•́)ง</HeaderText>
       : <HeaderText>（‐＾▽＾‐）</HeaderText>;

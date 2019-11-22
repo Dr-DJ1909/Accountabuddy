@@ -10,6 +10,15 @@ import HomeWrapper from "./src/components/HomeWrapper";
 import TasksWrapper from "./src/components/TasksWrapper";
 import SettingsWrapper from "./src/components/SettingsWrapper";
 import PageWrapperView from "./src/styles";
+import NavWrapper from './src/components/NavWrapper'
+
+// import { StackActions } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+
+const MainNavigator = createStackNavigator({
+  SignUpLogIn: { screen: SignUpLogIn },
+  NavWrapper: { screen: NavWrapper }
+})
 
 const bottomTabNavigator = createBottomTabNavigator(
   {
@@ -24,6 +33,8 @@ const bottomTabNavigator = createBottomTabNavigator(
 
 const AppContainer = createAppContainer(bottomTabNavigator);
 
+const TestingApp = createAppContainer(MainNavigator)
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -36,8 +47,8 @@ export default class App extends Component {
 
   render() {
     return (
-
-      <SignUpLogIn />
+      <TestingApp />
+      // <SignUpLogIn />
       // <AppContainer />
     );
   }
