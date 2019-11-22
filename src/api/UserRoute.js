@@ -18,13 +18,13 @@ import '@firebase/firestore';
 //       console.log(error)
 //     })
 // }
-export async function newUser(user) {
-  await firebase
+export function newUser(user) {
+  firebase
     .firestore()
     .collection('Users')
     .doc(user.uid)
     .set({
-      lastLoginAt: user.lastLoginAt,
+      email: user.email,
     })
     .then(console.log('success'))
     .catch(error => {
@@ -32,8 +32,22 @@ export async function newUser(user) {
     });
 }
 
-export async function updateUser(newInfo, user) {
-  await firebase
+export function googleUser(user) {
+  firebase
+    .firestore()
+    .collection('Users')
+    .doc(user.id)
+    .set({
+      email: user.email,
+    })
+    .then(console.log('success'))
+    .catch(error => {
+      console.log('error', error);
+    });
+}
+
+export function updateUser(newInfo, user) {
+  firebase
     .firestore()
     .collection('users')
     .doc(user.uid)

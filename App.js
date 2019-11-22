@@ -29,6 +29,11 @@ export default class App extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    let config = ApiKeys.firebaseConfig
+    firebase.initializeApp(config)
+  }
+
   render() {
     return (
 
