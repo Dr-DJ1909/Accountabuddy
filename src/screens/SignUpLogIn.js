@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
-import { newUser } from '../api/UserRoute';
+import { newUser, googleUser } from '../api/UserRoute';
 import * as Google from 'expo-google-app-auth';
 
 import * as firebase from 'firebase';
@@ -32,6 +32,9 @@ export default class SignUpLogIn extends React.Component {
       });
 
       if (result.type === 'success') {
+        console.log("google logged in", result.user.id)
+        const user = result.user
+        googleUser(user)
         return result.accessToken;
       } else {
         return { cancelled: true };
@@ -50,10 +53,10 @@ export default class SignUpLogIn extends React.Component {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(console.log('okay'));
-      let user = firebase.auth().currentUser;
-      newUser(user);
-      console.log('USERRR', user);
+        .then((userInfo) => {
+          console.log('success` in signup', userInfo.user)
+          newUser(userInfo.user)
+        })
     } catch (err) {
       console.log(err.toString());
     }
