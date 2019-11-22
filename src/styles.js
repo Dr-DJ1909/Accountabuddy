@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const PageWrapperView = styled.View`
   flex: 1;
-  background-color: #7CC6FE;
+  background-color: #7cc6fe;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const PetView = styled.View`
   flex-basis: 75%;
