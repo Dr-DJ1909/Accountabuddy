@@ -1,23 +1,9 @@
-import React, { Component } from 'react';
 import firebase from 'firebase';
 import '@firebase/firestore';
+import * as Google from 'expo-google-app-auth';
+import {AsyncStorage} from 'react-native'
 
-// export async function newUser(userInfo){
-//   await firebase.firestore()
-//     .collection("Users")
-//     .doc(userInfo.name)
-//     .set({
-//       userName:userInfo.userName,
-//       passWord:userInfo.passWord,
-//       displayName:userInfo.displayName,
-//       profileImg:userInfo.profileImg,
-//       email:userInfo.email,
-//     })
-//     .then(console.log('User Added'))
-//     .catch((error) =>{
-//       console.log(error)
-//     })
-// }
+
 export function newUser(user) {
   firebase
     .firestore()
@@ -46,16 +32,63 @@ export function googleUser(user) {
     });
 }
 
-export function updateUser(newInfo, user) {
+export function updateUser(userKey, ) {
   firebase
     .firestore()
     .collection('users')
-    .doc(user.uid)
+    .doc(userKey)
     .update({
-      userName: newInfo.userName,
-      passWord: newInfo.passWord,
-      displayName: newInfo.displayName,
-      profileImg: newInfo.profileImg,
-      email: newInfo.email,
+
     });
 }
+
+export function loginUser(email, password){
+  let loggedInUser = firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((user)=>{return user.user.uid})
+    return loggedInUser
+
+}
+
+export function signUpUser (email, password) {
+  try {
+    if (password < 6) {
+      alert('Please enter at least 6 characters');
+      return;
+    }
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userInfo) => {
+        console.log('success` in signup', userInfo.user)
+        newUser(userInfo.user)
+      })
+
+  } catch (err) {
+    console.log(err.toString());
+  }
+};
+
+export async function signInWithGoogleAsync () {
+  try {
+    const result = await Google.logInAsync({
+      behavior: 'web',
+      // androidClientId: YOUR_CLIENT_ID_HERE,
+      iosClientId: '666961844500-4hs4fj4f89m4talt3djo1echq9da2u2m.apps.googleusercontent.com',
+      scopes: ['profile', 'email'],
+    });
+
+    if (result.type === 'success') {
+      console.log("google logged in", result.user.id)
+      const user = result.user
+      googleUser(user)
+      return result.accessToken;
+    } else {
+      return { cancelled: true };
+    }
+  } catch (e) {
+    return { error: true };
+  }
+}
+
