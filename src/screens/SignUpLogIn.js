@@ -5,10 +5,10 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
+  AsyncStorage
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
-import { newUser, googleUser } from '../api/UserRoute';
-import * as Google from 'expo-google-app-auth';
+import { newUser, googleUser, signUpUser, signInWithGoogleAsync, loginUser } from '../api/UserRoute';
 
 import * as firebase from 'firebase';
 
@@ -20,56 +20,27 @@ export default class SignUpLogIn extends React.Component {
       password: '',
       imageURI: '',
     };
+    this.signUp = this.signUp.bind(this.signUp)
   }
+    GoogleSignIn(){
+      signInWithGoogleAsync()
+    }
 
-  signInWithGoogleAsync = async () => {
+  signUp (email, password){
     try {
-      const result = await Google.logInAsync({
-        behavior: 'web',
-        // androidClientId: YOUR_CLIENT_ID_HERE,
-        iosClientId: '666961844500-4hs4fj4f89m4talt3djo1echq9da2u2m.apps.googleusercontent.com',
-        scopes: ['profile', 'email'],
-      });
-
-      if (result.type === 'success') {
-        console.log("google logged in", result.user.id)
-        const user = result.user
-        googleUser(user)
-        return result.accessToken;
-      } else {
-        return { cancelled: true };
-      }
-    } catch (e) {
-      return { error: true };
+      signUpUser(email, password)
+    } catch (error) {
+      console.log(error)
     }
   }
 
-  signUpUser = (email, password) => {
+  loginUser = async (email, password) => {
+    const { navigate } = this.props.navigation
     try {
-      if (this.state.password.length < 6) {
-        alert('Please enter at least 6 characters');
-        return;
-      }
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((userInfo) => {
-          console.log('success` in signup', userInfo.user)
-          newUser(userInfo.user)
-        })
-    } catch (err) {
-      console.log(err.toString());
-    }
-  };
-
-  loginUser = (email, password) => {
-    try {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(function (user) {
-          console.log('USER', user.user.uid);
-        });
+        let userKey = await loginUser(email,password)
+        console.log('userKey', userKey)
+        await AsyncStorage.setItem('loggedinUser', userKey)
+          navigate("NavWrapper")
     } catch (err) {
       console.log(err.toString());
     }
@@ -118,14 +89,13 @@ export default class SignUpLogIn extends React.Component {
               full
               rounded
               primary
-              onPress={() =>
-                this.signUpUser(this.state.email, this.state.password)
-              }
+              onPress={()=>
+              this.signUp(this.state.email, this.state.password)}
             >
               <Text style={{ color: 'white' }}>Sign Up</Text>
             </Button>
 
-            <Button style={{ marginTop: 10 }} title="Sign in with Google" onPress={() => this.signInWithGoogleAsync()}><Text>Log in with Google</Text></Button>
+            <Button style={{ marginTop: 10 }} title="Sign in with Google" onPress={() => this.GoogleSignIn()}><Text>Log in with Google</Text></Button>
           </Form>
         </Container>
       </KeyboardAvoidingView>
