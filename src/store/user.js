@@ -4,23 +4,26 @@ const initialState = {
 
 export const GET_USER = 'GET_USER';
 
-export const getUser = ({user}) => {
+export const getUser = () => {
     return {
         type: GET_USER,
-        user
+        // user
     }
 }
 
-export const getUserThunk = () => {
-  console.log('the thunk is being accessed')
+export const getUserThunk = () => dispatch => {
+  try {
+    console.log('the thunk is being accessed');
+    dispatch(getUser());
+  } catch(error) {
+    console.error(error);
+  }
 }
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER:
-      return action.user
-    case ADD_STUDENT:
-      return [...state, action.student]
+      return state
     default:
       return state
   }

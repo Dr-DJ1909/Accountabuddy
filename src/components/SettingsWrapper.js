@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { PageWrapperView, HeaderText } from '../styles';
 import {
   StyleSheet,
@@ -9,6 +10,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
+import {getUserThunk} from '../store/user';
 
 class SettingsWrapper extends Component {
   constructor(){
@@ -25,6 +27,7 @@ class SettingsWrapper extends Component {
   async componentDidMount(){
     let userKey = await AsyncStorage.getItem('loggedinUser')
     console.log(userKey)
+    this.props.getUser();
   }
 
   handleChange(event){
@@ -53,4 +56,19 @@ class SettingsWrapper extends Component {
   }
 }
 
-export default SettingsWrapper;
+const mapStateToProps = function(state) {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = function(dispatch) {
+  return {
+    getUser: () => dispatch(getUserThunk())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)
+  (SettingsWrapper);
