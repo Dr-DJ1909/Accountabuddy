@@ -32,7 +32,7 @@ const bottomTabNavigator = createBottomTabNavigator(
   }
 );
 
-// const AppContainer = createAppContainer(bottomTabNavigator);
+const AppContainer = createAppContainer(bottomTabNavigator);
 
 const TestingApp = createAppContainer(MainNavigator)
 
@@ -48,9 +48,10 @@ export default class App extends Component {
 
   render() {
     return (
-      <TestPetScreen/>
+      // <TestPetScreen/>
       // <SignUpLogIn />
       // <AppContainer />
+       <TestingApp />
     );
   }
 }
