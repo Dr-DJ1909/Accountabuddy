@@ -59,7 +59,7 @@ export async function getUser(userId){
     .collection('Users')
     .doc(userId)
     .get()
-    console.log(user)
+    // console.log(user)
     return user.data() //returns object
   } catch (error) {
     console.log(error)
