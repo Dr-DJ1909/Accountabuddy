@@ -22,11 +22,16 @@ export default class SignUpLogIn extends React.Component {
     };
     this.signUp = this.signUp.bind(this.signUp)
   }
-    GoogleSignIn(){
-      signInWithGoogleAsync()
+  async GoogleSignIn() {
+    const { navigate } = this.props.navigation
+    const msg = await signInWithGoogleAsync()
+    console.log("msg>>>>>>", msg)
+    if (msg.success) {
+      navigate("TestPetScreen")
     }
+  }
 
-  signUp (email, password){
+  signUp(email, password) {
     try {
       signUpUser(email, password)
     } catch (error) {
@@ -37,10 +42,10 @@ export default class SignUpLogIn extends React.Component {
   loginUser = async (email, password) => {
     const { navigate } = this.props.navigation
     try {
-        let userKey = await loginUser(email,password)
-        console.log('userKey', userKey)
-        await AsyncStorage.setItem('loggedinUser', userKey)
-        navigate("TestPetScreen")
+      let userKey = await loginUser(email, password)
+      console.log('userKey', userKey)
+      await AsyncStorage.setItem('loggedinUser', userKey)
+      navigate("TestPetScreen")
     } catch (err) {
       console.log(err.toString());
     }
@@ -89,8 +94,8 @@ export default class SignUpLogIn extends React.Component {
               full
               rounded
               primary
-              onPress={()=>
-              this.signUp(this.state.email, this.state.password)}
+              onPress={() =>
+                this.signUp(this.state.email, this.state.password)}
             >
               <Text style={{ color: 'white' }}>Sign Up</Text>
             </Button>

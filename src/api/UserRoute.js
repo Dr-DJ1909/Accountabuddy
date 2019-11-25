@@ -1,7 +1,8 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
 import * as Google from 'expo-google-app-auth';
-import {AsyncStorage} from 'react-native'
+import { AsyncStorage } from 'react-native'
+import { GoogleID } from '../../ApiKeys'
 
 
 export function newUser(user) {
@@ -41,16 +42,16 @@ export function googleUser(user) {
 //     });
 // }
 
-export function loginUser(email, password){
+export function loginUser(email, password) {
   let loggedInUser = firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then((user)=>{return user.user.uid})
-    return loggedInUser
+    .then((user) => { return user.user.uid })
+  return loggedInUser
 
 }
 
-export function signUpUser (email, password) {
+export function signUpUser(email, password) {
   try {
     if (password < 6) {
       alert('Please enter at least 6 characters');
@@ -67,14 +68,14 @@ export function signUpUser (email, password) {
   } catch (err) {
     console.log(err.toString());
   }
-};
+}
 
-export async function signInWithGoogleAsync () {
+export async function signInWithGoogleAsync() {
   try {
     const result = await Google.logInAsync({
       behavior: 'web',
       // androidClientId: YOUR_CLIENT_ID_HERE,
-      iosClientId: '666961844500-4hs4fj4f89m4talt3djo1echq9da2u2m.apps.googleusercontent.com',
+      iosClientId: GoogleID,
       scopes: ['profile', 'email'],
     });
 
@@ -82,12 +83,12 @@ export async function signInWithGoogleAsync () {
       console.log("google logged in", result.user.id)
       const user = result.user
       googleUser(user)
-      return result.accessToken;
+      return { success: result.accessToken };
     } else {
       return { cancelled: true };
     }
   } catch (e) {
-    return { error: true };
+    return { error: e };
   }
 }
 
