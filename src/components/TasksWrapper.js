@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PageWrapperView, HeaderText } from '../styles';
+import { PageWrapperView, HeaderText, TaskWrapperView } from '../styles';
 import {
   Button,
   View,
@@ -9,13 +9,15 @@ import {
   KeyboardAvoidingView,
   TouchableHighlight,
   Picker,
+  FlatList,
+  Row,
 } from 'react-native';
 
 class TasksWrapper extends Component {
   constructor() {
     super();
     this.state = {
-      tasks: [],
+      tasks: [{ name: 'Do Laundry', category: 'Chores' }],
     };
   }
   addTask = task => {
@@ -23,26 +25,43 @@ class TasksWrapper extends Component {
   }; // this function will be modified as we figure out how to keep track of state.
   render() {
     return (
-      <PageWrapperView>
-        <HeaderText>This is the tasks page</HeaderText>
+      <TaskWrapperView>
+        {/* <Text style={{ flex: 1 }}>Task List</Text>
+        <FlatList
+          style={{ width: '100%', height: '50%', alignSelf: 'center' }}
+          data={this.state.tasks}
+          keyExtractor={item => item._id}
+          renderItem={({ item: task }) => <Text>{task.name}</Text>}
+        /> */}
         <AddTask />
-      </PageWrapperView>
+      </TaskWrapperView>
     );
   }
 }
 
 class AddTask extends Component {
-  state = { name: '', category: '', completion: false };
+  constructor() {
+    super();
+    this.state = { name: '', category: '', completion: false };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.props.addTask(this.state); //add task thunk would go here
+  }
   addCategory = category => {
     this.setState({ category });
   };
   handleNameChange = event => {
-    let name = this.state.name;
-    name = event.nativeEvent.text;
+    let name = event.nativeEvent.text;
     this.setState({
       name: name,
     });
   };
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.props.addTask(this.state);
+  }
   render() {
     console.log(this.state);
     return (
@@ -66,7 +85,7 @@ class AddTask extends Component {
         <TouchableHighlight
           style={styles.button}
           underlayColor="white"
-          onPress={this.handleSubmit}
+          // onPress={this.props.addTask(this.state)}
         >
           <Text style={styles.buttonText}>Add</Text>
         </TouchableHighlight>
@@ -122,6 +141,10 @@ const styles = StyleSheet.create({
     color: '#111',
     alignSelf: 'center',
     borderRadius: 5,
+  },
+  taskRow: {
+    flex: 1,
+    flexDirection: 'row',
   },
 });
 
