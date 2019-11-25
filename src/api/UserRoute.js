@@ -32,15 +32,14 @@ export function googleUser(user) {
     });
 }
 
-export function updateUser(userKey, ) {
-  firebase
-    .firestore()
-    .collection('users')
-    .doc(userKey)
-    .update({
-
-    });
-}
+// export function updateUser(userKey, ) {
+//   firebase
+//     .firestore()
+//     .collection('users')
+//     .doc(userKey)
+//     .update({
+//     });
+// }
 
 export function loginUser(email, password){
   let loggedInUser = firebase

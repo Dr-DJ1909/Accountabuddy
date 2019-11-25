@@ -8,6 +8,7 @@ import "@firebase/firestore";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import SignUpLogIn from "./src/screens/SignUpLogIn";
+import TestPetScreen from './src/screens/TestPetScreen';
 import HomeWrapper from "./src/components/HomeWrapper";
 import TasksWrapper from "./src/components/TasksWrapper";
 import SettingsWrapper from "./src/components/SettingsWrapper";
@@ -16,9 +17,9 @@ import NavWrapper from './src/components/NavWrapper'
 
 // import { StackActions } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-
 const MainNavigator = createStackNavigator({
   SignUpLogIn: { screen: SignUpLogIn },
+  TestPetScreen: { screen:TestPetScreen },
   NavWrapper: { screen: NavWrapper }
 })
 
@@ -49,6 +50,7 @@ export default class App extends Component {
 
   render() {
     return (
+
       <Provider store={Store}>
         <TestingApp />
         {/* <SignUpLogIn /> */}

@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import '@firebase/firestore';
 
-// export async function newPet(petInfo, ){
+export function newPet(userKey, petName){
 
-//   await firebase.firestore()
-//     .collection("Pets")
-//     .doc(petInfo.name)
-//     .set({
-//       type: petInfo.type ,
-//       name: petInfo.name,
+   firebase
+  .firestore()
+    .collection("Users")
+    .doc(userKey)
+    .update({
+      pet: {Name:petName}
+    })
+    .then(console.log('success'))
+    .catch((error) =>{
+      console.log(error)
+    })
 
-//     })
-//     .catch((error) =>{
-//       console.log(error)
-//     })
-
-// }
+}
