@@ -40,7 +40,7 @@ export default class SignUpLogIn extends React.Component {
         let userKey = await loginUser(email,password)
         console.log('userKey', userKey)
         await AsyncStorage.setItem('loggedinUser', userKey)
-          navigate("NavWrapper")
+        navigate("TestPetScreen")
     } catch (err) {
       console.log(err.toString());
     }
