@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { Provider } from 'react-redux';
+import Store from './src/store/index';
 import ApiKeys from "./ApiKeys";
 import firebase from "firebase";
 import "@firebase/firestore";
@@ -48,10 +50,12 @@ export default class App extends Component {
 
   render() {
     return (
-      // <TestPetScreen/>
-      // <SignUpLogIn />
-      // <AppContainer />
-       <TestingApp />
+
+      <Provider store={Store}>
+        <TestingApp />
+        {/* <SignUpLogIn /> */}
+        {/* <AppContainer /> */}
+      </Provider>
     );
   }
 }
