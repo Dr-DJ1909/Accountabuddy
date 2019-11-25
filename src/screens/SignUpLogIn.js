@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   StyleSheet,
   View,
@@ -9,10 +10,10 @@ import {
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
 import { newUser, googleUser, signUpUser, signInWithGoogleAsync, loginUser, getUser } from '../api/UserRoute';
-
 import * as firebase from 'firebase';
+import { getUserThunk } from '../store/user'
 
-export default class SignUpLogIn extends React.Component {
+class SignUpLogIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,9 +40,8 @@ export default class SignUpLogIn extends React.Component {
     const { navigate } = this.props.navigation
     try {
         let userKey = await loginUser(email,password)
-        // console.log ('userKey in screen', userKey)
-        console.log('getuser', await getUser(userKey))
-        await AsyncStorage.setItem('loggedinUser', userKey)
+        const currentUser = await getUser(userKey);
+        this.props.getUserAction(currentUser);
         navigate("TestPetScreen")
     } catch (err) {
       console.log(err.toString());
@@ -113,3 +113,20 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+const mapStateToProps = function(state) {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = function(dispatch) {
+  return {
+    getUserAction: (user) => dispatch(getUserThunk(user))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)
+  (SignUpLogIn);
