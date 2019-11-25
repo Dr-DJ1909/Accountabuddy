@@ -8,7 +8,7 @@ import {
   AsyncStorage
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
-import { newUser, googleUser, signUpUser, signInWithGoogleAsync, loginUser } from '../api/UserRoute';
+import { newUser, googleUser, signUpUser, signInWithGoogleAsync, loginUser, getUser } from '../api/UserRoute';
 
 import * as firebase from 'firebase';
 
@@ -26,9 +26,10 @@ export default class SignUpLogIn extends React.Component {
       signInWithGoogleAsync()
     }
 
-  signUp (email, password){
+  signUp =  async (email, password) =>{
     try {
-      signUpUser(email, password)
+      let newUser = await signUpUser(email, password)
+      console.log('newUserId in signUp' , newUser)
     } catch (error) {
       console.log(error)
     }
@@ -38,7 +39,8 @@ export default class SignUpLogIn extends React.Component {
     const { navigate } = this.props.navigation
     try {
         let userKey = await loginUser(email,password)
-        console.log('userKey', userKey)
+        // console.log ('userKey in screen', userKey)
+        console.log('getuser', await getUser(userKey))
         await AsyncStorage.setItem('loggedinUser', userKey)
         navigate("TestPetScreen")
     } catch (err) {
