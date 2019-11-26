@@ -9,48 +9,32 @@ import {
   TaskView
 } from '../styles';
 import {
-  Button,
-  View,
   Text,
-  TextInput,
-  StyleSheet,
-  ScrollView
+  StyleSheet
 } from 'react-native';
 import {CheckBox} from 'native-base';
-import {newTask} from '../api/TaskRoute';
 import Swipeout from 'react-native-swipeout';
-import AddTask from './AddTask';
-import TaskList from '../screens/TaskList';
 
-class TasksWrapper extends Component {
-  render() {
-    return (
-      <TaskWrapperView>
-        <ScrollView>
-          <HeaderWrapperView>
-            <HeaderTasksText>My Tasks</HeaderTasksText>
-          </HeaderWrapperView>
-          <TaskList />
-          <AddTask />
-        </ScrollView>
-      </TaskWrapperView>
-    );
-  }
+function TaskItem(props) {
+  const swipeSettings = {
+    autoClose: true,
+    onClose: (secid, rowId, direction) => {},
+    onOpen: (secId, rowId, direction) => {},
+    right: [{onPress: () => {}, text: 'Delete', type: 'delete'}],
+    rowId: props.index,
+    sectionId: 1
+  };
+
+  return (
+    <Swipeout {...swipeSettings}>
+      <TaskView>
+        <Text style={styles.taskText}> Task: {props.item.name}</Text>
+        <Text style={styles.taskText}>Category: {props.item.category}</Text>
+        <CheckBox checked={false} onPress={() => props.complete()} />
+      </TaskView>
+    </Swipeout>
+  );
 }
-
-// renderSeparator = () => {
-//   return (
-//     <View
-//       style={{
-//         height: 1,
-//         width: '86%',
-//         backgroundColor: '#CED0CE',
-//         marginLeft: '14%',
-//         marginBottom: '5%'
-//       }}
-//     />
-//   );
-// };
 
 const styles = StyleSheet.create({
   headerText: {
@@ -114,4 +98,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TasksWrapper;
+export default TaskItem;

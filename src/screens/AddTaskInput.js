@@ -9,48 +9,46 @@ import {
   TaskView
 } from '../styles';
 import {
-  Button,
-  View,
   Text,
   TextInput,
   StyleSheet,
-  ScrollView
+  KeyboardAvoidingView,
+  TouchableHighlight,
+  Picker,
+  AsyncStorage
 } from 'react-native';
-import {CheckBox} from 'native-base';
-import {newTask} from '../api/TaskRoute';
-import Swipeout from 'react-native-swipeout';
-import AddTask from './AddTask';
-import TaskList from '../screens/TaskList';
 
-class TasksWrapper extends Component {
-  render() {
-    return (
-      <TaskWrapperView>
-        <ScrollView>
-          <HeaderWrapperView>
-            <HeaderTasksText>My Tasks</HeaderTasksText>
-          </HeaderWrapperView>
-          <TaskList />
-          <AddTask />
-        </ScrollView>
-      </TaskWrapperView>
-    );
-  }
+export default function AddTaskInput(props) {
+  return (
+    <KeyboardAvoidingView style={styles.formView}>
+      <Text style={styles.subheadText}>New Task</Text>
+      <LabelText>Describe Task</LabelText>
+      <TextInput
+        placeholder="Task Name"
+        placeholderColor="#c4c3cb"
+        style={styles.textInput}
+        onChange={props.handleNameChange}
+      />
+      <LabelText>Choose Category: </LabelText>
+      <Picker
+        selectedValue={props.category}
+        onValueChange={props.handleCategoryChange}
+      >
+        <Picker.Item label="Exercise" value="Exercise" />
+        <Picker.Item label="Chores" value="Chores" />
+        <Picker.Item label="Social" value="Social" />
+      </Picker>
+
+      <TouchableHighlight
+        style={styles.button}
+        underlayColor="white"
+        onPress={props.handleSubmit}
+      >
+        <Text style={styles.buttonText}>Add</Text>
+      </TouchableHighlight>
+    </KeyboardAvoidingView>
+  );
 }
-
-// renderSeparator = () => {
-//   return (
-//     <View
-//       style={{
-//         height: 1,
-//         width: '86%',
-//         backgroundColor: '#CED0CE',
-//         marginLeft: '14%',
-//         marginBottom: '5%'
-//       }}
-//     />
-//   );
-// };
 
 const styles = StyleSheet.create({
   headerText: {
@@ -113,5 +111,3 @@ const styles = StyleSheet.create({
     // fontFamily: 'Helvetica'
   }
 });
-
-export default TasksWrapper;

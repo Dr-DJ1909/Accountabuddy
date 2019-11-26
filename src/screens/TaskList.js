@@ -9,48 +9,65 @@ import {
   TaskView
 } from '../styles';
 import {
-  Button,
   View,
-  Text,
-  TextInput,
   StyleSheet,
-  ScrollView
+  FlatList,
 } from 'react-native';
-import {CheckBox} from 'native-base';
-import {newTask} from '../api/TaskRoute';
-import Swipeout from 'react-native-swipeout';
-import AddTask from './AddTask';
-import TaskList from '../screens/TaskList';
+import TaskItem from '../components/TaskItem';
 
-class TasksWrapper extends Component {
+class TaskList extends Component {
+  constructor() {
+    super();
+    this.state = {
+      tasks: [
+        {name: 'Do Laundry', category: 'Chores', completion: false},
+        {name: 'Workout', category: 'Exercise', completion: false},
+        {name: 'Call Mom', category: 'Social', completion: false}
+      ]
+    };
+    this.complete.bind(this);
+  }
+  complete() {
+    // this.setState({ completion: true })
+    console.log('hi');
+  }
+
   render() {
     return (
-      <TaskWrapperView>
-        <ScrollView>
-          <HeaderWrapperView>
-            <HeaderTasksText>My Tasks</HeaderTasksText>
-          </HeaderWrapperView>
-          <TaskList />
-          <AddTask />
-        </ScrollView>
-      </TaskWrapperView>
+      <FlatList
+        style={{flex: 2, width: '100%'}}
+        data={this.state.tasks}
+        ItemSeparatorComponent={renderSeparator}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item, index}) => {
+          return (
+            <TaskItem
+              item={item}
+              style={{flex: 1}}
+              index={index}
+              complete={this.complete}
+              addTask={this.addTask}
+            />
+          );
+        }}
+      />
     );
   }
 }
 
-// renderSeparator = () => {
-//   return (
-//     <View
-//       style={{
-//         height: 1,
-//         width: '86%',
-//         backgroundColor: '#CED0CE',
-//         marginLeft: '14%',
-//         marginBottom: '5%'
-//       }}
-//     />
-//   );
-// };
+renderSeparator = () => {
+  return (
+    <View
+      style={{
+        height: 1,
+        width: '86%',
+        backgroundColor: '#CED0CE',
+        marginLeft: '14%',
+        marginBottom: '5%'
+      }}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   headerText: {
@@ -114,4 +131,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TasksWrapper;
+export default TaskList;
