@@ -7,6 +7,17 @@
     "web": "expo start --web",
     "eject": "expo eject"
   },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write",
+      "npm run lint-fix",
+      "git add"
+    ],
+    "*.{css,scss,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "eslint": "^6.6.0",
     "expo": "^35.0.0",
