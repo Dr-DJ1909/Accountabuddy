@@ -14,7 +14,7 @@ import TasksWrapper from "./src/components/TasksWrapper";
 import SettingsWrapper from "./src/components/SettingsWrapper";
 import { PageWrapperView } from "./src/styles";
 import NavWrapper from './src/components/NavWrapper'
-//ranomdojnafnf
+
 // import { StackActions } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 const MainNavigator = createStackNavigator({
