@@ -14,7 +14,8 @@ async function newUser(user) {
         email: user.email,
         UserName:'',
         pet:{Name:'kitty',ChoreHP:1,GymHP:1 },
-        tasks:[]
+        completedTasks:[],
+        incompleteTasks:[]
       })
       console.log('info in newUser', user)
   } catch (error) {

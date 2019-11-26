@@ -18,22 +18,80 @@ const initialState = {
   userKey: ''
 };
 
-export const GET_USER = 'GET_USER';
-export const GET_USER_KEY = 'GET_USER_KEY';
+const GET_USER = 'GET_USER';
+const GET_USER_KEY = 'GET_USER_KEY';
+const GET_ALL_TASKS = 'GET_ALL_TASKS'
+const UPDATE_TASK = 'UPDATE_TASK'//from incomplete to complete
+const ADD_TASK = 'ADD_TASK'
 
-export const getUser = user => {
+const addTask = (newTask) =>{
+  return{
+    type:ADD_TASK,
+    newTask
+  }
+}
+
+const getAllTasks = (allTasks) =>{
+  return{
+    type:GET_ALL_TASKS,
+    allTasks
+  }
+}
+
+const updateTask = (updatedTask) =>{
+  return{
+    type:UPDATE_TASK,
+    updatedTask
+  }
+}
+
+const getUser = user => {
   return {
     type: GET_USER,
     user
   };
 };
 
-export const getUserKey = userKey => {
+const getUserKey = userKey => {
   return {
     type: GET_USER_KEY,
     userKey
   };
 };
+
+export const addTaskThunk = newTask =>{
+  return function (dispatch){
+    try {
+      console.log('addTask is being accessed', newTask)
+      dispatch(addTask(newTask))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const getAllTasks = allTasks =>{
+  return function (dispatch){
+    try{
+      console.log('GetAllTasks being accessed')
+      dispatch(getAllTasks(allTasks))
+    }
+    catch(error){
+      console.error(error)
+    }
+  }
+}
+
+export const updateTask = updatedTask =>{
+  return function (dispatch){
+    try {
+      console.log('updateTask being accessed')
+      dispatch(updateTask(updatedTask))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 export const getUserThunk = user => dispatch => {
   try {
@@ -66,6 +124,18 @@ export const userReducer = (state = initialState, action) => {
       AsyncStorage.setItem('userKey', action.userKey);
       console.log('userKey in state>>>', action.userKey);
       return {...state, userKey: action.userKey};
+
+    case ADD_TASK:
+      const retrievedData =  AsyncStorage.getItem('loggedinUser')
+      const data = JSON.parse(retrievedData)
+      data.tasks.push(action.newTask)
+      AsyncStorage.setItem('loggedinUser', JSON.stringify(data))
+      return{...state, user:data}
+
+    case GET_ALL_TASKS:
+      const
+
+    case UPDATE_TASK:
 
     default:
       return state;
