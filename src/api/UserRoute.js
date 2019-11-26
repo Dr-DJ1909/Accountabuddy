@@ -1,35 +1,69 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
 import * as Google from 'expo-google-app-auth';
-import {AsyncStorage} from 'react-native'
 
 
-export function newUser(user) {
-  firebase
-    .firestore()
-    .collection('Users')
-    .doc(user.uid)
-    .set({
-      email: user.email,
-    })
-    .then(console.log('success'))
-    .catch(error => {
+
+async function newUser(user) {
+  try {
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(user.uid)
+      .set({
+        email: user.email,
+      })
+      console.log('info in newUser', user)
+  } catch (error) {
       console.log('error', error);
-    });
+  }
 }
 
-export function googleUser(user) {
-  firebase
+export async function signUpUser (email, password) {
+  try {
+    if (password < 6) {
+      alert('Please enter at least 6 characters');
+      return;
+    }
+    let loggedInUser = await firebase
+    .auth()
+    .createUserWithEmailAndPassword(email,password)
+    console.log('in signup user route', loggedInUser.user)
+    await newUser(loggedInUser.user)
+    return loggedInUser.user.uid
+  }
+  catch (err) {
+    console.log(err.toString());
+  }
+};
+
+export async function googleUser(user) {
+  try {
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(user.id)
+      .set({
+        email: user.email,
+      })
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
+export async function getUser(userId){
+  try {
+    let user =
+    await firebase
     .firestore()
     .collection('Users')
-    .doc(user.id)
-    .set({
-      email: user.email,
-    })
-    .then(console.log('success'))
-    .catch(error => {
-      console.log('error', error);
-    });
+    .doc(userId)
+    .get()
+    // console.log(user)
+    return user.data() //returns object
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // export function updateUser(userKey, ) {
@@ -41,33 +75,16 @@ export function googleUser(user) {
 //     });
 // }
 
-export function loginUser(email, password){
-  let loggedInUser = firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((user)=>{return user.user.uid})
-    return loggedInUser
-
-}
-
-export function signUpUser (email, password) {
+export async function loginUser(email, password){
   try {
-    if (password < 6) {
-      alert('Please enter at least 6 characters');
-      return;
-    }
-    firebase
+    let loggedInUser = await firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((userInfo) => {
-        console.log('success` in signup', userInfo.user)
-        newUser(userInfo.user)
-      })
-
-  } catch (err) {
-    console.log(err.toString());
+      .signInWithEmailAndPassword(email, password)
+      return loggedInUser.user.uid
+  } catch (error) {
+    console.log(error)
   }
-};
+}
 
 export async function signInWithGoogleAsync () {
   try {

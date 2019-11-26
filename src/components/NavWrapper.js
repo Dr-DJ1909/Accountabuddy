@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import HomeWrapper from './HomeWrapper';
 import TasksWrapper from './TasksWrapper';
 import SettingsWrapper from './SettingsWrapper';
+
 const bottomTabNavigator = createBottomTabNavigator(
   {
     Home: HomeWrapper,
@@ -11,10 +12,13 @@ const bottomTabNavigator = createBottomTabNavigator(
     Settings: SettingsWrapper,
   },
   {
-    initialRouteName: 'Home'
+    initialRouteName: 'Home',
+    backBehavior: "history",
   }
 )
+
 const AppContainer = createAppContainer(bottomTabNavigator);
+
 export default class NavWrapper extends Component {
   render() {
     return (

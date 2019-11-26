@@ -25,9 +25,9 @@ class SettingsWrapper extends Component {
   }
 
   async componentDidMount(){
-    let userKey = await AsyncStorage.getItem('loggedinUser')
-    console.log(userKey)
-    this.props.getUser();
+    // let userKey = await AsyncStorage.getItem('loggedinUser')
+    // console.log(userKey)
+    // this.props.getUser();
   }
 
   handleChange(event){

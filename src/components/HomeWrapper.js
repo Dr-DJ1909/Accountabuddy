@@ -1,40 +1,33 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { HeaderText } from '../styles';
+import { connect } from 'react-redux';
 import Home from '../screens/Home';
+import { Text } from 'react-native';
 
 class HomeWrapper extends Component {
-  constructor() {
-    super();
-    this.state = {
-      on: true,
-    }
-
-    setInterval(() => {
-      this.setState(previousState => {
-        return {
-          on: !previousState.on,
-        };
-      });
-    }, 1200);
+  constructor(props) {
+    super(props)
   }
 
   render() {
-    let sprite = this.state.on
-      // ? <HeaderText>(ง •̀_•́)ง</HeaderText>
-      // : <HeaderText>（‐＾▽＾‐）</HeaderText>;
-      ? <Image
-        source={require('../assets/img/cat/CatWave01.png')}
-        style={{height: 300, width: 300}}
-        />
-      : <Image
-        source={require('../assets/img/cat/CatWave02.png')}
-        style={{height: 300, width: 300}}
-        />
+    if (this.props.user) {
+      // console.log('props!!!', this.props)
+    }
+
+    let petName = this.props.user ? this.props.user.pet.Name : <Text />
+
     return (
-      <Home sprite={sprite}></Home>
+      <Home petName={petName}/>
     )
   }
 }
 
-export default HomeWrapper;
+const mapStateToProps = function(state) {
+  return {
+    user: state.user
+  }
+}
+export default connect(
+  mapStateToProps,
+  null)
+  (HomeWrapper);
+

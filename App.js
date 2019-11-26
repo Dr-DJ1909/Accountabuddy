@@ -14,27 +14,23 @@ import TasksWrapper from './src/components/TasksWrapper';
 import SettingsWrapper from './src/components/SettingsWrapper';
 import { PageWrapperView } from './src/styles';
 import NavWrapper from './src/components/NavWrapper';
+import ignoreWarnings from 'react-native-ignore-warnings';
+
+ignoreWarnings('Setting a timer');
 
 // import { StackActions } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack';
-const MainNavigator = createStackNavigator({
-  SignUpLogIn: { screen: SignUpLogIn },
-  TestPetScreen: { screen: TestPetScreen },
-  NavWrapper: { screen: NavWrapper },
-});
 
-const bottomTabNavigator = createBottomTabNavigator(
+const MainNavigator = createStackNavigator(
   {
-    Home: HomeWrapper,
-    Tasks: TasksWrapper,
-    Settings: SettingsWrapper,
+    SignUpLogIn: { screen: SignUpLogIn },
+    TestPetScreen: { screen: TestPetScreen },
+    NavWrapper: { screen: NavWrapper },
   },
   {
-    initialRouteName: 'Home',
+    backBehavior: 'history',
   }
 );
-
-const AppContainer = createAppContainer(bottomTabNavigator);
 
 const TestingApp = createAppContainer(MainNavigator);
 
