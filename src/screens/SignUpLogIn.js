@@ -9,6 +9,7 @@ import {
   AsyncStorage
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
+import { withNavigation } from 'react-navigation';
 import { newUser, googleUser, signUpUser, signInWithGoogleAsync, loginUser, getUser } from '../api/UserRoute';
 import * as firebase from 'firebase';
 import { getUserThunk } from '../store/user'
@@ -42,7 +43,7 @@ class SignUpLogIn extends React.Component {
         let userKey = await loginUser(email,password)
         const currentUser = await getUser(userKey);
         this.props.getUserAction(currentUser);
-        navigate("TestPetScreen")
+        navigate("NavWrapper")
     } catch (err) {
       console.log(err.toString());
     }

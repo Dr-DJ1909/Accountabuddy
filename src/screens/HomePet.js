@@ -29,7 +29,6 @@ class HomePet extends Component {
         source={require('../assets/img/cat/CatWave02.png')}
         style={{height: 300, width: 300}}
         />
-
     return (
       <PetView>
         <AbsolutePositionPetView>

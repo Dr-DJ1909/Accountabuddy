@@ -10,7 +10,6 @@ class Home extends Component {
     }
 
   render() {
-    console.log('props!!!!!!!!! >>', this.props)
     let petName = this.props ? this.props.petName : <Text />
     return (
       <PageWrapperView>

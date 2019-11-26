@@ -33,7 +33,6 @@ export default class TestPetScreen extends Component{
     let userKey = await AsyncStorage.getItem('loggedinUser')
     newPet(userKey, this.state.petName)
     const {navigate} = this.props.navigation
-
     navigate('NavWrapper')
   }
 
