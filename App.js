@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Provider } from 'react-redux';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Provider} from 'react-redux';
 import Store from './src/store/index';
-import ApiKeys from "./ApiKeys";
-import firebase from "firebase";
-import "@firebase/firestore";
-import { createSwitchNavigator, createAppContainer } from "react-navigation";
-import SignUpLogIn from "./src/screens/SignUpLogIn";
+import ApiKeys from './ApiKeys';
+import firebase from 'firebase';
+import '@firebase/firestore';
+import {createSwitchNavigator, createAppContainer} from 'react-navigation';
+import SignUpLogIn from './src/screens/SignUpLogIn';
 import TestPetScreen from './src/screens/TestPetScreen';
 import NavWrapper from './src/components/NavWrapper';
 import ignoreWarnings from 'react-native-ignore-warnings';
@@ -14,19 +14,18 @@ import ignoreWarnings from 'react-native-ignore-warnings';
 
 ignoreWarnings('Setting a timer');
 
-
 const MainNavigator = createSwitchNavigator(
   {
-  SignUpLogIn: { screen: SignUpLogIn },
-  TestPetScreen: { screen:TestPetScreen },
-  NavWrapper: { screen: NavWrapper }
+    SignUpLogIn: {screen: SignUpLogIn},
+    TestPetScreen: {screen: TestPetScreen},
+    NavWrapper: {screen: NavWrapper}
   },
   {
-    backBehavior: 'none',
+    backBehavior: 'none'
   }
-)
+);
 
-const AppLogin = createAppContainer(MainNavigator)
+const AppLogin = createAppContainer(MainNavigator);
 
 export default class App extends Component {
   constructor(props) {
@@ -34,13 +33,12 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    let config = ApiKeys.firebaseConfig
-    firebase.initializeApp(config)
+    let config = ApiKeys.firebaseConfig;
+    firebase.initializeApp(config);
   }
 
   render() {
     return (
-
       <Provider store={Store}>
         <AppLogin />
       </Provider>
@@ -51,8 +49,8 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

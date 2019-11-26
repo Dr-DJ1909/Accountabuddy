@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import firebase from 'firebase';
 import '@firebase/firestore';
 
-export async function newTask(taskInfo, user) {
-  await firebase
-    .firestore()
-    .collection('Tasks')
-    .doc(user.uid)
-    .set(
-      tasks.push({
-        taskName: taskInfo.taskName,
-        taskType: taskInfo.taskType,
-        taskStatus: taskInfo.taskStatus,
-      })
-    )
-    .then(console.log('New Task Set'))
-    .catch(error => {
-      console.log(error);
-    });
+export async function newTask(userId, task) {
+  try {
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(userId)
+      .update({
+        tasks: firebase.firestore.FieldValue.arrayUnion(task)
+      });
+  } catch (error) {
+    console.error(error);
+  }
 }
