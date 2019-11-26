@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {
   StyleSheet,
   View,
@@ -8,10 +8,18 @@ import {
   KeyboardAvoidingView,
   AsyncStorage
 } from 'react-native';
-import { Container, Form, Input, Item, Label, Button } from 'native-base';
-import { newUser, googleUser, signUpUser, signInWithGoogleAsync, loginUser, getUser } from '../api/UserRoute';
+import {Container, Form, Input, Item, Label, Button} from 'native-base';
+import {withNavigation} from 'react-navigation';
+import {
+  newUser,
+  googleUser,
+  signUpUser,
+  signInWithGoogleAsync,
+  loginUser,
+  getUser
+} from '../api/UserRoute';
 import * as firebase from 'firebase';
-import { getUserThunk } from '../store/user'
+import {getUserThunk, getUserKeyThunk} from '../store/user';
 
 class SignUpLogIn extends React.Component {
   constructor(props) {
@@ -19,35 +27,36 @@ class SignUpLogIn extends React.Component {
     this.state = {
       email: '',
       password: '',
-      imageURI: '',
+      imageURI: ''
     };
-    this.signUp = this.signUp.bind(this.signUp)
+    this.signUp = this.signUp.bind(this.signUp);
   }
   async GoogleSignIn() {
-    const { navigate } = this.props.navigation
-    const msg = await signInWithGoogleAsync()
-    console.log("msg>>>>>>", msg)
+    const {navigate} = this.props.navigation;
+    const msg = await signInWithGoogleAsync();
+    console.log('msg>>>>>>', msg);
     if (msg.success) {
-      navigate("TestPetScreen")
+      navigate('TestPetScreen');
     }
   }
 
   signUp = async (email, password) => {
     try {
-      let newUser = await signUpUser(email, password)
-      console.log('newUserId in signUp', newUser)
+      let newUser = await signUpUser(email, password);
+      console.log('newUserId in signUp', newUser);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   loginUser = async (email, password) => {
-    const { navigate } = this.props.navigation
+    const {navigate} = this.props.navigation;
     try {
-      let userKey = await loginUser(email, password)
+      let userKey = await loginUser(email, password);
       const currentUser = await getUser(userKey);
       this.props.getUserAction(currentUser);
-      navigate("TestPetScreen")
+      this.props.getUserKey(userKey);
+      navigate('NavWrapper');
     } catch (err) {
       console.log(err.toString());
     }
@@ -56,18 +65,18 @@ class SignUpLogIn extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{flex: 1}}
         behavior="height"
         keyboardVerticalOffset={60}
       >
-        <Container style={{ ...styles.container, backgroundColor: '#EFE2E5' }}>
+        <Container style={{...styles.container, backgroundColor: '#EFE2E5'}}>
           <Form>
             <Item floatingLabel>
               <Label>Email</Label>
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText={email => this.setState({ email })}
+                onChangeText={email => this.setState({email})}
               />
             </Item>
             <Item floatingLabel>
@@ -76,12 +85,12 @@ class SignUpLogIn extends React.Component {
                 secureTextEntry={true}
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText={password => this.setState({ password })}
+                onChangeText={password => this.setState({password})}
               />
             </Item>
 
             <Button
-              style={{ marginTop: 10 }}
+              style={{marginTop: 10}}
               full
               rounded
               success
@@ -89,20 +98,25 @@ class SignUpLogIn extends React.Component {
                 this.loginUser(this.state.email, this.state.password)
               }
             >
-              <Text style={{ color: 'white' }}>Login</Text>
+              <Text style={{color: 'white'}}>Login</Text>
             </Button>
             <Button
-              style={{ marginTop: 10 }}
+              style={{marginTop: 10}}
               full
               rounded
               primary
-              onPress={() =>
-                this.signUp(this.state.email, this.state.password)}
+              onPress={() => this.signUp(this.state.email, this.state.password)}
             >
-              <Text style={{ color: 'white' }}>Sign Up</Text>
+              <Text style={{color: 'white'}}>Sign Up</Text>
             </Button>
 
-            <Button style={{ marginTop: 10 }} title="Sign in with Google" onPress={() => this.GoogleSignIn()}><Text>Log in with Google</Text></Button>
+            <Button
+              style={{marginTop: 10}}
+              title="Sign in with Google"
+              onPress={() => this.GoogleSignIn()}
+            >
+              <Text>Log in with Google</Text>
+            </Button>
           </Form>
         </Container>
       </KeyboardAvoidingView>
@@ -115,23 +129,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    padding: 10,
-  },
+    padding: 10
+  }
 });
 
-const mapStateToProps = function (state) {
+const mapStateToProps = function(state) {
   return {
     user: state.user
-  }
-}
+  };
+};
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function(dispatch) {
   return {
-    getUserAction: (user) => dispatch(getUserThunk(user))
-  }
-}
+    getUserAction: user => dispatch(getUserThunk(user)),
+    getUserKey: userKey => dispatch(getUserKeyThunk(userKey))
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps)
-  (SignUpLogIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpLogIn);

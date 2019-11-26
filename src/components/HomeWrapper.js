@@ -9,10 +9,6 @@ class HomeWrapper extends Component {
   }
 
   render() {
-    if (this.props.user) {
-      // console.log('props!!!', this.props)
-    }
-
     let petName = this.props.user ? this.props.user.pet.Name : <Text />
 
     return (
@@ -23,7 +19,7 @@ class HomeWrapper extends Component {
 
 const mapStateToProps = function(state) {
   return {
-    user: state.user
+    user: state.user.user
   }
 }
 export default connect(

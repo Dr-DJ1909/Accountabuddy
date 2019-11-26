@@ -1,38 +1,31 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Provider } from 'react-redux';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Provider} from 'react-redux';
 import Store from './src/store/index';
-import ApiKeys from "./ApiKeys";
-import firebase from "firebase";
-import "@firebase/firestore";
-import { createAppContainer } from "react-navigation";
-import { createBottomTabNavigator } from "react-navigation-tabs";
-import SignUpLogIn from "./src/screens/SignUpLogIn";
+import ApiKeys from './ApiKeys';
+import firebase from 'firebase';
+import '@firebase/firestore';
+import {createSwitchNavigator, createAppContainer} from 'react-navigation';
+import SignUpLogIn from './src/screens/SignUpLogIn';
 import TestPetScreen from './src/screens/TestPetScreen';
-import HomeWrapper from "./src/components/HomeWrapper";
-import TasksWrapper from "./src/components/TasksWrapper";
-import SettingsWrapper from "./src/components/SettingsWrapper";
-import { PageWrapperView } from "./src/styles";
 import NavWrapper from './src/components/NavWrapper';
 import ignoreWarnings from 'react-native-ignore-warnings';
+// import { createStackNavigator } from 'react-navigation-stack'
 
 ignoreWarnings('Setting a timer');
 
-// import { StackActions } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
-
-const MainNavigator = createStackNavigator(
+const MainNavigator = createSwitchNavigator(
   {
-    SignUpLogIn: { screen: SignUpLogIn },
-    TestPetScreen: { screen: TestPetScreen },
-    NavWrapper: { screen: NavWrapper }
+    SignUpLogIn: {screen: SignUpLogIn},
+    TestPetScreen: {screen: TestPetScreen},
+    NavWrapper: {screen: NavWrapper}
   },
   {
-    backBehavior: 'history',
+    backBehavior: 'none'
   }
-)
+);
 
-const TestingApp = createAppContainer(MainNavigator)
+const AppLogin = createAppContainer(MainNavigator);
 
 export default class App extends Component {
   constructor(props) {
@@ -40,17 +33,14 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    let config = ApiKeys.firebaseConfig
-    firebase.initializeApp(config)
+    let config = ApiKeys.firebaseConfig;
+    firebase.initializeApp(config);
   }
 
   render() {
     return (
-
       <Provider store={Store}>
-        <TestingApp />
-        {/* <SignUpLogIn /> */}
-        {/* <AppContainer /> */}
+        <AppLogin />
       </Provider>
     );
   }
@@ -59,8 +49,8 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
