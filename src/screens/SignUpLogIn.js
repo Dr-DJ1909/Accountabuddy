@@ -33,10 +33,15 @@ class SignUpLogIn extends React.Component {
   }
   async GoogleSignIn() {
     const {navigate} = this.props.navigation;
+    //msg.user.id
     const msg = await signInWithGoogleAsync();
-    console.log('msg>>>>>>', msg);
-    if (msg.success) {
-      navigate('TestPetScreen');
+    const googleSignedIn = await getUser(msg.user.id);
+    // console.log('msg>>>>>>', msg);
+    console.log('googleSignedIn>>>>>>', googleSignedIn);
+    this.props.getUserAction(googleSignedIn);
+    this.props.getUserKey(msg.user.id);
+    if (msg.type === 'success') {
+      navigate('NavWrapper');
     }
   }
 
