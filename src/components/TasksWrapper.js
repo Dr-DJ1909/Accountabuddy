@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   PageWrapperView,
   HeaderText,
@@ -6,7 +6,7 @@ import {
   TaskWrapperView,
   HeaderWrapperView,
   LabelText,
-  TaskView,
+  TaskView
 } from '../styles';
 import {
   Button,
@@ -21,10 +21,10 @@ import {
   FlatList,
   AsyncStorage,
   SafeAreaView,
-  ScrollView,
+  ScrollView
 } from 'react-native';
-import { CheckBox } from 'native-base';
-import { newTask } from '../api/TaskRoute';
+import {CheckBox} from 'native-base';
+import {newTask} from '../api/TaskRoute';
 import Swipeout from 'react-native-swipeout';
 
 class TasksWrapper extends Component {
@@ -32,10 +32,10 @@ class TasksWrapper extends Component {
     super();
     this.state = {
       tasks: [
-        { name: 'Do Laundry', category: 'Chores', completion: false },
-        { name: 'Workout', category: 'Exercise', completion: false },
-        { name: 'Call Mom', category: 'Social', completion: false },
-      ],
+        {name: 'Do Laundry', category: 'Chores', completion: false},
+        {name: 'Workout', category: 'Exercise', completion: false},
+        {name: 'Call Mom', category: 'Social', completion: false}
+      ]
     };
     this.complete.bind(this);
   }
@@ -51,15 +51,15 @@ class TasksWrapper extends Component {
             <HeaderTasksText>My Tasks</HeaderTasksText>
           </HeaderWrapperView>
           <FlatList
-            style={{ flex: 2, width: '100%' }}
+            style={{flex: 2, width: '100%'}}
             data={this.state.tasks}
             ItemSeparatorComponent={renderSeparator}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => {
+            renderItem={({item, index}) => {
               return (
                 <TaskItem
                   item={item}
-                  style={{ flex: 1 }}
+                  style={{flex: 1}}
                   index={index}
                   complete={this.complete}
                   addTask={this.addTask}
@@ -82,7 +82,7 @@ renderSeparator = () => {
         width: '86%',
         backgroundColor: '#CED0CE',
         marginLeft: '14%',
-        marginBottom: '5%',
+        marginBottom: '5%'
       }}
     />
   );
@@ -93,9 +93,9 @@ function TaskItem(props) {
     autoClose: true,
     onClose: (secid, rowId, direction) => {},
     onOpen: (secId, rowId, direction) => {},
-    right: [{ onPress: () => {}, text: 'Delete', type: 'delete' }],
+    right: [{onPress: () => {}, text: 'Delete', type: 'delete'}],
     rowId: props.index,
-    sectionId: 1,
+    sectionId: 1
   };
   return (
     <Swipeout {...swipeSettings}>
@@ -111,7 +111,7 @@ function TaskItem(props) {
 class AddTask extends Component {
   constructor() {
     super();
-    this.state = { name: '', category: '', completion: false };
+    this.state = {name: '', category: '', completion: false};
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async handleSubmit(evt) {
@@ -120,13 +120,13 @@ class AddTask extends Component {
     console.log('USER KEY', userKey);
     newTask(userKey, this.state);
   }
-  addCategory = category => {
-    this.setState({ category });
+  handleCategoryChange = category => {
+    this.setState({category});
   };
   handleNameChange = event => {
     let name = event.nativeEvent.text;
     this.setState({
-      name: name,
+      name: name
     });
   };
   render() {
@@ -144,7 +144,7 @@ class AddTask extends Component {
         <LabelText>Choose Category: </LabelText>
         <Picker
           selectedValue={this.state.category}
-          onValueChange={this.addCategory}
+          onValueChange={this.handleCategoryChange}
         >
           <Picker.Item label="Exercise" value="Exercise" />
           <Picker.Item label="Chores" value="Chores" />
@@ -165,16 +165,16 @@ class AddTask extends Component {
 
 const styles = StyleSheet.create({
   headerText: {
-    fontSize: 20,
+    fontSize: 20
   },
   subheadText: {
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '800',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   formView: {
-    flex: 1,
+    flex: 1
   },
   textInput: {
     height: 50,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     width: 400,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   button: {
     height: 30,
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10,
     marginTop: 10,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   addTaskButton: {
     position: 'absolute',
@@ -213,16 +213,16 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 8,
+    elevation: 8
   },
   buttonText: {
     fontSize: 24,
-    color: '#111',
+    color: '#111'
   },
   taskText: {
     fontSize: 20,
-    fontFamily: 'Helvetica',
-  },
+    fontFamily: 'Helvetica'
+  }
 });
 
 export default TasksWrapper;
