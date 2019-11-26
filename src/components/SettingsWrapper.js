@@ -27,7 +27,7 @@ class SettingsWrapper extends Component {
   async componentDidMount(){
     // let userKey = await AsyncStorage.getItem('loggedinUser')
     // console.log(userKey)
-    // this.props.getUser();
+    // this.props.getUserAction();
   }
 
   handleChange(event){
@@ -64,7 +64,7 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = function(dispatch) {
   return {
-    getUser: () => dispatch(getUserThunk())
+    getUserAction: () => dispatch(getUserThunk())
   }
 }
 

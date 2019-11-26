@@ -18,6 +18,7 @@ export const HeaderWrapperView = styled.View`
   margin-bottom: 40;
   background-color: #d49eef;
 `;
+
 export const PetView = styled.View`
   flex-basis: 75%;
   align-items: center;
@@ -68,14 +69,12 @@ export const BubbleText = styled.Text`
 
 export const HeaderTasksText = styled.Text`
   font-size: 50px;
-  font-family: Kailasa-Bold
   align-self: center;
   z-index: 2;
 `;
 
 export const LabelText = styled.Text`
   font-size: 20px;
-  font-family: Helvetica;
   align-self: center;
   z-index: 2;
 `;
