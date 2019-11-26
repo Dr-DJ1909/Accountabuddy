@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {
   PageWrapperView,
   HeaderText,
@@ -33,10 +34,11 @@ class TaskList extends Component {
   }
 
   render() {
+    console.log('props!!!!', this.props)
     return (
       <FlatList
         style={{flex: 2, width: '100%'}}
-        data={this.state.tasks}
+        data={this.props.incompleteTasks}
         ItemSeparatorComponent={renderSeparator}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => {
@@ -131,4 +133,21 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TaskList;
+const mapStateToProps = function(state) {
+  return {
+    user: state.user.user,
+    incompleteTasks: state.user.user.incompleteTasks
+  }
+}
+
+const mapDispatchToProps = function(dispatch) {
+  return {
+    getUserAction: () => dispatch(getUserThunk())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)
+  (TaskList);
+

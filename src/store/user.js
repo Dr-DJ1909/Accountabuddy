@@ -24,10 +24,10 @@ const GET_ALL_TASKS = 'GET_ALL_TASKS'
 const UPDATE_TASK = 'UPDATE_TASK'//from incomplete to complete
 const ADD_TASK = 'ADD_TASK'
 
-const addTask = (newTask) =>{
+const addTask = (user) =>{
   return{
     type:ADD_TASK,
-    newTask
+    user
   }
 }
 
@@ -60,17 +60,22 @@ const getUserKey = userKey => {
 };
 
 export const addTaskThunk = newTask =>{
-  return function (dispatch){
+  return async function (dispatch){
     try {
       console.log('addTask is being accessed', newTask)
-      dispatch(addTask(newTask))
+      const retrievedData = await AsyncStorage.getItem('loggedinUser')
+      const user = JSON.parse(retrievedData)
+      user.incompleteTasks.push(newTask)
+      console.log('user????', user)
+      AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
+      dispatch(addTask(user))
     } catch (error) {
       console.error(error)
     }
   }
 }
 
-export const getAllTasks = allTasks =>{
+export const getAllTasksThunk = allTasks =>{
   return function (dispatch){
     try{
       console.log('GetAllTasks being accessed')
@@ -82,7 +87,7 @@ export const getAllTasks = allTasks =>{
   }
 }
 
-export const updateTask = updatedTask =>{
+export const updateTaskThunk = updatedTask =>{
   return function (dispatch){
     try {
       console.log('updateTask being accessed')
@@ -126,16 +131,13 @@ export const userReducer = (state = initialState, action) => {
       return {...state, userKey: action.userKey};
 
     case ADD_TASK:
-      const retrievedData =  AsyncStorage.getItem('loggedinUser')
-      const data = JSON.parse(retrievedData)
-      data.tasks.push(action.newTask)
-      AsyncStorage.setItem('loggedinUser', JSON.stringify(data))
-      return{...state, user:data}
+      console.log('action.user >>>', action.user)
+      return{...state, user: action.user}
 
-    case GET_ALL_TASKS:
-      const
+    // case GET_ALL_TASKS:
+    //   const
 
-    case UPDATE_TASK:
+    // case UPDATE_TASK:
 
     default:
       return state;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {
   PageWrapperView,
   HeaderText,
@@ -13,6 +14,7 @@ import {
 } from 'react-native';
 import {newTask} from '../api/TaskRoute';
 import AddTaskInput from '../screens/AddTaskInput';
+import {addTaskThunk} from '../store/user';
 
 class AddTask extends Component {
   constructor() {
@@ -31,7 +33,8 @@ class AddTask extends Component {
     evt.preventDefault();
     const userKey = await AsyncStorage.getItem('userKey');
     console.log('USER KEY', userKey);
-    newTask(userKey, this.state);
+    await newTask(userKey, this.state);
+    this.props.addTaskDispatcher(this.state);
   }
 
   handleCategoryChange = category => {
@@ -44,7 +47,6 @@ class AddTask extends Component {
   };
 
   render() {
-    console.log('state in addtask >>>>', this.state);
     return (
       <AddTaskInput
         handleSubmit={this.handleSubmit}
@@ -56,4 +58,13 @@ class AddTask extends Component {
   }
 }
 
-export default AddTask;
+const mapDispatchToProps = function(dispatch) {
+  return {
+    addTaskDispatcher: (task) => dispatch(addTaskThunk(task))
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps)
+  (AddTask);
