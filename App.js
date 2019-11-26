@@ -49,8 +49,7 @@ export default class App extends Component {
 
       <Provider store={Store}>
         <TestingApp />
-        {/* <SignUpLogIn /> */}
-        {/* <AppContainer /> */}
+
       </Provider>
     );
   }

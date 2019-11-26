@@ -17,21 +17,14 @@ export default class TestPetScreen extends Component{
     this.state = {
       petName:''
     }
-    // this.handleChange = this.handleChange.bind(this)
+
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-
-  // handleChange(event){
-  //   event.preventDefault()
-  //   this.setState({
-  //     petName:event.target.value
-  //   })
-  // }
-
   async handleSubmit(){
-    let userKey = await AsyncStorage.getItem('loggedinUser')
-    newPet(userKey, this.state.petName)
+    let userKey = await AsyncStorage.getItem('userKey')
+    let newPetName = await newPet(userKey, this.state.petName)
+    console.log(newPetName)
     const {navigate} = this.props.navigation
 
     navigate('NavWrapper')
