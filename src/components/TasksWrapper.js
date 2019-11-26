@@ -6,6 +6,7 @@ import {
   TaskWrapperView,
   HeaderWrapperView,
   LabelText,
+  TaskView,
 } from '../styles';
 import {
   Button,
@@ -36,13 +37,8 @@ class TasksWrapper extends Component {
         { name: 'Call Mom', category: 'Social', completion: false },
       ],
     };
-    this.addTask.bind(this);
     this.complete.bind(this);
   }
-  addTask = task => {
-    this.setState({ tasks: this.state.push(task) });
-  };
-  // this function will be modified as we figure out how to keep track of state.
   complete() {
     // this.setState({ completion: true })
     console.log('hi');
@@ -103,22 +99,15 @@ function TaskItem(props) {
   };
   return (
     <Swipeout {...swipeSettings}>
-      <View
-        style={{
-          height: 80,
-          backgroundColor: '#9ACD32',
-          borderStyle: 'solid',
-          borderWidth: 3,
-        }}
-      >
+      <TaskView>
         <Text style={styles.taskText}> Task: {props.item.name}</Text>
         <Text style={styles.taskText}>Category: {props.item.category}</Text>
         <CheckBox checked={false} onPress={() => props.complete()} />
-      </View>
+      </TaskView>
     </Swipeout>
   );
 }
-//needs completed function to change false to true on upper state
+
 class AddTask extends Component {
   constructor() {
     super();
@@ -128,6 +117,7 @@ class AddTask extends Component {
   async handleSubmit(evt) {
     evt.preventDefault();
     const userKey = await AsyncStorage.getItem('loggedinUser');
+    console.log('USER KEY', userKey);
     newTask(userKey, this.state);
   }
   addCategory = category => {
@@ -143,7 +133,7 @@ class AddTask extends Component {
     console.log(this.state);
     return (
       <KeyboardAvoidingView style={styles.formView}>
-        <Text style={styles.logoText}>New Task</Text>
+        <Text style={styles.subheadText}>New Task</Text>
         <LabelText>Describe Task</LabelText>
         <TextInput
           placeholder="Task Name"
@@ -177,8 +167,8 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 20,
   },
-  logoText: {
-    fontSize: 30,
+  subheadText: {
+    fontSize: 20,
     marginBottom: 10,
     fontWeight: '800',
     textAlign: 'center',

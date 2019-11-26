@@ -41,6 +41,13 @@ export const AbsolutePositionBubbleView = styled.View`
   width: 200px;
 `;
 
+export const TaskView = styled.View`
+  height: 80;
+  background-color: #9acd32;
+  border-style: solid;
+  border-width: 3px;
+`;
+
 export const AddTaskBtnView = styled.View`
   position: absolute;
   top: 430px;
