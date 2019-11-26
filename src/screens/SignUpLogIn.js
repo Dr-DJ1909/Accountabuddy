@@ -9,6 +9,7 @@ import {
   AsyncStorage
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
+import { withNavigation } from 'react-navigation';
 import { newUser, googleUser, signUpUser, signInWithGoogleAsync, loginUser, getUser } from '../api/UserRoute';
 import * as firebase from 'firebase';
 import { getUserThunk, getUserKeyThunk } from '../store/user'

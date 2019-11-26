@@ -26,7 +26,6 @@ export default class TestPetScreen extends Component{
     let newPetName = await newPet(userKey, this.state.petName)
     console.log(newPetName)
     const {navigate} = this.props.navigation
-
     navigate('NavWrapper')
   }
 
