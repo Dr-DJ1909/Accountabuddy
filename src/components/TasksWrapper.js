@@ -116,7 +116,7 @@ class AddTask extends Component {
   }
   async handleSubmit(evt) {
     evt.preventDefault();
-    const userKey = await AsyncStorage.getItem('loggedinUser');
+    const userKey = await AsyncStorage.getItem('userKey');
     console.log('USER KEY', userKey);
     newTask(userKey, this.state);
   }
