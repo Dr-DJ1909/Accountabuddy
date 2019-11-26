@@ -12,6 +12,9 @@ async function newUser(user) {
       .doc(user.uid)
       .set({
         email: user.email,
+        UserName:'',
+        pet:{Name:'kitty',ChoreHP:1,GymHP:1 },
+        tasks:[]
       })
       console.log('info in newUser', user)
   } catch (error) {
