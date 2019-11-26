@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import '@firebase/firestore';
 import * as Google from 'expo-google-app-auth';
 import {GoogleID} from '../../ApiKeys';
+import {userFriendList} from '../api/FriendsRoute';
 
 async function newUser(user) {
   try {
@@ -32,6 +33,7 @@ export async function signUpUser(email, password) {
       .createUserWithEmailAndPassword(email, password);
     console.log('in signup user route', loggedInUser.user);
     await newUser(loggedInUser.user);
+    await userFriendList(loggedInUser.user);
     return loggedInUser.user.uid;
   } catch (err) {
     console.log(err.toString());
