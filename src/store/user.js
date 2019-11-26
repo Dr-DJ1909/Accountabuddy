@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import {AsyncStorage} from 'react-native';
 
 /*
 how we have connected firebase, redux, and asyncstorage (example using signup/login):
@@ -15,14 +15,23 @@ how we have connected firebase, redux, and asyncstorage (example using signup/lo
 
 const initialState = {
   user: {},
+  userKey: ''
 };
 
 export const GET_USER = 'GET_USER';
+export const GET_USER_KEY = 'GET_USER_KEY';
 
 export const getUser = user => {
   return {
     type: GET_USER,
-    user,
+    user
+  };
+};
+
+export const getUserKey = userKey => {
+  return {
+    type: GET_USER_KEY,
+    userKey
   };
 };
 
@@ -35,12 +44,29 @@ export const getUserThunk = user => dispatch => {
   }
 };
 
+export const getUserKeyThunk = userKey => {
+  return function(dispatch) {
+    try {
+      console.log('userKey thunk being accessed');
+      dispatch(getUserKey(userKey));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER:
       AsyncStorage.setItem('loggedinUser', JSON.stringify(action.user));
       console.log('the user in state >>>', action.user);
-      return action.user;
+      return {...state, user: action.user};
+
+    case GET_USER_KEY:
+      AsyncStorage.setItem('userKey', action.userKey);
+      console.log('userKey in state>>>', action.userKey);
+      return {...state, userKey: action.userKey};
+
     default:
       return state;
   }

@@ -12,7 +12,7 @@ import { Container, Form, Input, Item, Label, Button } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import { newUser, googleUser, signUpUser, signInWithGoogleAsync, loginUser, getUser } from '../api/UserRoute';
 import * as firebase from 'firebase';
-import { getUserThunk } from '../store/user'
+import { getUserThunk, getUserKeyThunk } from '../store/user'
 
 class SignUpLogIn extends React.Component {
   constructor(props) {
@@ -43,6 +43,7 @@ class SignUpLogIn extends React.Component {
         let userKey = await loginUser(email,password)
         const currentUser = await getUser(userKey);
         this.props.getUserAction(currentUser);
+        this.props.getUserKey(userKey)
         navigate("NavWrapper")
     } catch (err) {
       console.log(err.toString());
@@ -123,7 +124,8 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = function(dispatch) {
   return {
-    getUserAction: (user) => dispatch(getUserThunk(user))
+    getUserAction: (user) => dispatch(getUserThunk(user)),
+    getUserKey:(userKey) => dispatch(getUserKeyThunk(userKey))
   }
 }
 
