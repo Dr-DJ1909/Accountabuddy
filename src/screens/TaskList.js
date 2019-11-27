@@ -15,7 +15,7 @@ import {
   FlatList,
 } from 'react-native';
 import TaskItem from '../components/TaskItem';
-import { updateTaskThunk } from '../store/user';
+import { updateTaskThunk, deleteTaskThunk, failedTaskThunk } from '../store/user';
 import TasksHeader from '../components/TasksHeader';
 import { Header } from 'react-navigation-stack';
 
@@ -23,7 +23,8 @@ class TaskList extends Component {
   constructor() {
     super();
     this.complete.bind(this);
-    this.delete.bind(this)
+    this.delete.bind(this);
+    this.failed.bind(this)
   }
   complete(CompletedTask) {
     console.log('are you here?', CompletedTask);
@@ -31,6 +32,11 @@ class TaskList extends Component {
   }
   delete(unwantedTask){
     console.log('unwantedTaskHere', unwantedTask)
+    this.props.deleteTaskAction(unwantedTask)
+  }
+  failed(failedTask){
+    console.log('failedTaskHere', failedTask)
+    this.props.failedTaskAction(failedTask)
   }
 
   render() {
@@ -51,6 +57,7 @@ class TaskList extends Component {
                 index={index}
                 complete={() =>{this.complete(item)}}
                 delete = {() =>{this.delete(item)}}
+                failed = {()=>{this.failed(item)}}
                 addTask={this.addTask}
               />
             );
@@ -148,7 +155,8 @@ const mapDispatchToProps = function(dispatch) {
   return {
     getUserAction: () => dispatch(getUserThunk()),
     updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
-    deleteTaskAction:(task) => dispatch(deleteTaskThunk(task))
+    deleteTaskAction:(task) => dispatch(deleteTaskThunk(task)),
+    failedTaskAction:(task) => dispatch(failedTaskThunk(task))
   }
 }
 
