@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Home from '../screens/Home';
+import Home from '../Home';
 import { Text } from 'react-native';
 import {
   PageWrapperView,
@@ -9,10 +9,10 @@ import {
   HeaderWrapperView,
   LabelText,
   TaskView
-} from '../styles';
+} from '../../styles';
 import ExercisePet from './ExercisePet';
-import TasksHeader from '../components/TasksHeader';
-import { MessageText } from '../styles';
+import TasksHeader from '../../components/tasks/TasksHeader';
+import { MessageText } from '../../styles';
 
 const TaskExercise = (props) => {
   const hp = props.hp;

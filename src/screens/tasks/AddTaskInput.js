@@ -7,7 +7,7 @@ import {
   HeaderWrapperView,
   LabelText,
   TaskView
-} from '../styles';
+} from '../../styles';
 import {
   Text,
   TextInput,

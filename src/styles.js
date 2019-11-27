@@ -45,7 +45,7 @@ export const AbsolutePositionBubbleView = styled.View`
 
 export const TaskView = styled.View`
   height: 80;
-  background-color: #9acd32;
+  background-color: #FF6700;
   border-style: solid;
   border-width: 3px;
 `;
@@ -65,7 +65,7 @@ export const TaskNavBtnView = styled.View`
 
 export const HeaderText = styled.Text`
   font-size: 30px;
-  color: #4472ca;
+  color: #0A369D;
 `;
 
 export const BubbleText = styled.Text`
@@ -86,7 +86,6 @@ export const LabelText = styled.Text`
   z-index: 2;
 `;
 
-<<<<<<< HEAD
 export const UsersView = styled.View`
   flex: 1;
   background-color: #7cc6fe;
@@ -94,10 +93,15 @@ export const UsersView = styled.View`
   justify-content: center;
   flex-direction: row;
 `;
-=======
+
 export const MessageText = styled.Text`
   font-size: 16px;
   align-self: center;
 `;
 
->>>>>>> master
+export const TaskText = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  align-self: center;
+  color: #000000;
+`;

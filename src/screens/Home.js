@@ -9,7 +9,6 @@ import {
   AbsolutePositionBubbleView,
   AddTaskBtnView
 } from '../styles';
-import Profile from '../screens/UserProfile';
 import HomePet from './HomePet';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -23,7 +22,7 @@ class Home extends Component {
     return (
       <PageWrapperView>
         <HeaderText>{petName}</HeaderText>
-        <Profile />
+        <HomePet />
       </PageWrapperView>
     );
   }

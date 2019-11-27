@@ -11,43 +11,24 @@ import {
 } from 'react-native';
 import {Container, Form, Input, Item, Label, Button} from 'native-base';
 import {getUserThunk} from '../store/user';
-import {UserProfile} from '../screens/UserProfile';
+import UserProfile from '../screens/UserProfile';
 import {newFriend} from '../api/FriendsRoute';
 
-class SettingsWrapper extends Component {
+class SocialWrapper extends Component {
   constructor() {
     super();
-    this.state = {
-      userName: '',
-      profileImg: '',
-      email: '',
-      location: ''
-    };
-    this.handleChange = this.handleChange.bind(this);
   }
 
   async componentDidMount() {
-    // let userKey = await AsyncStorage.getItem('loggedinUser')
-    // console.log(userKey)
-    // this.props.getUserAction();
-  }
-
-  handleChange(event) {
-    event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    });
   }
 
   handleSubmit() {}
 
   render() {
-    {
-    }
     return (
       <PageWrapperView>
-        <HeaderText>This is the Settings Page:</HeaderText>
-        <Form></Form>
+        <HeaderText>Social Page</HeaderText>
+        <UserProfile />
       </PageWrapperView>
     );
   }
@@ -65,4 +46,4 @@ const mapDispatchToProps = function(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(SocialWrapper);

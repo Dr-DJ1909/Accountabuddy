@@ -8,14 +8,14 @@ import {
   HeaderWrapperView,
   LabelText,
   TaskView
-} from '../styles';
+} from '../../styles';
 import {
   View,
   StyleSheet,
   FlatList,
 } from 'react-native';
-import TaskItem from './TaskItem';
-import { updateTaskThunk } from '../store/user';
+import TaskItemCompleted from '../../screens/tasks/TaskItemCompleted';
+import { updateTaskThunk } from '../../store/user';
 import TasksHeader from './TasksHeader';
 
 class TaskListCompleted extends Component {
@@ -40,13 +40,10 @@ class TaskListCompleted extends Component {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => {
             return (
-              <TaskItem
+              <TaskItemCompleted
                 item={item}
                 style={{flex: 1}}
                 index={index}
-                complete={() =>{this.complete(item)}}
-                delete = {() =>{this.delete(item)}}
-                addTask={this.addTask}
               />
             );
           }}
