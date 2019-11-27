@@ -3,7 +3,6 @@ import {
   PageWrapperView,
   HeaderText,
   HeaderTasksText,
-  TaskWrapperView,
   HeaderWrapperView,
   LabelText,
   TaskView
@@ -14,29 +13,66 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import {CheckBox} from 'native-base';
 import {newTask} from '../api/TaskRoute';
 import Swipeout from 'react-native-swipeout';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import AddTask from './AddTask';
 import TaskList from '../screens/TaskList';
+import TaskExercise from '../screens/TaskExercise';
+import TasksDrawerBtn from './TasksDrawerBtn';
+import Icon from 'react-native-vector-icons/Feather';
 
-class TasksWrapper extends Component {
-  render() {
-    return (
-      <TaskWrapperView>
-        <ScrollView>
-          <HeaderWrapperView>
-            <HeaderTasksText>My Tasks</HeaderTasksText>
-          </HeaderWrapperView>
-          <TaskList />
-          <AddTask />
-        </ScrollView>
-      </TaskWrapperView>
-    );
-  }
-}
+// const TasksWrapper = props => {
+
+//   toggleDrawer = () => {
+//     props.navigation.dispatch(DrawerActions.toggleDrawer());
+//   };
+
+//   return (
+//     <PageWrapperView>
+
+//       <TasksDrawerNav />
+//       {/* <View style={{ flexDirection: 'row' }}>
+//         <TouchableOpacity onPress={this.toggleDrawer.bind(this)}>
+//           <Icon name="align-justify" size={23} />
+//         </TouchableOpacity>
+//       </View> */}
+//       {/* <Icon name="menu" size={23} /> */}
+//       {/* <TaskExercise /> */}
+//     </PageWrapperView>
+//   );
+// }
+
+const TasksWrapper = createDrawerNavigator({
+  TaskList: {
+    screen: TaskList,
+    navigationOptions: {
+      drawerLabel: "Current task list"
+    }
+  },
+  AddTask: {
+    screen: AddTask,
+    navigationOptions: {
+      drawerLabel: "Add a new task"
+    }
+  },
+  TaskExercise: {
+    screen: TaskExercise,
+    navigationOptions: {
+      drawerLabel: "Exercise tasks"
+    }
+  },
+},{
+  initialRouteName: 'TaskList',
+  drawerPosition: 'left',
+	// // drawerWidth: WIDTH*0.83,
+	// contentComponent: ({ navigation }) => {
+	// 	return(<TasksDrawer navigation={navigation} />)}
+});
 
 // renderSeparator = () => {
 //   return (
@@ -52,66 +88,5 @@ class TasksWrapper extends Component {
 //   );
 // };
 
-const styles = StyleSheet.create({
-  headerText: {
-    fontSize: 20
-  },
-  subheadText: {
-    fontSize: 20,
-    marginBottom: 10,
-    fontWeight: '800',
-    textAlign: 'center'
-  },
-  formView: {
-    flex: 1
-  },
-  textInput: {
-    height: 50,
-    fontSize: 14,
-    borderRadius: 10,
-    borderWidth: 5,
-    padding: 10,
-    borderColor: '#AAE56B',
-    backgroundColor: '#fafafa',
-    marginLeft: 15,
-    marginRight: 15,
-    marginTop: 5,
-    marginBottom: 5,
-    width: 400,
-    alignSelf: 'center'
-  },
-  button: {
-    height: 30,
-    flexDirection: 'row',
-    backgroundColor: '#2DD1B0',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    justifyContent: 'center'
-  },
-  addTaskButton: {
-    position: 'absolute',
-    zIndex: 11,
-    right: 20,
-    bottom: 90,
-    backgroundColor: 'yellow',
-    width: 90,
-    height: 90,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 8
-  },
-  buttonText: {
-    fontSize: 24,
-    color: '#111'
-  },
-  taskText: {
-    fontSize: 20,
-    // fontFamily: 'Helvetica'
-  }
-});
 
 export default TasksWrapper;

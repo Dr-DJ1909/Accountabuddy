@@ -15,6 +15,7 @@ import {
 import {newTask} from '../api/TaskRoute';
 import AddTaskInput from '../screens/AddTaskInput';
 import {addTaskThunk} from '../store/user';
+import TasksHeader from './TasksHeader';
 
 class AddTask extends Component {
   constructor() {
@@ -48,12 +49,15 @@ class AddTask extends Component {
 
   render() {
     return (
-      <AddTaskInput
-        handleSubmit={this.handleSubmit}
-        handleCategoryChange={this.handleCategoryChange}
-        handleNameChange={this.handleNameChange}
-        category={this.state.category}
-      />
+      <PageWrapperView>
+        <TasksHeader />
+          <AddTaskInput
+            handleSubmit={this.handleSubmit}
+            handleCategoryChange={this.handleCategoryChange}
+            handleNameChange={this.handleNameChange}
+            category={this.state.category}
+          />
+      </PageWrapperView>
     );
   }
 }

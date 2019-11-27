@@ -7,16 +7,10 @@ export const PageWrapperView = styled.View`
   justify-content: center;
 `;
 
-export const TaskWrapperView = styled.View`
-  flex: 1;
-  background-color: #7cc6fe;
-`;
-
 export const HeaderWrapperView = styled.View`
   height: 90;
   padding-top: 30;
   margin-bottom: 40;
-  background-color: #d49eef;
 `;
 
 export const PetView = styled.View`
