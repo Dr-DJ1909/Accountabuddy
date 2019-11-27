@@ -113,3 +113,27 @@ export async function signInWithGoogleAsync() {
     return {error: e};
   }
 }
+
+export async function getUsers() {
+  try {
+    let users = [];
+    await firebase
+      .firestore()
+      .collection('Users')
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          // console.log(doc.id, ' => ', doc.data());
+          let obj = {
+            uId: doc.id,
+            email: doc.data().email,
+            userName: doc.data().UserName
+          };
+          users.push(obj);
+        });
+        return users;
+      });
+  } catch (error) {
+    console.log(error);
+  }
+}

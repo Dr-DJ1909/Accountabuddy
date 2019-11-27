@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Container, Form, Input, Item, Label, Button} from 'native-base';
 import {getUserThunk} from '../store/user';
+import {UserProfile} from '../screens/UserProfile';
 import {newFriend} from '../api/FriendsRoute';
 
 class SettingsWrapper extends Component {
@@ -42,7 +43,6 @@ class SettingsWrapper extends Component {
 
   render() {
     {
-      newFriend('dRLChjZxNAfGRDKx35yExC4svfA2', 'cccc');
     }
     return (
       <PageWrapperView>
