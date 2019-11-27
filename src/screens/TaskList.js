@@ -15,6 +15,7 @@ import {
   FlatList,
 } from 'react-native';
 import TaskItem from '../components/TaskItem';
+import TasksHeader from '../components/TasksHeader';
 
 class TaskList extends Component {
   constructor() {
@@ -34,25 +35,27 @@ class TaskList extends Component {
   }
 
   render() {
-    console.log('props!!!!', this.props)
     return (
-      <FlatList
-        style={{flex: 2, width: '100%'}}
-        data={this.props.incompleteTasks}
-        ItemSeparatorComponent={renderSeparator}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({item, index}) => {
-          return (
-            <TaskItem
-              item={item}
-              style={{flex: 1}}
-              index={index}
-              complete={this.complete}
-              addTask={this.addTask}
-            />
-          );
-        }}
-      />
+      <PageWrapperView>
+        <TasksHeader />
+        <FlatList
+          style={{flex: 2, width: '100%'}}
+          data={this.props.incompleteTasks}
+          ItemSeparatorComponent={renderSeparator}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item, index}) => {
+            return (
+              <TaskItem
+                item={item}
+                style={{flex: 1}}
+                index={index}
+                complete={this.complete}
+                addTask={this.addTask}
+              />
+            );
+          }}
+        />
+      </PageWrapperView>
     );
   }
 }
