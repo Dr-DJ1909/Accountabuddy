@@ -7,6 +7,13 @@ export const PageWrapperView = styled.View`
   justify-content: center;
 `;
 
+export const PageWrapperAlignTopView = styled.View`
+  flex: 1;
+  background-color: #7cc6fe;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const HeaderWrapperView = styled.View`
   height: 90;
   padding-top: 30;
@@ -47,6 +54,12 @@ export const AddTaskBtnView = styled.View`
   position: absolute;
   top: 430px;
   left: 250px;
+  z-index: 2;
+`;
+
+export const TaskNavBtnView = styled.View`
+  padding-top: 40;
+  align-self: flex-start;
   z-index: 2;
 `;
 

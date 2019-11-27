@@ -30,8 +30,10 @@ class SignUpLogIn extends React.Component {
 
   signUp =  async (email, password) =>{
     try {
+      const { navigate } = this.props.navigation
       let newUser = await signUpUser(email, password)
       console.log('newUserId in signUp' , newUser)
+      // navigate('TestPetScreen')
     } catch (error) {
       console.log(error)
     }

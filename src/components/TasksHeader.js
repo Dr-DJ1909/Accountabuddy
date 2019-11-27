@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import TasksDrawerBtn from './TasksDrawerBtn';
+import { TaskNavBtnView } from '../styles';
 
 class TasksHeader extends Component {
   render() {
     return (
-      <View style={styles.header}>
+      <TaskNavBtnView>
         <TasksDrawerBtn />
-      </View>
+      </TaskNavBtnView>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  header: {
-    paddingTop: 40,
-    backgroundColor: 'whitesmoke'
-  }
-});
 
 export default TasksHeader;

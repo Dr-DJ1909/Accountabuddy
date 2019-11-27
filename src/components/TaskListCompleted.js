@@ -14,21 +14,16 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import TaskItem from '../components/TaskItem';
+import TaskItem from './TaskItem';
 import { updateTaskThunk } from '../store/user';
-import TasksHeader from '../components/TasksHeader';
-import { Header } from 'react-navigation-stack';
+import TasksHeader from './TasksHeader';
 
-class TaskList extends Component {
+class TaskListCompleted extends Component {
   constructor() {
     super();
-    this.complete.bind(this);
     this.delete.bind(this)
   }
-  complete(CompletedTask) {
-    console.log('are you here?', CompletedTask);
-    this.props.updateTaskAction(CompletedTask)
-  }
+
   delete(unwantedTask){
     console.log('unwantedTaskHere', unwantedTask)
   }
@@ -37,10 +32,10 @@ class TaskList extends Component {
     return (
       <PageWrapperView>
         <TasksHeader />
-        <HeaderText>Current Tasks</HeaderText>
+        <HeaderText>Task History</HeaderText>
         <FlatList
           style={{flex: 2, width: '100%'}}
-          data={this.props.incompleteTasks}
+          data={this.props.completedTasks}
           ItemSeparatorComponent={renderSeparator}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => {
@@ -75,78 +70,15 @@ renderSeparator = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  headerText: {
-    fontSize: 20
-  },
-  subheadText: {
-    fontSize: 20,
-    marginBottom: 10,
-    fontWeight: '800',
-    textAlign: 'center'
-  },
-  formView: {
-    flex: 1
-  },
-  textInput: {
-    height: 50,
-    fontSize: 14,
-    borderRadius: 10,
-    borderWidth: 5,
-    padding: 10,
-    borderColor: '#AAE56B',
-    backgroundColor: '#fafafa',
-    marginLeft: 15,
-    marginRight: 15,
-    marginTop: 5,
-    marginBottom: 5,
-    width: 400,
-    alignSelf: 'center'
-  },
-  button: {
-    height: 30,
-    flexDirection: 'row',
-    backgroundColor: '#2DD1B0',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    justifyContent: 'center'
-  },
-  addTaskButton: {
-    position: 'absolute',
-    zIndex: 11,
-    right: 20,
-    bottom: 90,
-    backgroundColor: 'yellow',
-    width: 90,
-    height: 90,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 8
-  },
-  buttonText: {
-    fontSize: 24,
-    color: '#111'
-  },
-  taskText: {
-    fontSize: 20,
-    // fontFamily: 'Helvetica'
-  }
-});
-
 const mapStateToProps = function(state) {
   return {
     user: state.user.user,
-    incompleteTasks: state.user.user.incompleteTasks
+    completedTasks: state.user.user.completedTasks
   }
 }
 
 const mapDispatchToProps = function(dispatch) {
   return {
-    getUserAction: () => dispatch(getUserThunk()),
     updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
     deleteTaskAction:(task) => dispatch(deleteTaskThunk(task))
   }
@@ -155,5 +87,5 @@ const mapDispatchToProps = function(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps)
-  (TaskList);
+  (TaskListCompleted);
 

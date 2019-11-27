@@ -31,11 +31,13 @@ class AddTask extends Component {
   }
 
   async handleSubmit(evt) {
+    const { navigate } = this.props.navigation;
     evt.preventDefault();
     const userKey = await AsyncStorage.getItem('userKey');
-    console.log('USER KEY', userKey);
     await newTask(userKey, this.state);
     this.props.addTaskDispatcher(this.state);
+    this.setState({ name: '', category: 'Exercise' });
+    navigate('TaskList');
   }
 
   handleCategoryChange = category => {
@@ -55,6 +57,7 @@ class AddTask extends Component {
             handleSubmit={this.handleSubmit}
             handleCategoryChange={this.handleCategoryChange}
             handleNameChange={this.handleNameChange}
+            name={this.state.name}
             category={this.state.category}
           />
       </PageWrapperView>

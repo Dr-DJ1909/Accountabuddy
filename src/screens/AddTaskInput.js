@@ -28,6 +28,7 @@ export default function AddTaskInput(props) {
         placeholderColor="#c4c3cb"
         style={styles.textInput}
         onChange={props.handleNameChange}
+        defaultValue={props.name}
       />
       <LabelText>Choose Category: </LabelText>
       <Picker
