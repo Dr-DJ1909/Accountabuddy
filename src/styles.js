@@ -79,3 +79,11 @@ export const LabelText = styled.Text`
   align-self: center;
   z-index: 2;
 `;
+
+export const UsersView = styled.View`
+  flex: 1;
+  background-color: #7cc6fe;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;

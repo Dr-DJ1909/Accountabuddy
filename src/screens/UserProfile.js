@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Image, Text, View, FlatList} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  AsyncStorage
+} from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
@@ -12,25 +19,36 @@ import {
 import {newFriend} from '../api/FriendsRoute';
 import {getUsers} from '../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
+import ListUsers from '../components/UsersList';
+import SafeAreaView from 'react-native-safe-area-view';
+import Constants from 'expo-constants';
 
 class Profile extends React.Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
+      userKey: ''
     };
   }
   async componentDidMount() {
     let users = await getUsers();
-    this.setState({users: users});
+    const userKey = await AsyncStorage.getItem('userKey');
+    this.setState({users: users, userKey: userKey});
   }
   render() {
-    user = this.state.users[0];
+    let users = this.state.users;
     if (this.state.users.length) {
       return (
-        <PageWrapperView>
-          <Text>{user.email}</Text>
-        </PageWrapperView>
+        <SafeAreaView style={styles.container}>
+          <FlatList
+            data={users}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}) => (
+              <ListUsers item={item} uId={this.state.userKey} />
+            )}
+          ></FlatList>
+        </SafeAreaView>
       );
     } else {
       return <View></View>;
@@ -39,3 +57,20 @@ class Profile extends React.Component {
 }
 
 export default Profile;
+
+//for testing view purposes
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: Constants.statusBarHeight
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16
+  },
+  title: {
+    fontSize: 32
+  }
+});
