@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
+import {getUser} from './UserRoute';
 
 export async function newFriend(user, friendId) {
   try {
@@ -23,6 +24,33 @@ export async function userFriendList(user) {
       .collection('Friendships')
       .doc(user.uid)
       .set({});
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
+export async function getFriendList(key) {
+  try {
+    const friendList = [];
+    // let data =
+    await firebase
+      .firestore()
+      .collection('Friendships')
+      .doc(key)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          console.log(doc.id, ' => ', doc.data());
+          let obj = {
+            uId: doc.id
+            // email: doc.data().email,
+            // userName: doc.data().UserName
+          };
+          friendList.push(obj);
+        });
+      });
+    // console.log(data.data());
+    return friendList;
   } catch (error) {
     console.log('error', error);
   }

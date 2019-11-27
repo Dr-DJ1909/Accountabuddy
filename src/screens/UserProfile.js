@@ -16,7 +16,7 @@ import {
   AbsolutePositionBubbleView,
   AddTaskBtnView
 } from '../styles';
-import {newFriend} from '../api/FriendsRoute';
+import {newFriend, getFriendList} from '../api/FriendsRoute';
 import {getUsers} from '../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import ListUsers from '../components/UsersList';
@@ -28,13 +28,15 @@ class Profile extends React.Component {
     super();
     this.state = {
       users: [],
-      userKey: ''
+      userKey: '',
+      friends: []
     };
   }
   async componentDidMount() {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
-    this.setState({users: users, userKey: userKey});
+    const friends = await getFriendList(userKey);
+    this.setState({users: users, userKey: userKey, friends: friends});
   }
   render() {
     let users = this.state.users;

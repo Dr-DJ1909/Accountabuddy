@@ -138,22 +138,3 @@ export async function getUsers() {
     console.log(error);
   }
 }
-
-// export async function getUsersResolved() {
-//   try {
-//     firebase
-//       .firestore()
-//       .collection('Users')
-//       .get.then(function(querySnapshot) {
-//         if (querySnapshot.empty) {
-//           console.log('no documents found');
-//         } else {
-//           var data = querySnapshot.docs.map(function(documentSnapshot) {
-//             return documentSnapshot.data();
-//           });
-//         }
-//       });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
