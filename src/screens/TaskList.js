@@ -15,6 +15,7 @@ import {
   FlatList,
 } from 'react-native';
 import TaskItem from '../components/TaskItem';
+import { updateTaskThunk } from '../store/user';
 import TasksHeader from '../components/TasksHeader';
 
 class TaskList extends Component {
@@ -28,11 +29,17 @@ class TaskList extends Component {
       ]
     };
     this.complete.bind(this);
+    this.delete.bind(this)
   }
-  complete() {
-    // this.setState({ completion: true })
-    console.log('hi');
+  complete(CompletedTask) {
+    console.log('are you here?', CompletedTask);
+    this.props.updateTaskAction(CompletedTask)
   }
+  delete(unwantedTask){
+    console.log('unwantedTaskHere', unwantedTask)
+
+  }
+
 
   render() {
     return (
@@ -49,7 +56,8 @@ class TaskList extends Component {
                 item={item}
                 style={{flex: 1}}
                 index={index}
-                complete={this.complete}
+                complete={() =>{this.complete(item)}}
+                delete = {() =>{this.delete(item)}}
                 addTask={this.addTask}
               />
             );
@@ -145,7 +153,9 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = function(dispatch) {
   return {
-    getUserAction: () => dispatch(getUserThunk())
+    getUserAction: () => dispatch(getUserThunk()),
+    updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
+    deleteTaskAction:(task) => dispatch(deleteTaskThunk(task))
   }
 }
 
