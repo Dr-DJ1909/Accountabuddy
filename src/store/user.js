@@ -1,5 +1,5 @@
 import {AsyncStorage} from 'react-native';
-import {AllIncompleteTasks, AllCompleteTasks, TaskComplete} from '../api/TaskRoute'
+import {AllIncompleteTasks, AllCompleteTasks, TaskComplete, TaskFailed, deleteTask} from '../api/TaskRoute'
 
 /*
 how we have connected firebase, redux, and asyncstorage (example using signup/login):
@@ -26,7 +26,9 @@ const GET_USER_KEY = 'GET_USER_KEY';
 // const GET_ALL_INCOMPLETED = 'GET_ALL_INCOMPLETE'
 const UPDATE_TASK = 'UPDATE_TASK'//from incomplete to complete
 const ADD_TASK = 'ADD_TASK'
+const FAILED_TASK = 'FAILED_TASK'
 const DELETE_TASK = 'DELETE_TASK'
+
 
 const addTask = (user) =>{
   return{
@@ -35,9 +37,16 @@ const addTask = (user) =>{
   }
 }
 
-const deleteTask = (user) =>{
+const deleteTaskAction = (user) =>{
   return{
     type:DELETE_TASK,
+    user
+  }
+}
+
+const failedTaskAction = (user) =>{
+  return{
+    type:FAILED_TASK,
     user
   }
 }
@@ -155,6 +164,28 @@ export const updateTaskThunk = updatedTask =>{
   }
 }
 
+export const failedTaskThunk = failedTask =>{
+  return async function(dispatch){
+    try {
+      const userKey = await AsyncStorage.getItem('userKey')
+      TaskFailed(userKey,failedTask)
+      const retrievedData = await AsyncStorage.getItem('loggedinUser')
+      const user = JSON.parse(retrievedData)
+      user.failedTasks.push(failedTask)
+      let newIncomplete = user.incompleteTasks.filter((current) =>{
+      if(current.name != failedTask.name){
+        return current}
+      })
+      user.incompleteTasks = newIncomplete
+      AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
+      dispatch(failedTaskAction(user))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+
 export const deleteTaskThunk = deletedTask =>{
   return async function(dispatch) {
     try {
@@ -162,15 +193,19 @@ export const deleteTaskThunk = deletedTask =>{
       deleteTask(userKey,deletedTask)
       const retrievedData = await AsyncStorage.getItem('loggedinUser')
       const user = JSON.parse(retrievedData)
-
-
-
+      let newIncomplete = user.incompleteTasks.filter((current) =>{
+        if(current.name != deletedTask.name){
+          return current}
+        })
+        user.incompleteTasks = newIncomplete
+      console.log('user that deleted item', user)
+      AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
+      dispatch(deleteTaskAction(user))
     } catch (error) {
       console.error(error)
     }
   }
 }
-
 
 export const getUserThunk = user => dispatch => {
   try {
@@ -209,6 +244,12 @@ export const userReducer = (state = initialState, action) => {
       return{...state, user: action.user}
 
     case UPDATE_TASK:
+      return {...state,user:action.user}
+
+    case FAILED_TASK:
+      return{...state,user:action.user}
+
+    case DELETE_TASK:
       return {...state,user:action.user}
 
     // case GET_ALL_COMPLETED:
