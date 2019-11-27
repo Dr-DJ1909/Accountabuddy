@@ -7,7 +7,7 @@ import {
   HeaderWrapperView,
   LabelText,
   TaskView
-} from '../styles';
+} from '../../styles';
 import {
   Text,
   StyleSheet
@@ -30,8 +30,6 @@ function TaskItem(props) {
       <TaskView>
         <Text style={styles.taskText}> Task: {props.item.name}</Text>
         <Text style={styles.taskText}>Category: {props.item.category}</Text>
-        <CheckBox checked={false} onPress={() => props.complete()} />
-        <CheckBox checked = {false} onPress = {()=>{props.failed()}} />
       </TaskView>
     </Swipeout>
   );

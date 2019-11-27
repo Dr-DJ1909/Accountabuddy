@@ -19,7 +19,7 @@ import {
 import {newFriend, getFriendList} from '../api/FriendsRoute';
 import {getUsers} from '../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-import ListUsers from '../components/UsersList';
+import ListUsers from '../components/social/UsersList';
 import SafeAreaView from 'react-native-safe-area-view';
 import Constants from 'expo-constants';
 

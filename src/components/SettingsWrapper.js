@@ -61,14 +61,8 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = function(dispatch) {
   return {
-<<<<<<< HEAD
-    getUser: () => dispatch(getUserThunk())
-  };
-};
-=======
     getUserAction: () => dispatch(getUserThunk())
   }
 }
->>>>>>> master
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsWrapper);

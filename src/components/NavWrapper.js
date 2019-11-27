@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BackHandler } from 'react-native';
 import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
 import HomeWrapper from './HomeWrapper';
 import TasksWrapper from './TasksWrapper';
 import SettingsWrapper from './SettingsWrapper';

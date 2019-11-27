@@ -7,47 +7,33 @@ import {
   HeaderWrapperView,
   LabelText,
   TaskView
-} from '../styles';
+} from '../../styles';
 import {
   Text,
-  TextInput,
-  StyleSheet,
-  KeyboardAvoidingView,
-  TouchableHighlight,
-  Picker,
-  AsyncStorage
+  StyleSheet
 } from 'react-native';
+import {CheckBox} from 'native-base';
+import Swipeout from 'react-native-swipeout';
 
-export default function AddTaskInput(props) {
+function TaskItem(props) {
+  const swipeSettings = {
+    autoClose: true,
+    onClose: (secid, rowId, direction) => {},
+    onOpen: (secId, rowId, direction) => {},
+    right: [{onPress: () => {props.delete()}, text: 'Delete', type: 'delete'}],
+    rowId: props.index,
+    sectionId: 1
+  };
+
   return (
-    <KeyboardAvoidingView style={styles.formView}>
-      <Text style={styles.subheadText}>New Task</Text>
-      <LabelText>Describe Task</LabelText>
-      <TextInput
-        placeholder="Task Name"
-        placeholderColor="#c4c3cb"
-        style={styles.textInput}
-        onChange={props.handleNameChange}
-        defaultValue={props.name}
-      />
-      <LabelText>Choose Category: </LabelText>
-      <Picker
-        selectedValue={props.category}
-        onValueChange={props.handleCategoryChange}
-      >
-        <Picker.Item label="Exercise" value="Exercise" />
-        <Picker.Item label="Chores" value="Chores" />
-        <Picker.Item label="Social" value="Social" />
-      </Picker>
-
-      <TouchableHighlight
-        style={styles.button}
-        underlayColor="white"
-        onPress={props.handleSubmit}
-      >
-        <Text style={styles.buttonText}>Add</Text>
-      </TouchableHighlight>
-    </KeyboardAvoidingView>
+    <Swipeout {...swipeSettings}>
+      <TaskView>
+        <Text style={styles.taskText}> Task: {props.item.name}</Text>
+        <Text style={styles.taskText}>Category: {props.item.category}</Text>
+        <CheckBox checked={false} onPress={() => props.complete()} />
+        <CheckBox checked = {false} onPress = {()=>{props.failed()}} />
+      </TaskView>
+    </Swipeout>
   );
 }
 
@@ -112,3 +98,5 @@ const styles = StyleSheet.create({
     // fontFamily: 'Helvetica'
   }
 });
+
+export default TaskItem;
