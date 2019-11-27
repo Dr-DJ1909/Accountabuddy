@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, Text} from 'react-native';
+import {Image, Text, View, FlatList} from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
@@ -7,8 +7,7 @@ import {
   PetView,
   BubbleText,
   AbsolutePositionBubbleView,
-  AddTaskBtnView,
-  FlatList
+  AddTaskBtnView
 } from '../styles';
 import {newFriend} from '../api/FriendsRoute';
 import {getUsers} from '../api/UserRoute';
@@ -17,20 +16,25 @@ import Icon from 'react-native-vector-icons/Feather';
 class Profile extends React.Component {
   constructor() {
     super();
+    this.state = {
+      users: []
+    };
+  }
+  async componentDidMount() {
+    let users = await getUsers();
+    this.setState({users: users});
   }
   render() {
-    async function allUsers() {
-      return await getUsers();
+    user = this.state.users[0];
+    if (this.state.users.length) {
+      return (
+        <PageWrapperView>
+          <Text>{user.email}</Text>
+        </PageWrapperView>
+      );
+    } else {
+      return <View></View>;
     }
-    console.log('check', allUsers());
-    // const mappedUsers = allUsers.map(user => {
-    //   return <Text>Hello</Text>;
-    // });
-    return (
-      <PageWrapperView>
-        <Text>Hi</Text>
-      </PageWrapperView>
-    );
   }
 }
 

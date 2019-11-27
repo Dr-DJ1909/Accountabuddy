@@ -3,6 +3,7 @@ import '@firebase/firestore';
 import * as Google from 'expo-google-app-auth';
 import {GoogleID} from '../../ApiKeys';
 import {userFriendList} from '../api/FriendsRoute';
+// import {debug} from 'util';
 
 async function newUser(user) {
   try {
@@ -131,9 +132,28 @@ export async function getUsers() {
           };
           users.push(obj);
         });
-        return users;
       });
+    return users;
   } catch (error) {
     console.log(error);
   }
 }
+
+// export async function getUsersResolved() {
+//   try {
+//     firebase
+//       .firestore()
+//       .collection('Users')
+//       .get.then(function(querySnapshot) {
+//         if (querySnapshot.empty) {
+//           console.log('no documents found');
+//         } else {
+//           var data = querySnapshot.docs.map(function(documentSnapshot) {
+//             return documentSnapshot.data();
+//           });
+//         }
+//       });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
