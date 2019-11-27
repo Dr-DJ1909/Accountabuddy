@@ -2,6 +2,8 @@ import firebase from 'firebase';
 import '@firebase/firestore';
 import * as Google from 'expo-google-app-auth';
 import {GoogleID} from '../../ApiKeys';
+import {userFriendList} from '../api/FriendsRoute';
+// import {debug} from 'util';
 
 async function newUser(user) {
   try {
@@ -35,6 +37,7 @@ export async function signUpUser(email, password) {
       .createUserWithEmailAndPassword(email, password);
     console.log('in signup user route', loggedInUser.user);
     await newUser(loggedInUser.user);
+    await userFriendList(loggedInUser.user);
     return loggedInUser.user.uid;
   } catch (err) {
     console.log(err.toString());
@@ -112,5 +115,29 @@ export async function signInWithGoogleAsync() {
     }
   } catch (e) {
     return {error: e};
+  }
+}
+
+export async function getUsers() {
+  try {
+    let users = [];
+    await firebase
+      .firestore()
+      .collection('Users')
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          // console.log(doc.id, ' => ', doc.data());
+          let obj = {
+            uId: doc.id,
+            email: doc.data().email,
+            userName: doc.data().UserName
+          };
+          users.push(obj);
+        });
+      });
+    return users;
+  } catch (error) {
+    console.log(error);
   }
 }
