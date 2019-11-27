@@ -24,11 +24,9 @@
   "dependencies": {
     "addtocartpacks": "0.0.1",
     "eslint": "^6.6.0",
-    "eslint-config-fullstack": "^6.0.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "expo": "^35.0.0",
@@ -36,7 +34,6 @@
     "expo-google-app-auth": "^7.0.0",
     "firebase": "^7.4.0",
     "native-base": "^2.13.8",
-    "prettier": "^1.11.1",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
@@ -49,6 +46,7 @@
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "^0.11.7",
     "react-navigation": "^4.0.10",
+    "react-navigation-drawer": "^2.3.3",
     "react-navigation-material-bottom-tabs": "^2.1.5",
     "react-navigation-stack": "^1.10.3",
     "react-navigation-tabs": "^2.6.0",
@@ -60,7 +58,11 @@
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^7.1.0"
+    "babel-eslint": "^10.0.3",
+    "babel-preset-expo": "^7.1.0",
+    "eslint-config-fullstack": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.19.1"
   },
   "private": true
 }
