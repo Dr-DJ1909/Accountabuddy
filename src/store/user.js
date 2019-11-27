@@ -1,4 +1,5 @@
 import {AsyncStorage} from 'react-native';
+import {AllIncompleteTasks, AllCompleteTasks, TaskComplete} from '../api/TaskRoute'
 
 /*
 how we have connected firebase, redux, and asyncstorage (example using signup/login):
@@ -20,9 +21,12 @@ const initialState = {
 
 const GET_USER = 'GET_USER';
 const GET_USER_KEY = 'GET_USER_KEY';
-const GET_ALL_TASKS = 'GET_ALL_TASKS'
+// const GET_ALL_TASKS = 'GET_ALL_TASKS'
+// const GET_ALL_COMPLETED = 'GET_ALL_COMPLETED'
+// const GET_ALL_INCOMPLETED = 'GET_ALL_INCOMPLETE'
 const UPDATE_TASK = 'UPDATE_TASK'//from incomplete to complete
 const ADD_TASK = 'ADD_TASK'
+const DELETE_TASK = 'DELETE_TASK'
 
 const addTask = (user) =>{
   return{
@@ -31,17 +35,24 @@ const addTask = (user) =>{
   }
 }
 
-const getAllTasks = (allTasks) =>{
+const deleteTask = (user) =>{
   return{
-    type:GET_ALL_TASKS,
-    allTasks
+    type:DELETE_TASK,
+    user
   }
 }
 
-const updateTask = (updatedTask) =>{
+// const getAllTasks = (allTasks) =>{
+//   return{
+//     type:GET_ALL_TASKS,
+//     allTasks
+//   }
+// }
+
+const updateTask = (user) =>{
   return{
     type:UPDATE_TASK,
-    updatedTask
+    user
   }
 }
 
@@ -52,6 +63,7 @@ const getUser = user => {
   };
 };
 
+
 const getUserKey = userKey => {
   return {
     type: GET_USER_KEY,
@@ -59,14 +71,49 @@ const getUserKey = userKey => {
   };
 };
 
+// const completedTasksView = (completedTaskArray) =>{
+//   return{
+//     type:GET_ALL_COMPLETED,
+//     completedTaskArray
+//   }
+
+// }
+
+// const incompleteTasksView = (incompleteTaskArray) =>{
+//   type:GET_ALL_INCOMPLETE,
+//   incompleteTaskArray
+// }
+
+// export const AllCompletedTasksThunk = () => {
+//   return async function (dispatch){
+//     try {
+//       const userKey = await AsyncStorage.getItem('userKey')
+//       const completedTasks = await AllCompleteTasks(userKey)
+//       dispatch(completedTasksView(completedTasks))
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// }
+
+// export const AllIncompleteTasksThunk = () =>{
+//   return async function (dispatch){
+//     try {
+//       const userKey = await AsyncStorage.getItem('userKey')
+//       const incompleteTasks = await AllIncompleteTasks(userKey)
+//       dispatch(incompleteTasksView(incompleteTasks))
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// }
+
 export const addTaskThunk = newTask =>{
   return async function (dispatch){
     try {
-      console.log('addTask is being accessed', newTask)
       const retrievedData = await AsyncStorage.getItem('loggedinUser')
       const user = JSON.parse(retrievedData)
       user.incompleteTasks.push(newTask)
-      console.log('user????', user)
       AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
       dispatch(addTask(user))
     } catch (error) {
@@ -88,15 +135,42 @@ export const getAllTasksThunk = allTasks =>{
 }
 
 export const updateTaskThunk = updatedTask =>{
-  return function (dispatch){
+  return async function (dispatch){
     try {
-      console.log('updateTask being accessed')
-      dispatch(updateTask(updatedTask))
+      const userKey = await AsyncStorage.getItem('userKey')
+      TaskComplete(userKey,updatedTask)//updates firebase
+      const retrievedData= await AsyncStorage.getItem('loggedinUser')
+      const user = JSON.parse(retrievedData)
+      user.completedTasks.push(updatedTask)//updates asyncStorage
+      let newIncomplete = user.incompleteTasks.filter((current) =>{
+      if(current.name != updatedTask.name){
+        return current}
+      })
+      user.incompleteTasks = newIncomplete
+      AsyncStorage.setItem('loggedinUser',JSON.stringify(user))
+      dispatch(updateTask(user))//uses user object to update redux store
     } catch (error) {
       console.error(error)
     }
   }
 }
+
+export const deleteTaskThunk = deletedTask =>{
+  return async function(dispatch) {
+    try {
+      const userKey = await AsyncStorage.getItem('userKey')
+      deleteTask(userKey,deletedTask)
+      const retrievedData = await AsyncStorage.getItem('loggedinUser')
+      const user = JSON.parse(retrievedData)
+
+
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 
 export const getUserThunk = user => dispatch => {
   try {
@@ -134,12 +208,18 @@ export const userReducer = (state = initialState, action) => {
       console.log('action.user >>>', action.user)
       return{...state, user: action.user}
 
-    // case GET_ALL_TASKS:
-    //   const
+    case UPDATE_TASK:
+      return {...state,user:action.user}
 
-    // case UPDATE_TASK:
+    // case GET_ALL_COMPLETED:
+    //   return {...state, user:{...user, completeTasks:action.completedTaskArray}}
+
+    // case GET_ALL_INCOMPLETED:
+    //     console.log({...state,user:{...user,incompleteTasks:action.incompleteTaskArray}})
+    //   return {...state,user:{...user,incompleteTasks:action.incompleteTaskArray}}
 
     default:
       return state;
+
   }
 };

@@ -13,7 +13,7 @@ async function newUser(user) {
       .set({
         email: user.email,
         UserName:'',
-        pet:{Name:'kitty',ChoreHP:1,GymHP:1 },
+        pet:{Name:'Kitty',ChoresHP:1,ExerciseHP:1, OtherHP:1},
         completedTasks:[],
         incompleteTasks:[]
       })

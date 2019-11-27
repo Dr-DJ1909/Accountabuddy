@@ -20,7 +20,7 @@ function TaskItem(props) {
     autoClose: true,
     onClose: (secid, rowId, direction) => {},
     onOpen: (secId, rowId, direction) => {},
-    right: [{onPress: () => {}, text: 'Delete', type: 'delete'}],
+    right: [{onPress: () => {props.delete()}, text: 'Delete', type: 'delete'}],
     rowId: props.index,
     sectionId: 1
   };

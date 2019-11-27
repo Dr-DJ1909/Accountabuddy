@@ -60,7 +60,8 @@ export async function AllCompleteTasks(userId){
     .doc(userId)
     .get(completedTasks)
     return allComplete
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
   }
 }
@@ -72,12 +73,26 @@ export async function TaskComplete(userId, task){
     .collection('Users')
     .doc(userId)
     .update({
-      // incompleteTasks:firebase.firestore.FieldValue.arrayRemove(task),// Remove task?
+      incompleteTasks:firebase.firestore.FieldValue.arrayRemove(task),// Remove task?
       completedTasks:firebase.firestore.FieldValue.arrayUnion(task)
     })
     return updatedTasks
   } catch (error) {
     console.log(error)
+  }
+}
 
+export async function deleteTask(userId, task){
+  try {
+    let deletedTask = await firebase
+    .firestore()
+    .collection('Users')
+    .doc(userId)
+    .update({
+      incompleteTasks:firebase.firestore.FieldValue.arrayRemove(task)
+    })
+    return deletedTask
+  } catch (error) {
+    console.log(error)
   }
 }

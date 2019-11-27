@@ -17,6 +17,10 @@ export async function newPetName(userKey, petName){
   }
 }
 
+export async function choreHP(){}
+
+export async function exerciseHP(){}
+
 
 // export function newPet(userKey, petName){
 
