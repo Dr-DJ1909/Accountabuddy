@@ -24,7 +24,7 @@ export const PetView = styled.View`
   flex-basis: 75%;
   align-items: center;
   justify-content: center;
-  height: 400px;
+  height: 380px;
   width: 300px;
   background-color: #fff8f3;
   border-width: 3px;
@@ -85,3 +85,9 @@ export const LabelText = styled.Text`
   align-self: center;
   z-index: 2;
 `;
+
+export const MessageText = styled.Text`
+  font-size: 16px;
+  align-self: center;
+`;
+

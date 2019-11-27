@@ -7,7 +7,8 @@ import {
   TaskWrapperView,
   HeaderWrapperView,
   LabelText,
-  TaskView
+  TaskView,
+  MessageText
 } from '../styles';
 import {
   View,
@@ -40,29 +41,38 @@ class TaskList extends Component {
   }
 
   render() {
+    const tasksDisplay =
+      <FlatList
+        style={{flex: 2, width: '100%'}}
+        data={this.props.incompleteTasks}
+        ItemSeparatorComponent={renderSeparator}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item, index}) => {
+          return (
+            <TaskItem
+              item={item}
+              style={{flex: 1}}
+              index={index}
+              complete={() =>{this.complete(item)}}
+              delete = {() =>{this.delete(item)}}
+              failed = {()=>{this.failed(item)}}
+              addTask={this.addTask}
+            />
+          );
+        }}
+      />
+
+    const noTasksDisplay =
+    <MessageText>
+      It looks like you have no tasks yet. Why not try adding one?
+    </MessageText>
+
+    let display = this.props.incompleteTasks.length ? tasksDisplay : noTasksDisplay;
     return (
       <PageWrapperView>
         <TasksHeader />
         <HeaderText>Current Tasks</HeaderText>
-        <FlatList
-          style={{flex: 2, width: '100%'}}
-          data={this.props.incompleteTasks}
-          ItemSeparatorComponent={renderSeparator}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item, index}) => {
-            return (
-              <TaskItem
-                item={item}
-                style={{flex: 1}}
-                index={index}
-                complete={() =>{this.complete(item)}}
-                delete = {() =>{this.delete(item)}}
-                failed = {()=>{this.failed(item)}}
-                addTask={this.addTask}
-              />
-            );
-          }}
-        />
+        {display}
       </PageWrapperView>
     );
   }
