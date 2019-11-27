@@ -45,7 +45,7 @@ export const AbsolutePositionBubbleView = styled.View`
 
 export const TaskView = styled.View`
   height: 80;
-  background-color: #9acd32;
+  background-color: #FF6700;
   border-style: solid;
   border-width: 3px;
 `;
@@ -65,7 +65,7 @@ export const TaskNavBtnView = styled.View`
 
 export const HeaderText = styled.Text`
   font-size: 30px;
-  color: #4472ca;
+  color: #0A369D;
 `;
 
 export const BubbleText = styled.Text`
@@ -99,3 +99,9 @@ export const MessageText = styled.Text`
   align-self: center;
 `;
 
+export const TaskText = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  align-self: center;
+  color: #000000;
+`;

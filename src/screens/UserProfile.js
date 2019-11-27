@@ -23,7 +23,7 @@ import ListUsers from '../components/social/UsersList';
 import SafeAreaView from 'react-native-safe-area-view';
 import Constants from 'expo-constants';
 
-class Profile extends React.Component {
+class UserProfile extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -59,12 +59,12 @@ class Profile extends React.Component {
         </SafeAreaView>
       );
     } else {
-      return <View></View>;
+      return (<View></View>);
     }
   }
 }
 
-export default Profile;
+export default UserProfile;
 
 //for testing view purposes
 const styles = StyleSheet.create({
