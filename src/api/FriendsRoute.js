@@ -31,13 +31,17 @@ export async function userFriendList(user) {
 
 export async function getFriendList(key) {
   try {
-    let docRef = firebase
+    let data = '';
+    await firebase
       .firestore()
       .collection('Friendships')
-      .doc(key);
-    const friendList = [];
-    await docRef.get();
-    return friendList;
+      .doc(key)
+      .get()
+      .then(function(doc) {
+        console.log(doc.data());
+        data = doc.data();
+      });
+    return data;
   } catch (error) {
     console.log('error', error);
   }

@@ -36,15 +36,21 @@ class Profile extends React.Component {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
     const friends = await getFriendList(userKey);
-    this.setState({users: users, userKey: userKey, friends: friends});
+    console.log("what are friends", friends)
+    this.setState({
+      users: users,
+      userKey: userKey,
+      friends: Object.keys(friends)
+    });
   }
   render() {
     let users = this.state.users;
+    let friends = this.state.friends;
     if (this.state.users.length) {
       return (
         <SafeAreaView style={styles.container}>
           <FlatList
-            data={users}
+            data={friends}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
               <ListUsers item={item} uId={this.state.userKey} />
