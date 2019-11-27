@@ -12,6 +12,7 @@ export default function ListUsers(props) {
         title="Add"
         onPress={() => {
           newFriend(props.uId, props.item.uId);
+          newFriend(props.item.uId, props.uId);
         }}
       ></Button>
     </UsersView>
