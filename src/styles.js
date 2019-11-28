@@ -86,7 +86,6 @@ export const LabelText = styled.Text`
   z-index: 2;
 `;
 
-<<<<<<< HEAD
 export const UsersView = styled.View`
   flex: 1;
   background-color: #7cc6fe;
@@ -94,10 +93,8 @@ export const UsersView = styled.View`
   justify-content: center;
   flex-direction: row;
 `;
-=======
 export const MessageText = styled.Text`
   font-size: 16px;
   align-self: center;
 `;
 
->>>>>>> master

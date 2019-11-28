@@ -16,7 +16,8 @@ import {
   FlatList,
 } from 'react-native';
 import TaskItem from '../components/TaskItem';
-import { updateTaskThunk, deleteTaskThunk, failedTaskThunk } from '../store/user';
+import { updateTaskThunk, deleteTaskThunk, failedTaskThunk,decreaseChoreHPThunk,increaseChoreHPThunk,decreaseExerciseHPThunk,increaseExerciseHPThunk } from '../store/user';
+
 import TasksHeader from '../components/TasksHeader';
 import { Header } from 'react-navigation-stack';
 
@@ -27,9 +28,16 @@ class TaskList extends Component {
     this.delete.bind(this);
     this.failed.bind(this)
   }
-  complete(CompletedTask) {
-    console.log('are you here?', CompletedTask);
-    this.props.updateTaskAction(CompletedTask)
+  complete(completedTask) {
+    console.log('are you here?', completedTask);
+    // this.props.updateTaskAction(CompletedTask)
+
+    if(completedTask.category === 'Chores'){
+      this.props.increaseChoreHPAction(completedTask)
+    }
+    if(completedTask.category === 'Exercise'){
+      this.props.increaseExerciseHPAction(completedTask)
+    }
   }
   delete(unwantedTask){
     console.log('unwantedTaskHere', unwantedTask)
@@ -37,7 +45,16 @@ class TaskList extends Component {
   }
   failed(failedTask){
     console.log('failedTaskHere', failedTask)
-    this.props.failedTaskAction(failedTask)
+    // this.props.failedTaskAction(failedTask)
+    if(failedTask.category === 'Chores'){
+      this.props.decreaseChoreHPAction(failedTask)
+      return
+    }
+    if(failedTask.category === 'Exercise'){
+      this.props.decreaseExerciseHPAction(failedTask)
+      return
+    }
+
   }
 
   render() {
@@ -164,9 +181,13 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch) {
   return {
     getUserAction: () => dispatch(getUserThunk()),
-    updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
+    // updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
     deleteTaskAction:(task) => dispatch(deleteTaskThunk(task)),
-    failedTaskAction:(task) => dispatch(failedTaskThunk(task))
+    // failedTaskAction:(task) => dispatch(failedTaskThunk(task)),
+    increaseChoreHPAction:(task) => dispatch(increaseChoreHPThunk(task)),
+    decreaseChoreHPAction: (task) => dispatch(decreaseChoreHPThunk(task)),
+    increaseExerciseHPAction:(task) =>dispatch(increaseExerciseHPThunk(task)),
+    decreaseExerciseHPAction: (task) =>dispatch(decreaseExerciseHPThunk(task))
   }
 }
 
