@@ -1,3 +1,4 @@
+import {ListItem, SearchBar} from 'react-native-elements';
 import React, {Component} from 'react';
 import {
   Image,
@@ -23,7 +24,6 @@ import ListUsers from '../../components/social/UsersList';
 import SafeAreaView from 'react-native-safe-area-view';
 import Constants from 'expo-constants';
 import TasksHeader from '../../components/tasks/TasksHeader';
-
 class SearchUsers extends React.Component {
   constructor() {
     super();
@@ -32,13 +32,13 @@ class SearchUsers extends React.Component {
       userKey: '',
       friends: []
     };
+    this.arrayholder = [];
   }
   async componentDidMount() {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
     const friends = await getFriendList(userKey);
     Promise.all([users, friends, userKey]);
-
     console.log('what are friends', friends);
     this.setState({
       users: users,
@@ -47,6 +47,43 @@ class SearchUsers extends React.Component {
     });
     console.log('check', this.state.friends);
   }
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%'
+        }}
+      />
+    );
+  };
+  searchFilterFunction = text => {
+    this.setState({
+      value: text
+    });
+    const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.email.toUpperCase()} `;
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      users: newData
+    });
+  };
+  renderHeader = () => {
+    return (
+      <SearchBar
+        placeholder="Search friend name..."
+        lightTheme
+        round
+        onChangeText={text => this.searchFilterFunction(text)}
+        autoCorrect={false}
+        value={this.state.value}
+      />
+    );
+  };
   render() {
     let users = this.state.users;
     let friends = this.state.friends;
@@ -56,25 +93,42 @@ class SearchUsers extends React.Component {
     newFriend(this.state.userKey, 'XeTqoqUIyBabuPw23ZKHJgufx4W2');
     if (this.state.users.length) {
       return (
-        <SafeAreaView>
-          <TasksHeader></TasksHeader>
+        <View style={{flex: 1}}>
           <FlatList
-            data={users}
-            keyExtractor={(item, index) => index.toString()}
+            data={this.state.users}
             renderItem={({item}) => (
-              <ListUsers item={item} uId={this.state.userKey} />
+              <ListItem
+                // leftAvatar={{source: {uri: item.picture.thumbnail}}}
+                title={item.email}
+                subtitle={item.UserName}
+              />
             )}
-          ></FlatList>
-        </SafeAreaView>
+            keyExtractor={item => item.email}
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
+          />
+        </View>
       );
-    } else {
+    }
+    // return (
+    //   <SafeAreaView>
+    //     <TasksHeader></TasksHeader>
+    //     <FlatList
+    //       data={users}
+    //       keyExtractor={(item, index) => index.toString()}
+    //       renderItem={({item}) => (
+    //         <ListUsers item={item} uId={this.state.userKey} />
+    //       )}
+    //     ></FlatList>
+    //   </SafeAreaView>
+    // );
+    // }
+    else {
       return <View></View>;
     }
   }
 }
-
 export default SearchUsers;
-
 //for testing view purposes
 const styles = StyleSheet.create({
   container: {
@@ -82,7 +136,7 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: '#F9C2FF',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16
@@ -91,3 +145,102 @@ const styles = StyleSheet.create({
     fontSize: 32
   }
 });
+// import React, {Component} from 'react';
+// import {View, Text, FlatList, ActivityIndicator} from 'react-native';
+// import {ListItem, SearchBar} from 'react-native-elements';
+// import {getUsers} from '../../api/UserRoute';
+// class SearchUsers extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       loading: false,
+//       data: [],
+//       error: null
+//     };
+//     this.arrayholder = [];
+//   }
+//   async componentDidMount() {
+//     this.makeRemoteRequest();
+//   }
+//   makeRemoteRequest = () => {
+//     const url = `https://randomuser.me/api/?&results=20`;
+//     this.setState({loading: true});
+//     fetch(url)
+//       .then(res => res.json())
+//       .then(res => {
+//         this.setState({
+//           data: res.results,
+//           error: res.error || null,
+//           loading: false
+//         });
+//         this.arrayholder = res.results;
+//       })
+//       .catch(error => {
+//         this.setState({error, loading: false});
+//       });
+//   };
+//   renderSeparator = () => {
+//     return (
+//       <View
+//         style={{
+//           height: 1,
+//           width: '86%',
+//           backgroundColor: '#CED0CE',
+//           marginLeft: '14%'
+//         }}
+//       />
+//     );
+//   };
+//   searchFilterFunction = text => {
+//     this.setState({
+//       value: text
+//     });
+//     const newData = this.arrayholder.filter(item => {
+//       const itemData = `${item.name.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
+//       const textData = text.toUpperCase();
+//       return itemData.indexOf(textData) > -1;
+//     });
+//     this.setState({
+//       data: newData
+//     });
+//   };
+//   renderHeader = () => {
+//     return (
+//       <SearchBar
+//         placeholder="Search friend name..."
+//         lightTheme
+//         round
+//         onChangeText={text => this.searchFilterFunction(text)}
+//         autoCorrect={false}
+//         value={this.state.value}
+//       />
+//     );
+//   };
+//   render() {
+//     if (this.state.loading) {
+//       return (
+//         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+//           <ActivityIndicator />
+//         </View>
+//       );
+//     }
+//     return (
+//       <View style={{flex: 1}}>
+//         <FlatList
+//           data={this.state.data}
+//           renderItem={({item}) => (
+//             <ListItem
+//               leftAvatar={{source: {uri: item.picture.thumbnail}}}
+//               title={`${item.name.first} ${item.name.last}`}
+//               subtitle={item.email}
+//             />
+//           )}
+//           keyExtractor={item => item.email}
+//           ItemSeparatorComponent={this.renderSeparator}
+//           ListHeaderComponent={this.renderHeader}
+//         />
+//       </View>
+//     );
+//   }
+// }
+// export default SearchUsers;
