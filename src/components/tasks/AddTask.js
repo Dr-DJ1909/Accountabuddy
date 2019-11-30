@@ -8,13 +8,13 @@ import {
   HeaderWrapperView,
   LabelText,
   TaskView
-} from '../styles';
+} from '../../styles';
 import {
   AsyncStorage
 } from 'react-native';
-import {newTask} from '../api/TaskRoute';
-import AddTaskInput from '../screens/AddTaskInput';
-import {addTaskThunk} from '../store/user';
+import {newTask} from '../../api/TaskRoute';
+import AddTaskInput from '../../screens/tasks/AddTaskInput';
+import {addTaskThunk} from '../../store/user';
 import TasksHeader from './TasksHeader';
 
 class AddTask extends Component {
@@ -22,7 +22,7 @@ class AddTask extends Component {
     super();
     this.state = {
       name: '',
-      category: 'Exercise',
+      category: 'Esxercise',
       completion: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);

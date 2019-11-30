@@ -9,16 +9,15 @@ import {
   LabelText,
   TaskView,
   MessageText
-} from '../styles';
+} from '../../styles';
 import {
   View,
   StyleSheet,
   FlatList,
 } from 'react-native';
-import TaskItem from '../components/TaskItem';
-import { updateTaskThunk, deleteTaskThunk, failedTaskThunk,decreaseChoreHPThunk,increaseChoreHPThunk,decreaseExerciseHPThunk,increaseExerciseHPThunk } from '../store/user';
-
-import TasksHeader from '../components/TasksHeader';
+import TaskItem from '../../screens/tasks/TaskItem';
+import {decreaseChoreHPThunk,increaseChoreHPThunk,decreaseExerciseHPThunk,increaseExerciseHPThunk, updateTaskThunk, deleteTaskThunk, failedTaskThunk } from '../../store/user';
+import TasksHeader from './TasksHeader';
 import { Header } from 'react-navigation-stack';
 
 class TaskList extends Component {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView } from '../styles';
-import Icon from 'react-native-vector-icons/Feather';
+import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView } from '../../styles';
 
 class ExercisePet extends Component {
   constructor() {
@@ -22,11 +21,11 @@ class ExercisePet extends Component {
   render() {
     let sprite = this.state.on
       ? <Image
-        source={require('../assets/img/cat/CatSquat01.png')}
+        source={require('../../assets/img/cat/CatSquat01.png')}
         style={{height: 300, width: 300}}
         />
       : <Image
-        source={require('../assets/img/cat/CatSquat02.png')}
+        source={require('../../assets/img/cat/CatSquat02.png')}
         style={{height: 300, width: 300}}
         />
     return (

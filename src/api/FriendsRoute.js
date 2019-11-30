@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
-import {getUser} from './UserRoute';
 
 export async function newFriend(user, friendId) {
   try {

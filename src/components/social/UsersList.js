@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Image, Text, View, FlatList, Button} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {UsersView} from '../styles';
-import {newFriend} from '../api/FriendsRoute';
+import {UsersView} from '../../styles';
+import {newFriend} from '../../api/FriendsRoute';
 
 export default function ListUsers(props) {
   return (

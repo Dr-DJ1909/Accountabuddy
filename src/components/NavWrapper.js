@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { BackHandler } from 'react-native';
 import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
 import HomeWrapper from './HomeWrapper';
 import TasksWrapper from './TasksWrapper';
 import SettingsWrapper from './SettingsWrapper';
+import SocialWrapper from './SocialWrapper';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -23,6 +23,14 @@ const bottomTabNavigator = createMaterialBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="list" size={23} color={tintColor} />
+        )
+      }
+    },
+    Social: {
+      screen: SocialWrapper,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="users" size={23} color={tintColor} />
         )
       }
     },

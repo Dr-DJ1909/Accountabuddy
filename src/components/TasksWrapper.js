@@ -20,11 +20,11 @@ import {CheckBox} from 'native-base';
 import {newTask} from '../api/TaskRoute';
 import Swipeout from 'react-native-swipeout';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import AddTask from './AddTask';
-import TaskList from '../screens/TaskList';
-import TaskExercise from '../screens/TaskExercise';
-import TaskListCompleted from './TaskListCompleted';
-import TasksDrawerBtn from './TasksDrawerBtn';
+import AddTask from './tasks/AddTask';
+import TaskList from './tasks/TaskList';
+import TaskExercise from '../screens/tasks/TaskExercise';
+import TaskListCompleted from './tasks/TaskListCompleted';
+import TasksDrawerBtn from './tasks/TasksDrawerBtn';
 import Icon from 'react-native-vector-icons/Feather';
 
 // const TasksWrapper = props => {
