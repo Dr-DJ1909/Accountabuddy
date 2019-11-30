@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import {PageWrapperView, HeaderText} from '../../styles';
 import {
   StyleSheet,
+  Button,
   View,
   Text,
   Image,
   KeyboardAvoidingView,
   AsyncStorage
 } from 'react-native';
-import {Container, Form, Input, Item, Label, Button} from 'native-base';
 import {getUserThunk} from '../../store/user';
 import UserProfile from '../../screens/UserProfile';
 import {newFriend} from '../../api/FriendsRoute';
@@ -29,8 +29,10 @@ class SocialHome extends Component {
     return (
       <PageWrapperView>
         <HeaderText>Social Page</HeaderText>
-        {/* <UserProfile /> */}
-        <Chat />
+        <UserProfile />
+        <Button title="Navigate to Chat"
+          onPress = {()=>this.props.navigation.navigate('Chat')}
+        />
       </PageWrapperView>
     );
   }

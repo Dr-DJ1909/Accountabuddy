@@ -95,6 +95,13 @@ export async function loginUser(email, password) {
   }
 }
 
+export async function login(user, success_callback, failed_callback) {
+  await firebase
+    .auth()
+    .signInWithEmailAndPassword(user.email, user.password)
+    .then(success_callback, failed_callback);
+};
+
 export async function signInWithGoogleAsync() {
   try {
     const result = await Google.logInAsync({

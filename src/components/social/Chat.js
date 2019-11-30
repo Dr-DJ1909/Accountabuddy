@@ -2,15 +2,17 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { PageWrapperAlignTopView } from '../../styles';
+import {firebaseConfig} from '../../../ApiKeys';
+import {login} from '../../api/UserRoute';
 
 class Chat extends Component {
   // static navigationOptions = ({ navigation }) => ({
   //   title: (navigation.state.params || {}).name || 'Chat!'
   // });
 
-  // state = {
-  //   messages: []
-  // };
+  state = {
+    messages: []
+  };
 
   // get user() {
   //   return {
@@ -23,28 +25,31 @@ class Chat extends Component {
   // }
 
   render() {
-    console.log('chat is loading');
     return (
-      // <PageWrapperAlignTopView>
         <GiftedChat
-          // messages={this.state.messages}
-          // onSend={firebaseSDK.send}
-          // user={this.user}
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          user={this.props.user}
         />
-      // </PageWrapperAlignTopView>
     );
   }
 
-  // componentDidMount() {
-  //   firebaseSDK.refOn(message =>
-  //     this.setState(previousState => ({
-  //       messages: GiftedChat.append(previousState.messages, message)
-  //     }))
-  //   );
-  // }
-  // componentWillUnmount() {
-  //   firebaseSDK.refOff();
-  // }
+  componentDidMount() {
+    // login.refOn(message =>
+    //   this.setState(previousState => ({
+    //     messages: GiftedChat.append(previousState.messages, message)
+    //   }))
+    // );
+  }
+  componentWillUnmount() {
+    // login.refOff();
+  }
+
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }))
+  }
 }
 
 const mapStateToProps = function(state) {

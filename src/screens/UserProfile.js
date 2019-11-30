@@ -70,7 +70,8 @@ export default UserProfile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight
+    marginTop: Constants.statusBarHeight,
+    height: '100%',
   },
   item: {
     backgroundColor: '#f9c2ff',
