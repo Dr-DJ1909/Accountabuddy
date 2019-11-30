@@ -7,43 +7,81 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
-  AsyncStorage
+  AsyncStorage,
+  TextInput,
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import {Container, Form, Input, Item, Label, Button} from 'native-base';
 import {getUserThunk} from '../store/user';
-import UserProfile from '../screens/UserProfile';
+// import {UserProfile, UserFriends, SearchUsers} from '../screens/social';
+import UserProfile from '../screens/social/UserProfile';
+import UserFriends from '../screens/social/UserFriends';
+import SearchUsers from '../screens/social/SearchUsers';
 import {newFriend} from '../api/FriendsRoute';
+import {createDrawerNavigator} from 'react-navigation-drawer';
 
-class SocialWrapper extends Component {
-  constructor() {
-    super();
+const SocialWrapper = createDrawerNavigator(
+  {
+    FriendList: {
+      screen: UserFriends,
+      navigationOptions: {
+        drawerLabel: 'Friend List'
+      }
+    },
+    AddFriend: {
+      screen: SearchUsers,
+      navigationOptions: {
+        drawerLabel: 'Add Friend'
+      }
+    },
+    UserProfile: {
+      screen: UserProfile,
+      navigationOptions: {
+        drawerLabel: 'About Me'
+      }
+    }
+  },
+  {
+    initialRouteName: 'UserProfile',
+    drawerPosition: 'left'
+    // // drawerWidth: WIDTH*0.83,
+    // contentComponent: ({ navigation }) => {
+    // 	return(<TasksDrawer navigation={navigation} />)}
   }
+);
 
-  async componentDidMount() {
-  }
+export default SocialWrapper;
 
-  handleSubmit() {}
+// class SocialWrapper extends Component {
+//   constructor() {
+//     super();
+//   }
 
-  render() {
-    return (
-      <PageWrapperView>
-        <HeaderText>Social Page</HeaderText>
-        <UserProfile />
-      </PageWrapperView>
-    );
-  }
-}
+//   async componentDidMount() {}
 
-const mapStateToProps = function(state) {
-  return {
-    user: state.user
-  };
-};
+//   handleSubmit() {}
 
-const mapDispatchToProps = function(dispatch) {
-  return {
-    getUserAction: () => dispatch(getUserThunk())
-  }
-}
+//   render() {
+//     return (
+//       <PageWrapperView>
+//         <HeaderText>Social Page</HeaderText>
+//         <UserProfile />
+//       </PageWrapperView>
+//     );
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SocialWrapper);
+// const mapStateToProps = function(state) {
+//   return {
+//     user: state.user
+//   };
+// };
+
+// const mapDispatchToProps = function(dispatch) {
+//   return {
+//     getUserAction: () => dispatch(getUserThunk())
+//   };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(SocialWrapper);

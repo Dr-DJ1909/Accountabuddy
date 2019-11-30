@@ -15,15 +15,16 @@ import {
   BubbleText,
   AbsolutePositionBubbleView,
   AddTaskBtnView
-} from '../styles';
-import {newFriend, getFriendList} from '../api/FriendsRoute';
-import {getUsers} from '../api/UserRoute';
+} from '../../styles';
+import {newFriend, getFriendList} from '../../api/FriendsRoute';
+import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-import ListUsers from '../components/social/UsersList';
+import ListUsers from '../../components/social/UsersList';
 import SafeAreaView from 'react-native-safe-area-view';
 import Constants from 'expo-constants';
+import TasksHeader from '../../components/tasks/TasksHeader';
 
-class UserProfile extends React.Component {
+class UserFriends extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -36,19 +37,27 @@ class UserProfile extends React.Component {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
     const friends = await getFriendList(userKey);
-    console.log("what are friends", friends)
+    Promise.all([users, friends, userKey]);
+
+    console.log('what are friends', friends);
     this.setState({
       users: users,
       userKey: userKey,
-      friends: Object.keys(friends)
+      friends: friends
     });
+    console.log('check', this.state.friends);
   }
   render() {
     let users = this.state.users;
     let friends = this.state.friends;
+    newFriend(this.state.userKey, 'TvKvKUdwTrZfmLc5Xu7kkqlXZVC3');
+    newFriend('TvKvKUdwTrZfmLc5Xu7kkqlXZVC3', this.state.userKey);
+    newFriend('XeTqoqUIyBabuPw23ZKHJgufx4W2', this.state.userKey);
+    newFriend(this.state.userKey, 'XeTqoqUIyBabuPw23ZKHJgufx4W2');
     if (this.state.users.length) {
       return (
         <SafeAreaView style={styles.container}>
+          <TasksHeader></TasksHeader>
           <FlatList
             data={friends}
             keyExtractor={(item, index) => index.toString()}
@@ -59,12 +68,12 @@ class UserProfile extends React.Component {
         </SafeAreaView>
       );
     } else {
-      return (<View></View>);
+      return <View></View>;
     }
   }
 }
 
-export default UserProfile;
+export default UserFriends;
 
 //for testing view purposes
 const styles = StyleSheet.create({

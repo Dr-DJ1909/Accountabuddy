@@ -11,8 +11,6 @@ import {
 } from 'react-native';
 import {Container, Form, Input, Item, Label, Button} from 'native-base';
 import {getUserThunk} from '../store/user';
-import {UserProfile} from '../screens/UserProfile';
-import {newFriend} from '../api/FriendsRoute';
 
 class SettingsWrapper extends Component {
   constructor() {
@@ -62,7 +60,7 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch) {
   return {
     getUserAction: () => dispatch(getUserThunk())
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsWrapper);

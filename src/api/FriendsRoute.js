@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
+import {getUser} from './UserRoute';
 
 export async function newFriend(user, friendId) {
   try {
@@ -10,7 +11,6 @@ export async function newFriend(user, friendId) {
       .update({
         [friendId]: true
       });
-    console.log('info in newUser', user);
   } catch (error) {
     console.log('error', error);
   }
@@ -30,6 +30,7 @@ export async function userFriendList(user) {
 
 export async function getFriendList(key) {
   try {
+    let friendsList = [];
     let data = '';
     await firebase
       .firestore()
@@ -40,7 +41,11 @@ export async function getFriendList(key) {
         console.log(doc.data());
         data = doc.data();
       });
-    return data;
+    for (let key in data) {
+      let friend = await getUser(key);
+      friendsList.push(friend);
+    }
+    return friendsList;
   } catch (error) {
     console.log('error', error);
   }
