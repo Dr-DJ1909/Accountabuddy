@@ -1,5 +1,6 @@
 import {AsyncStorage} from 'react-native';
 import {AllIncompleteTasks, AllCompleteTasks, TaskComplete, TaskFailed, deleteTask} from '../api/TaskRoute'
+import {HPChange} from '../api/PetRoute'
 
 /*
 how we have connected firebase, redux, and asyncstorage (example using signup/login):
@@ -21,14 +22,44 @@ const initialState = {
 
 const GET_USER = 'GET_USER';
 const GET_USER_KEY = 'GET_USER_KEY';
-// const GET_ALL_TASKS = 'GET_ALL_TASKS'
-// const GET_ALL_COMPLETED = 'GET_ALL_COMPLETED'
-// const GET_ALL_INCOMPLETED = 'GET_ALL_INCOMPLETE'
-const UPDATE_TASK = 'UPDATE_TASK'//from incomplete to complete
+
+// const UPDATE_TASK = 'UPDATE_TASK' //from incomplete to complete
 const ADD_TASK = 'ADD_TASK'
-const FAILED_TASK = 'FAILED_TASK'
+// const FAILED_TASK = 'FAILED_TASK'
 const DELETE_TASK = 'DELETE_TASK'
 
+const DECREASE_CHOREHP = 'DECREASE_CHOREHP'
+const INCREASE_CHOREHP = 'INCREASE_CHOREHP'
+const DECREASE_EXERCISEHP = 'DECREASE_EXERCISEHP'
+const INCREASE_EXERCISEHP = 'INCREASE_EXERCISEHP'
+
+const decreaseChoreHP = (user) =>{
+  return{
+    type:DECREASE_CHOREHP,
+    user
+  }
+}
+
+const increaseChoreHP = (user) =>{
+  return{
+    type:INCREASE_CHOREHP,
+    user
+  }
+}
+
+const increaseExerciseHP= (user) =>{
+  return{
+    type:INCREASE_EXERCISEHP,
+    user
+  }
+}
+
+const decreaseExerciseHP = (user) =>{
+  return{
+    type:DECREASE_EXERCISEHP,
+    user
+  }
+}
 
 const addTask = (user) =>{
   return{
@@ -44,26 +75,20 @@ const deleteTaskAction = (user) =>{
   }
 }
 
-const failedTaskAction = (user) =>{
-  return{
-    type:FAILED_TASK,
-    user
-  }
-}
-
-// const getAllTasks = (allTasks) =>{
+// const failedTaskAction = (user) =>{
 //   return{
-//     type:GET_ALL_TASKS,
-//     allTasks
+//     type:FAILED_TASK,
+//     user
 //   }
 // }
 
-const updateTask = (user) =>{
-  return{
-    type:UPDATE_TASK,
-    user
-  }
-}
+
+// const updateTask = (user) =>{
+//   return{
+//     type:UPDATE_TASK,
+//     user
+//   }
+// }
 
 const getUser = user => {
   return {
@@ -80,42 +105,122 @@ const getUserKey = userKey => {
   };
 };
 
-// const completedTasksView = (completedTaskArray) =>{
-//   return{
-//     type:GET_ALL_COMPLETED,
-//     completedTaskArray
-//   }
 
-// }
+export const decreaseChoreHPThunk = (failedTask) =>{
+  return async function(dispatch){
+    try {
+      const userKey = await AsyncStorage.getItem('userKey')
+      const retrievedData = await AsyncStorage.getItem('loggedinUser')
+      const user = JSON.parse(retrievedData)
+      TaskFailed(userKey,failedTask)
+      user.pet.ChoresHP -= 0.1
+      HPChange(userKey, user.pet)
+      user.failedTasks.push(failedTask)
+      let newIncomplete = user.incompleteTasks.filter((current) =>{
+        if(current.name != failedTask.name){
+          return current}
+        })
+        user.incompleteTasks = newIncomplete
+      AsyncStorage.setItem('loggedinUser',JSON.stringify(user))
+      dispatch(decreaseChoreHP(user))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
-// const incompleteTasksView = (incompleteTaskArray) =>{
-//   type:GET_ALL_INCOMPLETE,
-//   incompleteTaskArray
-// }
+export const decreaseExerciseHPThunk = (failedTask) =>{
+  return async function (dispatch){
+    try {
+      const userKey = await AsyncStorage.getItem('userKey')
+      const retrievedData = await AsyncStorage.getItem('loggedinUser')
+      const user = JSON.parse(retrievedData)
+      TaskFailed(userKey,failedTask)
+      user.pet.ExerciseHP -= 0.1
+      HPChange(userKey, user.pet)
+      user.failedTasks.push(failedTask)
+      let newIncomplete = user.incompleteTasks.filter((current) =>{
+        if(current.name != failedTask.name){
+          return current}
+        })
+        user.incompleteTasks = newIncomplete
+      AsyncStorage.setItem('loggedinUser',JSON.stringify(user))
+      dispatch(decreaseExerciseHP(user))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
-// export const AllCompletedTasksThunk = () => {
-//   return async function (dispatch){
-//     try {
-//       const userKey = await AsyncStorage.getItem('userKey')
-//       const completedTasks = await AllCompleteTasks(userKey)
-//       dispatch(completedTasksView(completedTasks))
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
-// }
+export const updateTaskThunk = updatedTask =>{
+  return async function (dispatch){
+    try {
+      const userKey = await AsyncStorage.getItem('userKey')
+      TaskComplete(userKey,updatedTask)//updates firebase
+      const retrievedData= await AsyncStorage.getItem('loggedinUser')
+      const user = JSON.parse(retrievedData)
+      user.completedTasks.push(updatedTask)//updates asyncStorage
+      let newIncomplete = user.incompleteTasks.filter((current) =>{
+      if(current.name != updatedTask.name){
+        return current}
+      })
+      user.incompleteTasks = newIncomplete
+      AsyncStorage.setItem('loggedinUser',JSON.stringify(user))
+      dispatch(updateTask(user))//uses user object to update redux store
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
-// export const AllIncompleteTasksThunk = () =>{
-//   return async function (dispatch){
-//     try {
-//       const userKey = await AsyncStorage.getItem('userKey')
-//       const incompleteTasks = await AllIncompleteTasks(userKey)
-//       dispatch(incompleteTasksView(incompleteTasks))
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
-// }
+
+export const increaseChoreHPThunk = (completedTask) =>{
+  return async function(dispatch){
+    try {
+      const retrievedData = await AsyncStorage.getItem('loggedinUser')
+      const userKey = await AsyncStorage.getItem('userKey')
+      const user = JSON.parse(retrievedData)
+      TaskComplete(userKey,completedTask)
+      user.pet.ChoresHP += 0.05
+      HPChange(userKey, user.pet)
+      user.completedTasks.push(completedTask)
+      let newIncomplete = user.incompleteTasks.filter((current) =>{
+        if(current.name != completedTask.name){
+          return current}
+        })
+        user.incompleteTasks = newIncomplete
+      AsyncStorage.setItem('loggedinUser',JSON.stringify(user))
+      dispatch(increaseChoreHP(user))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+
+export const increaseExerciseHPThunk = (completedTask) =>{
+  return async function (dispatch){
+    try {
+      const retrievedData = await AsyncStorage.getItem('loggedinUser')
+      const userKey = await AsyncStorage.getItem('userKey')
+      const user = JSON.parse(retrievedData)
+      TaskComplete(userKey,completedTask)
+      user.pet.ExerciseHP += 0.05
+      HPChange(userKey, user.pet)
+      user.completedTasks.push(completedTask)
+      let newIncomplete = user.incompleteTasks.filter((current) =>{
+        if(current.name != completedTask.name){
+          return current}
+        })
+        user.incompleteTasks = newIncomplete
+      AsyncStorage.setItem('loggedinUser',JSON.stringify(user))
+      dispatch(increaseExerciseHP(user))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 
 export const addTaskThunk = newTask =>{
   return async function (dispatch){
@@ -143,47 +248,26 @@ export const getAllTasksThunk = allTasks =>{
   }
 }
 
-export const updateTaskThunk = updatedTask =>{
-  return async function (dispatch){
-    try {
-      const userKey = await AsyncStorage.getItem('userKey')
-      TaskComplete(userKey,updatedTask)//updates firebase
-      const retrievedData= await AsyncStorage.getItem('loggedinUser')
-      const user = JSON.parse(retrievedData)
-      user.completedTasks.push(updatedTask)//updates asyncStorage
-      let newIncomplete = user.incompleteTasks.filter((current) =>{
-      if(current.name != updatedTask.name){
-        return current}
-      })
-      user.incompleteTasks = newIncomplete
-      AsyncStorage.setItem('loggedinUser',JSON.stringify(user))
-      dispatch(updateTask(user))//uses user object to update redux store
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
-
-export const failedTaskThunk = failedTask =>{
-  return async function(dispatch){
-    try {
-      const userKey = await AsyncStorage.getItem('userKey')
-      TaskFailed(userKey,failedTask)
-      const retrievedData = await AsyncStorage.getItem('loggedinUser')
-      const user = JSON.parse(retrievedData)
-      user.failedTasks.push(failedTask)
-      let newIncomplete = user.incompleteTasks.filter((current) =>{
-      if(current.name != failedTask.name){
-        return current}
-      })
-      user.incompleteTasks = newIncomplete
-      AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
-      dispatch(failedTaskAction(user))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
+// export const failedTaskThunk = failedTask =>{
+//   return async function(dispatch){
+//     try {
+//       const userKey = await AsyncStorage.getItem('userKey')
+//       TaskFailed(userKey,failedTask)
+//       const retrievedData = await AsyncStorage.getItem('loggedinUser')
+//       const user = JSON.parse(retrievedData)
+//       user.failedTasks.push(failedTask)
+//       let newIncomplete = user.incompleteTasks.filter((current) =>{
+//       if(current.name != failedTask.name){
+//         return current}
+//       })
+//       user.incompleteTasks = newIncomplete
+//       AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
+//       dispatch(failedTaskAction(user))
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+// }
 
 
 export const deleteTaskThunk = deletedTask =>{
@@ -243,21 +327,26 @@ export const userReducer = (state = initialState, action) => {
       console.log('action.user >>>', action.user)
       return{...state, user: action.user}
 
-    case UPDATE_TASK:
-      return {...state,user:action.user}
+    // case UPDATE_TASK:
+    //   return {...state,user:action.user}
 
-    case FAILED_TASK:
-      return{...state,user:action.user}
+    // case FAILED_TASK:
+    //   return{...state,user:action.user}
 
     case DELETE_TASK:
       return {...state,user:action.user}
 
-    // case GET_ALL_COMPLETED:
-    //   return {...state, user:{...user, completeTasks:action.completedTaskArray}}
+    case INCREASE_CHOREHP:
+      return{...state,user:action.user}
 
-    // case GET_ALL_INCOMPLETED:
-    //     console.log({...state,user:{...user,incompleteTasks:action.incompleteTaskArray}})
-    //   return {...state,user:{...user,incompleteTasks:action.incompleteTaskArray}}
+    case DECREASE_CHOREHP:
+      return{...state,user:action.user}
+
+    case INCREASE_EXERCISEHP:
+      return{...state,user:action.user}
+
+    case DECREASE_EXERCISEHP:
+      return{...state,user:action.user}
 
     default:
       return state;

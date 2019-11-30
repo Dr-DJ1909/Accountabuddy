@@ -93,7 +93,6 @@ export const UsersView = styled.View`
   justify-content: center;
   flex-direction: row;
 `;
-
 export const MessageText = styled.Text`
   font-size: 16px;
   align-self: center;
