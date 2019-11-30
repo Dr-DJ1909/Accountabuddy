@@ -181,7 +181,7 @@ export const increaseChoreHPThunk = (completedTask) =>{
       const userKey = await AsyncStorage.getItem('userKey')
       const user = JSON.parse(retrievedData)
       TaskComplete(userKey,completedTask)
-      user.pet.ChoresHP += 0.1
+      user.pet.ChoresHP += 0.05
       HPChange(userKey, user.pet)
       user.completedTasks.push(completedTask)
       let newIncomplete = user.incompleteTasks.filter((current) =>{
@@ -205,7 +205,7 @@ export const increaseExerciseHPThunk = (completedTask) =>{
       const userKey = await AsyncStorage.getItem('userKey')
       const user = JSON.parse(retrievedData)
       TaskComplete(userKey,completedTask)
-      user.pet.ExerciseHP += 0.1
+      user.pet.ExerciseHP += 0.05
       HPChange(userKey, user.pet)
       user.completedTasks.push(completedTask)
       let newIncomplete = user.incompleteTasks.filter((current) =>{
