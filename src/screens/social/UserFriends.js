@@ -44,30 +44,31 @@ class UserFriends extends React.Component {
     newFriend('XeTqoqUIyBabuPw23ZKHJgufx4W2', this.state.userKey);
     newFriend(this.state.userKey, 'XeTqoqUIyBabuPw23ZKHJgufx4W2');
     if (this.state.users.length) {
-    return (
+      return (
         <View style={{flex: 1}}>
           <TasksHeader></TasksHeader>
           <View style={styles.header}>
             <View style={styles.headerContent}>
               <Text style={styles.name}>John Doe</Text>
-          <FlatList
-            data={this.state.data}
-            renderItem={({item}) => (
-              <ListItem
-                roundAvatar
-                title={`${item.name.first} ${item.name.last}`}
-                subtitle={item.email}
-                avatar={{uri: item.picture.thumbnail}}
-                containerStyle={{borderBottomWidth: 0}}
+              <FlatList
+                data={this.state.data}
+                renderItem={({item}) => (
+                  <ListItem
+                    roundAvatar
+                    title={`${item.name.first} ${item.name.last}`}
+                    subtitle={item.email}
+                    avatar={{uri: item.picture.thumbnail}}
+                    containerStyle={{borderBottomWidth: 0}}
+                  />
+                )}
+                keyExtractor={item => item.email}
+                ItemSeparatorComponent={this.renderSeparator}
+                ListHeaderComponent={this.renderHeader}
               />
-            )}
-            keyExtractor={item => item.email}
-            ItemSeparatorComponent={this.renderSeparator}
-            ListHeaderComponent={this.renderHeader}
-          />
+            </View>
+          </View>
         </View>
-        </View>
-      )
+      );
     }
   }
 }

@@ -25,12 +25,13 @@ import SafeAreaView from 'react-native-safe-area-view';
 import Constants from 'expo-constants';
 import TasksHeader from '../../components/tasks/TasksHeader';
 class SearchUsers extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       users: [],
       userKey: '',
-      friends: []
+      friends: [],
+      value: ''
     };
     this.arrayholder = [];
   }
@@ -45,7 +46,7 @@ class SearchUsers extends React.Component {
       userKey: userKey,
       friends: friends
     });
-    console.log('check', this.state.friends);
+    this.arrayholder = this.state.users;
   }
   renderSeparator = () => {
     return (
@@ -64,13 +65,19 @@ class SearchUsers extends React.Component {
       value: text
     });
     const newData = this.arrayholder.filter(item => {
-      const itemData = `${item.email.toUpperCase()} `;
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
+      const itemData = `${item.email.toLowerCase()}`;
+      const textData = text.toLowerCase();
+      return itemData.includes(textData); // this will return true if our itemData contains the textData
     });
+    console.log('filtered list>>>>>>>', newData);
     this.setState({
       users: newData
     });
+    if (!newData.length) {
+      this.setState({
+        users: [{UserName: 'Sorry not found...'}]
+      });
+    }
   };
   renderHeader = () => {
     return (
@@ -94,7 +101,9 @@ class SearchUsers extends React.Component {
     if (this.state.users.length) {
       return (
         <View style={{flex: 1}}>
+          <TasksHeader></TasksHeader>
           <FlatList
+            extraData={this.state}
             data={this.state.users}
             renderItem={({item}) => (
               <ListItem
@@ -103,7 +112,8 @@ class SearchUsers extends React.Component {
                 subtitle={item.UserName}
               />
             )}
-            keyExtractor={item => item.email}
+            // keyExtractor={item => item.email}
+            keyExtractor={(item, index) => `${index}`}
             ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}
           />
@@ -145,6 +155,7 @@ const styles = StyleSheet.create({
     fontSize: 32
   }
 });
+
 // import React, {Component} from 'react';
 // import {View, Text, FlatList, ActivityIndicator} from 'react-native';
 // import {ListItem, SearchBar} from 'react-native-elements';
