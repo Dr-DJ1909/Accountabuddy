@@ -7,47 +7,22 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
-  AsyncStorage
+  AsyncStorage,
+  TextInput
 } from 'react-native';
 import {Container, Form, Input, Item, Label, Button} from 'native-base';
 import {getUserThunk} from '../store/user';
 import {UserProfile} from '../screens/UserProfile';
 import {newFriend} from '../api/FriendsRoute';
+import SettingsInfo from '../components/SettingsInfo';
 
 class SettingsWrapper extends Component {
-  constructor() {
-    super();
-    this.state = {
-      userName: '',
-      profileImg: '',
-      email: '',
-      location: ''
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  async componentDidMount() {
-    // let userKey = await AsyncStorage.getItem('loggedinUser')
-    // console.log(userKey)
-    // this.props.getUserAction();
-  }
-
-  handleChange(event) {
-    event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  handleSubmit() {}
 
   render() {
-    {
-    }
     return (
       <PageWrapperView>
-        <HeaderText>This is the Settings Page:</HeaderText>
-        <Form></Form>
+        <HeaderText>Settings</HeaderText>
+        <SettingsInfo />
       </PageWrapperView>
     );
   }

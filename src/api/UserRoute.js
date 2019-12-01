@@ -95,12 +95,20 @@ export async function loginUser(email, password) {
   }
 }
 
-export async function login(user, success_callback, failed_callback) {
-  await firebase
-    .auth()
-    .signInWithEmailAndPassword(user.email, user.password)
-    .then(success_callback, failed_callback);
-};
+export async function renameUserName(userKey, userName){
+  try{
+    await firebase
+    .firestore()
+    .collection('Users')
+    .doc(userKey)
+    .update({
+      UserName:userName
+    })
+  }
+  catch(error){
+    console.error(error)
+  }
+}
 
 export async function signInWithGoogleAsync() {
   try {
