@@ -28,20 +28,14 @@ class SettingsInfo extends Component {
   }
 
   async handleSubmit(evt) {
-    console.log('state in SettingsInfo >>>>>>', this.state)
-    // const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
     evt.preventDefault();
-    // const userKey = await AsyncStorage.getItem('userKey');
-    // console.log('name changes in SettingsInfo', this.state)
-    // await newTask(userKey, this.state);
     this.props.updateInfoDispatcher(this.state.username, this.state.petName);
-    // this.setState({ petName: '', category: 'Exercise' });
-    navigate('Home');
+    navigate('Top');
   }
 
   handlePetNameChange = event => {
     let name = event.nativeEvent.text;
-    // console.log(name)
     this.setState({ petName: name });
   };
 

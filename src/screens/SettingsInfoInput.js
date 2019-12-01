@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import {
-  PageWrapperView,
+  PageWrapperKeyboardAvoidingView,
   HeaderText,
   HeaderTasksText,
   TaskWrapperView,
   HeaderWrapperView,
   LabelText,
-  TaskView
+  TextInput,
+  BlueButton,
+  ButtonText
 } from '../styles';
 import {
   Text,
-  TextInput,
   StyleSheet,
   KeyboardAvoidingView,
   TouchableHighlight,
@@ -20,95 +21,29 @@ import {
 
 export default function SettingsInfoInput(props) {
   return (
-    <KeyboardAvoidingView style={styles.formView}>
-      <Text style={styles.subheadText}>New Task</Text>
+    <PageWrapperKeyboardAvoidingView>
+      <HeaderText>Update info</HeaderText>
       <LabelText>Change your username:</LabelText>
       <TextInput
         placeholder={props.username}
         placeholderColor="#c4c3cb"
-        style={styles.textInput}
         onChange={props.handleUsernameChange}
         defaultValue={props.username}
       />
 
-      <Text style={styles.subheadText}>New Task</Text>
       <LabelText>Change your pet's name:</LabelText>
       <TextInput
         placeholder={props.petName}
         placeholderColor="#c4c3cb"
-        style={styles.textInput}
         onChange={props.handlePetNameChange}
         defaultValue={props.petName}
       />
-      <TouchableHighlight
-        style={styles.button}
+      <BlueButton
         underlayColor="white"
         onPress={props.handleSubmit}
       >
-        <Text style={styles.buttonText}>Update</Text>
-      </TouchableHighlight>
-    </KeyboardAvoidingView>
+        <ButtonText>Update</ButtonText>
+      </BlueButton>
+    </PageWrapperKeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerText: {
-    fontSize: 20
-  },
-  subheadText: {
-    fontSize: 20,
-    marginBottom: 10,
-    fontWeight: '800',
-    textAlign: 'center'
-  },
-  formView: {
-    flex: 1
-  },
-  textInput: {
-    height: 50,
-    fontSize: 14,
-    borderRadius: 10,
-    borderWidth: 5,
-    padding: 10,
-    borderColor: '#AAE56B',
-    backgroundColor: '#fafafa',
-    marginLeft: 15,
-    marginRight: 15,
-    marginTop: 5,
-    marginBottom: 5,
-    width: 400,
-    alignSelf: 'center'
-  },
-  button: {
-    height: 30,
-    flexDirection: 'row',
-    backgroundColor: '#2DD1B0',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
-    justifyContent: 'center'
-  },
-  addTaskButton: {
-    position: 'absolute',
-    zIndex: 11,
-    right: 20,
-    bottom: 90,
-    backgroundColor: 'yellow',
-    width: 90,
-    height: 90,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 8
-  },
-  buttonText: {
-    fontSize: 24,
-    color: '#111'
-  },
-  taskText: {
-    fontSize: 20,
-    // fontFamily: 'Helvetica'
-  }
-});

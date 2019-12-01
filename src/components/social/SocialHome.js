@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {PageWrapperView, HeaderText} from '../../styles';
+import {PageWrapperAlignTopView, HeaderText} from '../../styles';
 import {
   StyleSheet,
   Button,
@@ -27,13 +27,13 @@ class SocialHome extends Component {
 
   render() {
     return (
-      <PageWrapperView>
+      <PageWrapperAlignTopView>
         <HeaderText>Social Page</HeaderText>
         <UserProfile />
         <Button title="Navigate to Chat"
           onPress = {()=>this.props.navigation.navigate('Chat')}
         />
-      </PageWrapperView>
+      </PageWrapperAlignTopView>
     );
   }
 }

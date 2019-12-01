@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: Constants.statusBarHeight,
-    height: '100%',
+    height: 'auto',
   },
   item: {
     backgroundColor: '#f9c2ff',

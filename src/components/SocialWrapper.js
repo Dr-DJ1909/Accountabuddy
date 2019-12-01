@@ -6,8 +6,12 @@ import { createStackNavigator } from 'react-navigation-stack'
 
 const SocialWrapper = createSwitchNavigator(
   {
-    SocialHome: {screen: SocialHome},
-    Chat: {screen: Chat}
+    SocialHome: {
+      screen: SocialHome
+    },
+    Chat: {
+      screen: Chat
+    }
   },
   {
     initialRouteName: 'SocialHome'
