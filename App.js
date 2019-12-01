@@ -9,7 +9,9 @@ import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import SignUpLogIn from './src/screens/SignUpLogIn';
 import TestPetScreen from './src/screens/TestPetScreen';
 import NavWrapper from './src/components/NavWrapper';
+import PersistedLogin from './src/components/PersistedLogin';
 import ignoreWarnings from 'react-native-ignore-warnings';
+import {getUser} from './src/api/UserRoute';
 // import { createStackNavigator } from 'react-navigation-stack'
 
 ignoreWarnings('Setting a timer');
@@ -18,7 +20,8 @@ const MainNavigator = createSwitchNavigator(
   {
     SignUpLogIn: {screen: SignUpLogIn},
     TestPetScreen: {screen: TestPetScreen},
-    NavWrapper: {screen: NavWrapper}
+    NavWrapper: {screen: NavWrapper},
+    PersistedLogin: {screen: PersistedLogin}
   },
   {
     backBehavior: 'none'
@@ -30,6 +33,9 @@ const AppLogin = createAppContainer(MainNavigator);
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loading: true,
+    };
   }
 
   componentWillMount() {
@@ -37,7 +43,26 @@ export default class App extends Component {
     firebase.initializeApp(config);
   }
 
+  componentDidMount() {
+    this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
+      this.setState({
+        loading: false,
+        user,
+      });
+    });
+  }
+
   render() {
+    if (this.state.loading) return null;
+    if (this.state.user) {
+      console.log('this.state.user >>>', this.state.user.uid)
+      getUser(this.state.user.uid);
+      return (
+        <Provider store={Store}>
+          <PersistedLogin userKey={this.state.user.uid}/>
+        </Provider>
+      )
+    }
     return (
       <Provider store={Store}>
         <AppLogin />
@@ -45,12 +70,3 @@ export default class App extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
