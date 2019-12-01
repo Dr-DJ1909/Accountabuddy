@@ -1,5 +1,5 @@
 import {ListItem, SearchBar} from 'react-native-elements';
-import React, {Component} from 'react';
+import React from 'react';
 import {
   Image,
   Text,
@@ -41,7 +41,6 @@ class SearchUsers extends React.Component {
     const userKey = await AsyncStorage.getItem('userKey');
     const friends = await getFriendList(userKey);
     Promise.all([users, friends, userKey]);
-    console.log('what are friends', friends);
     this.setState({
       users: users,
       userKey: userKey,
@@ -70,7 +69,6 @@ class SearchUsers extends React.Component {
       const textData = text.toLowerCase();
       return itemData.includes(textData); // this will return true if our itemData contains the textData
     });
-    console.log('filtered list>>>>>>>', newData);
     this.setState({
       users: newData
     });
@@ -83,7 +81,7 @@ class SearchUsers extends React.Component {
   renderHeader = () => {
     return (
       <SearchBar
-        placeholder="Search friend name..."
+        placeholder="Search for friend's email..."
         lightTheme
         round
         onChangeText={text => this.searchFilterFunction(text)}
@@ -95,10 +93,10 @@ class SearchUsers extends React.Component {
   render() {
     let users = this.state.users;
     let friends = this.state.friends;
-    newFriend(this.state.userKey, 'TvKvKUdwTrZfmLc5Xu7kkqlXZVC3');
-    newFriend('TvKvKUdwTrZfmLc5Xu7kkqlXZVC3', this.state.userKey);
-    newFriend('XeTqoqUIyBabuPw23ZKHJgufx4W2', this.state.userKey);
-    newFriend(this.state.userKey, 'XeTqoqUIyBabuPw23ZKHJgufx4W2');
+    // newFriend(this.state.userKey, 'TvKvKUdwTrZfmLc5Xu7kkqlXZVC3');
+    // newFriend('TvKvKUdwTrZfmLc5Xu7kkqlXZVC3', this.state.userKey);
+    // newFriend('XeTqoqUIyBabuPw23ZKHJgufx4W2', this.state.userKey);
+    // newFriend(this.state.userKey, 'XeTqoqUIyBabuPw23ZKHJgufx4W2');
     if (this.state.users.length) {
       return (
         <View style={{flex: 1}}>
