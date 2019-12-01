@@ -13,6 +13,10 @@ import {
 import {View, StyleSheet, FlatList} from 'react-native';
 import TaskItem from '../../screens/tasks/TaskItem';
 import {
+  decreaseChoreHPThunk,
+  increaseChoreHPThunk,
+  decreaseExerciseHPThunk,
+  increaseExerciseHPThunk,
   updateTaskThunk,
   deleteTaskThunk,
   failedTaskThunk
@@ -27,9 +31,16 @@ class TaskList extends Component {
     this.delete.bind(this);
     this.failed.bind(this);
   }
-  complete(CompletedTask) {
-    console.log('are you here?', CompletedTask);
-    this.props.updateTaskAction(CompletedTask);
+  complete(completedTask) {
+    console.log('are you here?', completedTask);
+    // this.props.updateTaskAction(CompletedTask)
+
+    if (completedTask.category === 'Chores') {
+      this.props.increaseChoreHPAction(completedTask);
+    }
+    if (completedTask.category === 'Exercise') {
+      this.props.increaseExerciseHPAction(completedTask);
+    }
   }
   delete(unwantedTask) {
     console.log('unwantedTaskHere', unwantedTask);
@@ -37,7 +48,15 @@ class TaskList extends Component {
   }
   failed(failedTask) {
     console.log('failedTaskHere', failedTask);
-    this.props.failedTaskAction(failedTask);
+    // this.props.failedTaskAction(failedTask)
+    if (failedTask.category === 'Chores') {
+      this.props.decreaseChoreHPAction(failedTask);
+      return;
+    }
+    if (failedTask.category === 'Exercise') {
+      this.props.decreaseExerciseHPAction(failedTask);
+      return;
+    }
   }
 
   render() {
@@ -174,10 +193,16 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch) {
   return {
     getUserAction: () => dispatch(getUserThunk()),
-    updateTaskAction: task => dispatch(updateTaskThunk(task)),
+    // updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
     deleteTaskAction: task => dispatch(deleteTaskThunk(task)),
-    failedTaskAction: task => dispatch(failedTaskThunk(task))
+    // failedTaskAction:(task) => dispatch(failedTaskThunk(task)),
+    increaseChoreHPAction: task => dispatch(increaseChoreHPThunk(task)),
+    decreaseChoreHPAction: task => dispatch(decreaseChoreHPThunk(task)),
+    increaseExerciseHPAction: task => dispatch(increaseExerciseHPThunk(task)),
+    decreaseExerciseHPAction: task => dispatch(decreaseExerciseHPThunk(task))
   };
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

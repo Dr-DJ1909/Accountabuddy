@@ -17,9 +17,21 @@ export async function newPetName(userKey, petName){
   }
 }
 
-export async function choreHP(){}
+export async function HPChange(userKey, petObject){
+  try {
+    const newPet = await firebase
+    .firestore()
+    .collection('Users')
+    .doc(userKey)
+    .update({
+      pet:petObject
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
-export async function exerciseHP(){}
+
 
 
 // export function newPet(userKey, petName){
