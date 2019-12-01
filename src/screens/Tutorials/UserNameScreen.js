@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PageWrapperView, HeaderText } from '../styles';
+import { PageWrapperView, HeaderText } from '../../styles';
 import {
   StyleSheet,
   View,
@@ -9,22 +9,22 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
-import {newPet} from '../api/PetRoute'
+import {renameUserName} from '../../api/UserRoute'
 
-export default class TestPetScreen extends Component{
+export default class UserNameScreen extends Component{
   constructor(){
     super()
     this.state = {
-      petName:''
+      UserName:''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  async handleSubmit(){
+  async handleSubmit(newUserName){
+    console.log('this is the userNAme', newUserName)
     let userKey = await AsyncStorage.getItem('userKey')
-    let newPetName = await newPet(userKey, this.state.petName)
-    console.log(newPetName)
+    await renameUserName(userKey, newUserName)
     const {navigate} = this.props.navigation
     navigate('NavWrapper')
   }
@@ -39,11 +39,11 @@ export default class TestPetScreen extends Component{
         <Container style={{ ...styles.container, backgroundColor: '#EFE2E5' }}>
         <Form>
             <Item floatingLabel>
-              <Label>What's your Pet's Name?</Label>
+              <Label>What's your userName?</Label>
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText = {petName =>{this.setState({petName})}}
+                onChangeText = {UserName =>{this.setState({UserName})}}
               />
             </Item>
 
@@ -52,7 +52,7 @@ export default class TestPetScreen extends Component{
               full
               rounded
               primary
-              onPress = {() =>{this.handleSubmit(this.state.petName)}}
+              onPress = {() =>{this.handleSubmit(this.state.UserName)}}
             >
               <Text style={{ color: 'white' }}>Meow</Text>
             </Button>
