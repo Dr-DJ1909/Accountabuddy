@@ -55,7 +55,7 @@ class TaskList extends Component {
     }
     if (failedTask.category === 'Exercise') {
       this.props.decreaseExerciseHPAction(failedTask);
-      return;
+      
     }
   }
 
@@ -202,7 +202,5 @@ const mapDispatchToProps = function(dispatch) {
     decreaseExerciseHPAction: task => dispatch(decreaseExerciseHPThunk(task))
   };
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
