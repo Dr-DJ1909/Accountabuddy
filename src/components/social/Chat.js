@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { PageWrapperAlignTopView } from '../../styles';
-import {firebaseConfig} from '../../../ApiKeys';
-import {login} from '../../api/UserRoute';
+import {newChat, newMessage} from '../../api/ChatRoute'
+
 
 class Chat extends Component {
   // static navigationOptions = ({ navigation }) => ({
@@ -11,7 +11,8 @@ class Chat extends Component {
   // });
 
   state = {
-    messages: []
+    messages: [],
+    messagesArray:''
   };
 
   // get user() {
@@ -45,10 +46,22 @@ class Chat extends Component {
     // login.refOff();
   }
 
-  onSend(messages = []) {
+  async onSend(messages) {
+    console.log('this is getting passed in', messages[0].text)
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
+      messagesArray:[...this.state.messagesArray, messages[0].text]
     }))
+    console.log('hello?', this.state.messagesArray)
+    let user = this.props.userKey
+    console.log('this is the user', this.props.userKey)
+    const chatObject = {
+      content:messages[0].text,
+      author:user,
+      timeCreated:Date()
+    }
+    console.log('chatobject to be passed',chatObject)
+    newMessage(chatObject)
   }
 }
 
