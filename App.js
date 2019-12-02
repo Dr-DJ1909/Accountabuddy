@@ -7,7 +7,8 @@ import firebase from 'firebase';
 import '@firebase/firestore';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import SignUpLogIn from './src/screens/SignUpLogIn';
-import TestPetScreen from './src/screens/TestPetScreen';
+import TestPetScreen from './src/screens/Tutorials/TestPetScreen';
+import UserNameScreen from './src/screens/Tutorials/UserNameScreen';
 import NavWrapper from './src/components/NavWrapper';
 import PersistedLogin from './src/components/PersistedLogin';
 import ignoreWarnings from 'react-native-ignore-warnings';
@@ -20,8 +21,8 @@ const MainNavigator = createSwitchNavigator(
   {
     SignUpLogIn: {screen: SignUpLogIn},
     TestPetScreen: {screen: TestPetScreen},
-    NavWrapper: {screen: NavWrapper},
-    PersistedLogin: {screen: PersistedLogin}
+    UserNameScreen:{screen:UserNameScreen},
+    NavWrapper: {screen: NavWrapper}
   },
   {
     backBehavior: 'none'
