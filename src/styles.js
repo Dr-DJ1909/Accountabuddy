@@ -34,10 +34,9 @@ export const HeaderWrapperView = styled.View`
 `;
 
 export const PetView = styled.View`
-  flex-basis: 75%;
   align-items: center;
   justify-content: center;
-  height: 380px;
+  height: 500px;
   width: 300px;
   background-color: #fff8f3;
   border-width: 3px;
@@ -85,6 +84,7 @@ export const TaskNavBtnView = styled.View`
   padding-top: 40;
   align-self: flex-start;
   z-index: 2;
+  margin-bottom: -40px;
 `;
 
 export const HeaderText = styled.Text`
