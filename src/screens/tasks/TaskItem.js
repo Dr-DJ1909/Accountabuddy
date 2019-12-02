@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
   TaskView,
   TaskText,
-  TaskBtns
+  TaskBtns,
+  TaskBtnsRight
 } from '../../styles';
 import {
   Text,
@@ -16,9 +17,11 @@ function TaskItem(props) {
     autoClose: true,
     onClose: (secid, rowId, direction) => {},
     onOpen: (secId, rowId, direction) => {},
-    right: [{onPress: () => {props.delete()}, text: 'Delete', type: 'delete'}],
+    left: [{onPress: () => {props.complete()}, text: `Done!`, type: 'primary'}],
+    right: [{onPress: () => {props.failed()}, text: `Didn't get it done...`, type: 'delete'}],
     rowId: props.index,
-    sectionId: 1
+    sectionId: 1,
+    buttonWidth: 150
   };
 
   return (
@@ -38,6 +41,13 @@ function TaskItem(props) {
             onPress = {()=>{props.failed()}}
           />
         </TaskBtns>
+        <TaskBtnsRight>
+          <Icon
+            name='trash-2'
+            size={25}
+            onPress={() => props.delete()}
+          />
+        </TaskBtnsRight>
       </TaskView>
     </Swipeout>
   );
