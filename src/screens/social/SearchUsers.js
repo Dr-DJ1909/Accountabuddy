@@ -2,7 +2,7 @@ import {ListItem, SearchBar} from 'react-native-elements';
 import React from 'react';
 import {View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
 import {PageWrapperView, AddTaskBtnView} from '../../styles';
-import {newFriend, getFriendList} from '../../api/FriendsRoute';
+import {newFriend, getFriendList, requestFriend} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import ListUsers from '../../components/social/UsersList';
@@ -93,8 +93,8 @@ class SearchUsers extends React.Component {
                 title={item.email}
                 subtitle={item.UserName}
                 onPress={() => {
-                  newFriend(this.state.userKey, item.uId);
-                  newFriend(item.uId, this.state.userKey);
+                  // requestFriend(this.state.userKey, item.uId);
+                  requestFriend(item.uId, this.state.userKey);
                 }}
               />
             )}

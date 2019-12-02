@@ -1,16 +1,5 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {
-  PageWrapperView,
-  HeaderText,
-  HeaderTasksText,
-  TaskWrapperView,
-  HeaderWrapperView,
-  LabelText,
-  View,
-  Text
-} from '../../styles';
-import {AsyncStorage} from 'react-native';
+import {View, Text} from '../../styles';
 import EditProfileInput from '../social/EditProfileInput';
 class Profile extends Component {
   constructor() {
