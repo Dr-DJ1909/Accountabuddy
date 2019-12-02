@@ -12,7 +12,6 @@ class Chat extends Component {
 
   state = {
     messages: [{
-      createdAt : new Date()
     }],
   };
 
@@ -32,11 +31,9 @@ class Chat extends Component {
       loadChat.messages.forEach((current)=>{
         let date = current.createdAt.toDate()
         current.createdAt = date
-        console.log('are you here?', current.createdAt)
       })
 
-    console.log('previous messages object>>>>>>>>><>>><>>>>>>>>', loadChat.messages)
-    this.setState({
+      this.setState({
       messages:loadChat.messages
     })
     } catch (error) {
