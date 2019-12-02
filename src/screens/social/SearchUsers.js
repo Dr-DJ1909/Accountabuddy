@@ -77,8 +77,7 @@ class SearchUsers extends React.Component {
     let friends = this.state.friends;
     if (this.state.users.length) {
       return (
-        <View style={{flex: 1}}>
-          <TasksHeader></TasksHeader>
+        <View style={{flex: 1, paddingTop: 70}}>
           <FlatList
             extraData={this.state}
             data={this.state.users}

@@ -64,8 +64,7 @@ class FriendRequests extends React.Component {
     console.log('friendshere', friends);
     if (this.state.friends.length) {
       return (
-        <View style={{flex: 1}}>
-          <TasksHeader></TasksHeader>
+        <View style={{flex: 1, paddingTop: 70}}>
           <FlatList
             extraData={this.state}
             data={this.state.friends}
@@ -94,8 +93,14 @@ class FriendRequests extends React.Component {
       );
     } else {
       return (
-        <View>
-          <TasksHeader></TasksHeader>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: 70,
+            flex: 1
+          }}
+        >
           <Text>No friends...</Text>
         </View>
       );

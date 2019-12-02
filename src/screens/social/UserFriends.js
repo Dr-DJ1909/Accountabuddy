@@ -38,8 +38,7 @@ class UserFriends extends React.Component {
     console.log('friendshere', friends);
     if (this.state.friends.length) {
       return (
-        <View style={{flex: 1}}>
-          <TasksHeader></TasksHeader>
+        <View style={{flex: 1, paddingTop: 70}}>
           <FlatList
             extraData={this.state}
             data={this.state.friends}
