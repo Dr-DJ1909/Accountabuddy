@@ -1,39 +1,3 @@
-// class UserProfile extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       user: [],
-//       userKey: '',
-//       friends: []
-//     };
-//   }
-//   async componentDidMount() {
-//     AsyncStorage.getItem('userKey');
-//     const friends = await getFriendList(userKey);
-//     Promise.all([friends, userKey]);
-//     console.log('what are friends', friends);
-//     this.setState({
-//       userKey: userKey,
-//       friends: friends
-//     });
-//   }
-//   render() {
-//     let {userKey, friends} = this.state;
-//     if (this.state.friends) {
-//       return (
-//         <ProfileWrapperView>
-//           <TasksHeader></TasksHeader>
-//           <BubbleText>User Profile</BubbleText>
-//         </ProfileWrapperView>
-//       );
-//     } else {
-//       return <View></View>;
-//     }
-//   }
-// }
-
-// export default UserProfile;
-
 import React, {Component} from 'react';
 import {Image, Text, View, StyleSheet, AsyncStorage} from 'react-native';
 import {
@@ -49,90 +13,91 @@ import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import ListUsers from '../../components/social/UsersList';
 import TasksHeader from '../../components/tasks/TasksHeader';
+import Profile from '../../components/social/Profile';
+import UserFriends from '../social/UserFriends';
 
 export default class UserProfile extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: [],
+      userKey: '',
+      friends: []
+    };
+  }
+  async componentDidMount() {
+    AsyncStorage.getItem('userKey');
+    const friends = await getFriendList(userKey);
+    Promise.all([friends, userKey]);
+    console.log('what are friends', friends);
+    this.setState({
+      userKey: userKey,
+      friends: friends
+    });
+  }
   render() {
-    return (
-      <View style={styles.container}>
-        <TasksHeader></TasksHeader>
-        <View style={styles.header}>
-          <View style={styles.headerContent}>
-            <Image
-              style={styles.avatar}
-              source={require('../../assets/catIcon.png')}
-            />
+    let {userKey, friends} = this.state;
+    if (this.state.friends) {
+      return (
+        <View style={styles.container}>
+          <TasksHeader></TasksHeader>
 
-            <Text style={styles.name}>User Name Here</Text>
-            <Text style={styles.userInfo}>Email </Text>
-            <Text style={styles.userInfo}>Test </Text>
-          </View>
-        </View>
-
-        <View style={styles.content}>
-          <View style={styles.item}>
-            <View style={styles.iconContent}>
+          <View style={styles.header}>
+            <View style={styles.headerText}>
               <Image
                 style={styles.icon}
-                source={{uri: 'https://png.icons8.com/home/win8/50/ffffff'}}
+                source={require('../../assets/catIcon.png')}
               />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Home</Text>
+
+              <Text style={styles.name}>User Name Here</Text>
+              <Text style={styles.userInfo}>Email </Text>
+              <Text style={styles.userInfo}>Test </Text>
             </View>
           </View>
 
-          <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{uri: 'https://png.icons8.com/settings/win8/50/ffffff'}}
-              />
+          <View style={styles.content}>
+            <View style={styles.item}>
+              <View style={styles.iconContent}>
+                <Image
+                  style={styles.icon}
+                  source={{uri: 'https://png.icons8.com/home/win8/50/ffffff'}}
+                />
+              </View>
+              {/* <Profile /> */}
             </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Settings</Text>
-            </View>
-          </View>
 
-          <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{uri: 'https://png.icons8.com/news/win8/50/ffffff'}}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>News</Text>
-            </View>
-          </View>
-
-          <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: 'https://png.icons8.com/shopping-basket/ios11/50/ffffff'
-                }}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Shop</Text>
+            <View style={styles.item}>
+              <View style={styles.iconContent}>
+                <Image
+                  style={styles.icon}
+                  source={{
+                    uri: 'https://png.icons8.com/settings/win8/50/ffffff'
+                  }}
+                />
+              </View>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>Friends</Text>
+                <UserFriends />
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    );
+      );
+    } else {
+      return <View></View>;
+    }
   }
 }
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#DCDCDC'
+    backgroundColor: '#644D78'
   },
-  headerContent: {
+  headerText: {
     padding: 30,
     alignItems: 'center'
   },
-  avatar: {
+  icon: {
     width: 130,
     height: 130,
     borderRadius: 63,

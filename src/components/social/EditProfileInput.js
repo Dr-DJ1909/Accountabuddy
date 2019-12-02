@@ -18,25 +18,34 @@ import {
   AsyncStorage
 } from 'react-native';
 
-export default function AddTaskInput(props) {
+export default function EditProfileInput(props) {
   return (
     <KeyboardAvoidingView style={styles.formView}>
       <Text style={styles.subheadText}>New Task</Text>
-      <LabelText>About Me:</LabelText>
+      <LabelText>Describe Task</LabelText>
       <TextInput
-        placeholder={props.bio}
+        placeholder="Task Name"
         placeholderColor="#c4c3cb"
         style={styles.textInput}
-        onChange={props.handleBioChange}
-        defaultValue={props.bio}
+        onChange={props.handleNameChange}
+        defaultValue={props.name}
       />
+      <LabelText>Choose Category: </LabelText>
+      <Picker
+        selectedValue={props.category}
+        onValueChange={props.handleCategoryChange}
+      >
+        <Picker.Item label="Exercise" value="Exercise" />
+        <Picker.Item label="Chores" value="Chores" />
+        <Picker.Item label="Social" value="Social" />
+      </Picker>
 
       <TouchableHighlight
         style={styles.button}
         underlayColor="white"
         onPress={props.handleSubmit}
       >
-        <Text style={styles.buttonText}>Update Bio</Text>
+        <Text style={styles.buttonText}>Add</Text>
       </TouchableHighlight>
     </KeyboardAvoidingView>
   );
