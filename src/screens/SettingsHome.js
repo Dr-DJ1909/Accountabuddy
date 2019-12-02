@@ -1,21 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {AsyncStorage} from 'react-native';
 import {PageWrapperAlignTopView, HeaderText, BlueButton, ButtonText} from '../styles';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  KeyboardAvoidingView,
-  AsyncStorage,
-  TextInput
-} from 'react-native';
-import {Container, Form, Input, Item, Label, Button} from 'native-base';
 import {getUserThunk} from '../store/user';
-import SettingsInfo from '../components/SettingsInfo';
+import firebase from 'firebase';
+
+logOutUser = async () => {
+  try {
+      await firebase.auth().signOut();
+      AsyncStorage.clear();
+  } catch (error) {
+      console.error(error);
+  }
+}
 
 class SettingsWrapper extends Component {
-
   render() {
     const {navigate} = this.props.navigation;
     return (
@@ -24,6 +23,10 @@ class SettingsWrapper extends Component {
         <BlueButton
           onPress={() => navigate('ChangeInfo')}>
           <ButtonText>Change your username or your pet's name</ButtonText>
+        </BlueButton>
+        <BlueButton
+          onPress={() => logOutUser()}>
+          <ButtonText>Log out</ButtonText>
         </BlueButton>
       </PageWrapperAlignTopView>
     );

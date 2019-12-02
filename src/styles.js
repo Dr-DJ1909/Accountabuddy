@@ -7,6 +7,12 @@ export const PageWrapperView = styled.View`
   justify-content: center;
 `;
 
+export const ProfileWrapperView = styled.View`
+  flex: 1;
+  background-color: #ffe4e1;
+  align-items: center;
+`;
+
 export const PageWrapperAlignTopView = styled.View`
   flex: 1;
   background-color: #7cc6fe;
@@ -57,7 +63,7 @@ export const AbsolutePositionBubbleView = styled.View`
 
 export const TaskView = styled.View`
   height: 80;
-  background-color: #FF6700;
+  background-color: #ff6700;
   border-style: solid;
   border-width: 3px;
   padding: 5px;
@@ -89,8 +95,7 @@ export const TaskNavBtnView = styled.View`
 
 export const HeaderText = styled.Text`
   font-size: 30px;
-  color: #0A369D;
-  margin-bottom: 10px;
+  color: #0a369d;
 `;
 
 export const BubbleText = styled.Text`
