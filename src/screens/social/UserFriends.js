@@ -9,7 +9,7 @@ import {ListItem} from 'react-native-elements';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-import ListUsers from '../../components/social/UsersList';
+
 import TasksHeader from '../../components/tasks/TasksHeader';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -48,10 +48,6 @@ class UserFriends extends React.Component {
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
                 subtitle={item.UserName}
-                onPress={() => {
-                  newFriend(this.state.userKey, item.uId);
-                  newFriend(item.uId, this.state.userKey);
-                }}
               />
             )}
             // keyExtractor={item => item.email}

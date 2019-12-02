@@ -1,15 +1,22 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, StyleSheet, AsyncStorage} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  AsyncStorage,
+  TouchableOpacity,
+  Button
+} from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
   HeaderText
 } from '../../styles';
-import {ListItem} from 'react-native-elements';
+import {ListItem, ButtonGroup} from 'react-native-elements';
 import {newFriend, getPendingList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-import ListUsers from '../../components/social/UsersList';
 import TasksHeader from '../../components/tasks/TasksHeader';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -35,6 +42,23 @@ class FriendRequests extends React.Component {
     console.log('friendReq>>>>', friends);
     console.log('check', this.state.users);
   }
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%',
+          marginBottom: '5%'
+        }}
+      >
+        {/* <Button title="click" /> */}
+      </View>
+    );
+  };
+
   render() {
     let friends = this.state.friends;
     console.log('friendshere', friends);
@@ -47,20 +71,18 @@ class FriendRequests extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
+                rightElement={
+                  <Button
+                    title="Accept"
+                    onPress={() => {
+                      newFriend(this.state.userKey, item.uId);
+                      newFriend(item.uId, this.state.userKey);
+                    }}
+                  />
+                }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
                 subtitle={item.UserName}
-                //uId data undefined????
-                onPress={() => {
-                  console.log(
-                    'friendrequest state>>>>>',
-                    this.state,
-                    'item uid',
-                    item.uId
-                  );
-                  newFriend(this.state.userKey, item.uId);
-                  newFriend(item.uId, this.state.userKey);
-                }}
               />
             )}
             // keyExtractor={item => item.email}

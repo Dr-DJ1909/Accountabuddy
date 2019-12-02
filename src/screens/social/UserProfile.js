@@ -11,7 +11,7 @@ import {
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-import ListUsers from '../../components/social/UsersList';
+
 import TasksHeader from '../../components/tasks/TasksHeader';
 import Profile from '../../components/social/Profile';
 import UserFriends from '../social/UserFriends';
