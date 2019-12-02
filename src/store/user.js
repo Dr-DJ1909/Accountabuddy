@@ -1,6 +1,7 @@
 import {AsyncStorage} from 'react-native';
 import {AllIncompleteTasks, AllCompleteTasks, TaskComplete, TaskFailed, deleteTask} from '../api/TaskRoute'
-import {HPChange} from '../api/PetRoute'
+import {HPChange, newPetName} from '../api/PetRoute'
+import { renameUserName } from '../api/UserRoute';
 
 /*
 how we have connected firebase, redux, and asyncstorage (example using signup/login):
@@ -23,6 +24,8 @@ const initialState = {
 const GET_USER = 'GET_USER';
 const GET_USER_KEY = 'GET_USER_KEY';
 
+const UPDATE_INFO = 'UPDATE_INFO';
+
 // const UPDATE_TASK = 'UPDATE_TASK' //from incomplete to complete
 const ADD_TASK = 'ADD_TASK'
 // const FAILED_TASK = 'FAILED_TASK'
@@ -32,6 +35,13 @@ const DECREASE_CHOREHP = 'DECREASE_CHOREHP'
 const INCREASE_CHOREHP = 'INCREASE_CHOREHP'
 const DECREASE_EXERCISEHP = 'DECREASE_EXERCISEHP'
 const INCREASE_EXERCISEHP = 'INCREASE_EXERCISEHP'
+
+const updateInfo = (user) => {
+  return {
+    type: UPDATE_INFO,
+    user
+  }
+}
 
 const decreaseChoreHP = (user) =>{
   return{
@@ -105,6 +115,23 @@ const getUserKey = userKey => {
   };
 };
 
+export const updateInfoThunk = (username, petName) =>{
+  return async function (dispatch){
+    try {
+      const userKey = await AsyncStorage.getItem('userKey')
+      const retrievedData = await AsyncStorage.getItem('loggedinUser')
+      const user = JSON.parse(retrievedData)
+      renameUserName(userKey, username)
+      newPetName(userKey, petName)
+      user.UserName = username
+      user.pet.Name = petName
+      AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
+      dispatch(updateInfo(user))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 export const decreaseChoreHPThunk = (failedTask) =>{
   return async function(dispatch){
@@ -239,7 +266,6 @@ export const addTaskThunk = newTask =>{
 export const getAllTasksThunk = allTasks =>{
   return function (dispatch){
     try{
-      console.log('GetAllTasks being accessed')
       dispatch(getAllTasks(allTasks))
     }
     catch(error){
@@ -282,7 +308,6 @@ export const deleteTaskThunk = deletedTask =>{
           return current}
         })
         user.incompleteTasks = newIncomplete
-      console.log('user that deleted item', user)
       AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
       dispatch(deleteTaskAction(user))
     } catch (error) {
@@ -293,7 +318,6 @@ export const deleteTaskThunk = deletedTask =>{
 
 export const getUserThunk = user => dispatch => {
   try {
-    console.log('the thunk is being accessed');
     dispatch(getUser(user));
   } catch (error) {
     console.error(error);
@@ -315,16 +339,16 @@ export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER:
       AsyncStorage.setItem('loggedinUser', JSON.stringify(action.user));
-      console.log('the user in state >>>', action.user);
       return {...state, user: action.user};
 
     case GET_USER_KEY:
       AsyncStorage.setItem('userKey', action.userKey);
-      console.log('userKey in state>>>', action.userKey);
       return {...state, userKey: action.userKey};
 
+    case UPDATE_INFO:
+      return {...state, user: action.user}
+
     case ADD_TASK:
-      console.log('action.user >>>', action.user)
       return{...state, user: action.user}
 
     // case UPDATE_TASK:

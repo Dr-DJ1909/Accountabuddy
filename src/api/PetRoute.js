@@ -9,7 +9,7 @@ export async function newPetName(userKey, petName){
     .collection('Users')
     .doc(userKey)
     .update({
-      pet:{Name:petName}
+      'pet.Name':petName
     })
     return newPet
   } catch (error) {
