@@ -1,28 +1,11 @@
 import {ListItem, SearchBar} from 'react-native-elements';
 import React from 'react';
-import {
-  Image,
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-  AsyncStorage,
-  Button
-} from 'react-native';
-import {
-  PageWrapperView,
-  AbsolutePositionPetView,
-  HeaderText,
-  PetView,
-  BubbleText,
-  AbsolutePositionBubbleView,
-  AddTaskBtnView
-} from '../../styles';
+import {View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
+import {PageWrapperView, AddTaskBtnView} from '../../styles';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import ListUsers from '../../components/social/UsersList';
-import SafeAreaView from 'react-native-safe-area-view';
 import Constants from 'expo-constants';
 import TasksHeader from '../../components/tasks/TasksHeader';
 class SearchUsers extends React.Component {

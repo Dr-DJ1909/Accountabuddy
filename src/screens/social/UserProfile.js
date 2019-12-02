@@ -1,15 +1,43 @@
+// class UserProfile extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       user: [],
+//       userKey: '',
+//       friends: []
+//     };
+//   }
+//   async componentDidMount() {
+//     AsyncStorage.getItem('userKey');
+//     const friends = await getFriendList(userKey);
+//     Promise.all([friends, userKey]);
+//     console.log('what are friends', friends);
+//     this.setState({
+//       userKey: userKey,
+//       friends: friends
+//     });
+//   }
+//   render() {
+//     let {userKey, friends} = this.state;
+//     if (this.state.friends) {
+//       return (
+//         <ProfileWrapperView>
+//           <TasksHeader></TasksHeader>
+//           <BubbleText>User Profile</BubbleText>
+//         </ProfileWrapperView>
+//       );
+//     } else {
+//       return <View></View>;
+//     }
+//   }
+// }
+
+// export default UserProfile;
+
 import React, {Component} from 'react';
+import {Image, Text, View, StyleSheet, AsyncStorage} from 'react-native';
 import {
-  Image,
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-  AsyncStorage
-} from 'react-native';
-import {
-  PageWrapperView,
-  AbsolutePositionPetView,
+  ProfileWrapperView,
   HeaderText,
   PetView,
   BubbleText,
@@ -20,75 +48,134 @@ import {newFriend, getFriendList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import ListUsers from '../../components/social/UsersList';
-import SafeAreaView from 'react-native-safe-area-view';
-import Constants from 'expo-constants';
 import TasksHeader from '../../components/tasks/TasksHeader';
 
-class UserProfile extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-      userKey: '',
-      friends: []
-    };
-  }
-  async componentDidMount() {
-    let users = await getUsers();
-    const userKey = await AsyncStorage.getItem('userKey');
-    const friends = await getFriendList(userKey);
-    Promise.all([users, friends, userKey]);
-
-    console.log('what are friends', friends);
-    this.setState({
-      users: users,
-      userKey: userKey,
-      friends: friends
-    });
-    console.log('check', this.state.friends);
-  }
+export default class UserProfile extends Component {
   render() {
-    let users = this.state.users;
-    let friends = this.state.friends;
-    newFriend(this.state.userKey, 'TvKvKUdwTrZfmLc5Xu7kkqlXZVC3');
-    newFriend('TvKvKUdwTrZfmLc5Xu7kkqlXZVC3', this.state.userKey);
-    newFriend('XeTqoqUIyBabuPw23ZKHJgufx4W2', this.state.userKey);
-    newFriend(this.state.userKey, 'XeTqoqUIyBabuPw23ZKHJgufx4W2');
-    if (this.state.users.length) {
-      return (
-        <SafeAreaView style={styles.container}>
-          <TasksHeader></TasksHeader>
-          <Text>test</Text>
-          <FlatList
-            data={friends}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => (
-              <ListUsers item={item} uId={this.state.userKey} />
-            )}
-          ></FlatList>
-        </SafeAreaView>
-      );
-    } else {
-      return <View></View>;
-    }
+    return (
+      <View style={styles.container}>
+        <TasksHeader></TasksHeader>
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <Image
+              style={styles.avatar}
+              source={require('../../assets/catIcon.png')}
+            />
+
+            <Text style={styles.name}>User Name Here</Text>
+            <Text style={styles.userInfo}>Email </Text>
+            <Text style={styles.userInfo}>Test </Text>
+          </View>
+        </View>
+
+        <View style={styles.content}>
+          <View style={styles.item}>
+            <View style={styles.iconContent}>
+              <Image
+                style={styles.icon}
+                source={{uri: 'https://png.icons8.com/home/win8/50/ffffff'}}
+              />
+            </View>
+            <View style={styles.infoContent}>
+              <Text style={styles.info}>Home</Text>
+            </View>
+          </View>
+
+          <View style={styles.item}>
+            <View style={styles.iconContent}>
+              <Image
+                style={styles.icon}
+                source={{uri: 'https://png.icons8.com/settings/win8/50/ffffff'}}
+              />
+            </View>
+            <View style={styles.infoContent}>
+              <Text style={styles.info}>Settings</Text>
+            </View>
+          </View>
+
+          <View style={styles.item}>
+            <View style={styles.iconContent}>
+              <Image
+                style={styles.icon}
+                source={{uri: 'https://png.icons8.com/news/win8/50/ffffff'}}
+              />
+            </View>
+            <View style={styles.infoContent}>
+              <Text style={styles.info}>News</Text>
+            </View>
+          </View>
+
+          <View style={styles.item}>
+            <View style={styles.iconContent}>
+              <Image
+                style={styles.icon}
+                source={{
+                  uri: 'https://png.icons8.com/shopping-basket/ios11/50/ffffff'
+                }}
+              />
+            </View>
+            <View style={styles.infoContent}>
+              <Text style={styles.info}>Shop</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
   }
 }
 
-export default UserProfile;
-
-//for testing view purposes
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: Constants.statusBarHeight
+  header: {
+    backgroundColor: '#DCDCDC'
+  },
+  headerContent: {
+    padding: 30,
+    alignItems: 'center'
+  },
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: 'white',
+    marginBottom: 10
+  },
+  name: {
+    fontSize: 22,
+    color: '#000000',
+    fontWeight: '600'
+  },
+  userInfo: {
+    fontSize: 16,
+    color: '#778899',
+    fontWeight: '600'
+  },
+  content: {
+    backgroundColor: '#D8C4E9',
+    height: 600,
+    alignItems: 'center'
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16
+    flexDirection: 'row'
   },
-  title: {
-    fontSize: 32
+  infoContent: {
+    flex: 1,
+    alignItems: 'flex-start',
+    paddingLeft: 5
+  },
+  iconContent: {
+    flex: 1,
+    alignItems: 'flex-end',
+    paddingRight: 5
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    marginTop: 20
+  },
+  info: {
+    fontSize: 18,
+    marginTop: 20,
+    color: '#FFFFFF'
   }
 });

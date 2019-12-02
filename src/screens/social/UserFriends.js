@@ -26,49 +26,43 @@ class UserFriends extends React.Component {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
     const friends = await getFriendList(userKey);
-    Promise.all([users, friends, userKey]);
-
-    console.log('what are friends', this.state.users);
+    Promise.all([friends, userKey]);
     this.setState({
-      users: users,
       userKey: userKey,
       friends: friends
     });
     console.log('check', this.state.users);
   }
   render() {
-    let users = this.state.users;
     let friends = this.state.friends;
-    newFriend(this.state.userKey, 'TvKvKUdwTrZfmLc5Xu7kkqlXZVC3');
-    newFriend('TvKvKUdwTrZfmLc5Xu7kkqlXZVC3', this.state.userKey);
-    newFriend('XeTqoqUIyBabuPw23ZKHJgufx4W2', this.state.userKey);
-    newFriend(this.state.userKey, 'XeTqoqUIyBabuPw23ZKHJgufx4W2');
-    if (this.state.users.length) {
+    console.log('friendshere', friends);
+    if (this.state.friends.length) {
       return (
         <View style={{flex: 1}}>
           <TasksHeader></TasksHeader>
-          <View style={styles.header}>
-            <View style={styles.headerContent}>
-              <Text style={styles.name}>John Doe</Text>
-              <FlatList
-                data={this.state.data}
-                renderItem={({item}) => (
-                  <ListItem
-                    roundAvatar
-                    title={`${item.name.first} ${item.name.last}`}
-                    subtitle={item.email}
-                    avatar={{uri: item.picture.thumbnail}}
-                    containerStyle={{borderBottomWidth: 0}}
-                  />
-                )}
-                keyExtractor={item => item.email}
-                ItemSeparatorComponent={this.renderSeparator}
-                ListHeaderComponent={this.renderHeader}
+          <FlatList
+            extraData={this.state}
+            data={this.state.friends}
+            renderItem={({item}) => (
+              <ListItem
+                // leftAvatar={{source: {uri: item.picture.thumbnail}}}
+                title={item.email}
+                subtitle={item.UserName}
+                onPress={() => {
+                  newFriend(this.state.userKey, item.uId);
+                  newFriend(item.uId, this.state.userKey);
+                }}
               />
-            </View>
-          </View>
+            )}
+            // keyExtractor={item => item.email}
+            keyExtractor={(item, index) => `${index}`}
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
+          />
         </View>
       );
+    } else {
+      return <View></View>;
     }
   }
 }
