@@ -40,10 +40,9 @@ export const HeaderWrapperView = styled.View`
 `;
 
 export const PetView = styled.View`
-  flex-basis: 75%;
   align-items: center;
   justify-content: center;
-  height: 380px;
+  height: 500px;
   width: 300px;
   background-color: #fff8f3;
   border-width: 3px;
@@ -64,7 +63,7 @@ export const AbsolutePositionBubbleView = styled.View`
 
 export const TaskView = styled.View`
   height: 80;
-  background-color: #ff6700;
+  background-color: #EBEBEB;
   border-style: solid;
   border-width: 3px;
   padding: 5px;
@@ -80,6 +79,16 @@ export const TaskBtns = styled.View`
   align-items: flex-start;
 `
 
+export const TaskBtnsRight = styled.View`
+  display: flex;
+  position: absolute;
+  height: 60;
+  right: 5;
+  top: 6;
+  justify-content: flex-end;
+  align-items: flex-end;
+`
+
 export const AddTaskBtnView = styled.View`
   position: absolute;
   top: 430px;
@@ -91,6 +100,7 @@ export const TaskNavBtnView = styled.View`
   padding-top: 40;
   align-self: flex-start;
   z-index: 2;
+  margin-bottom: -40px;
 `;
 
 export const HeaderText = styled.Text`

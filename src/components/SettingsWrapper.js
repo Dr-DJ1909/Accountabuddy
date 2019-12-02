@@ -12,6 +12,7 @@ const SettingsWrapper = createSwitchNavigator({
   }
 },{
   initialRouteName: 'Top',
+  backBehavior: 'initialRoute'
 });
 
 
