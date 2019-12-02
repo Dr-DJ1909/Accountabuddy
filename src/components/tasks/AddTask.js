@@ -22,8 +22,7 @@ class AddTask extends Component {
     super();
     this.state = {
       name: '',
-      category: 'Esxercise',
-      completion: false
+      category: 'Exercise',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);

@@ -40,8 +40,6 @@ export default class UserProfile extends Component {
     if (this.state.friends) {
       return (
         <View style={styles.container}>
-          <TasksHeader></TasksHeader>
-
           <View style={styles.header}>
             <View style={styles.headerText}>
               <Image

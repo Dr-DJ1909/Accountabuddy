@@ -99,4 +99,7 @@ export async function getPendingList(key) {
   } catch (error) {
     console.log('error', error);
   }
+
+export async function ChatLog(){
+
 }

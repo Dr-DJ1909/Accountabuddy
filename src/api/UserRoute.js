@@ -25,6 +25,21 @@ async function newUser(user) {
   }
 }
 
+export async function renameUserName(userKey, userName){
+  try{
+    await firebase
+    .firestore()
+    .collection('Users')
+    .doc(userKey)
+    .update({
+      UserName:userName
+    })
+  }
+  catch(error){
+    console.error(error)
+  }
+}
+
 export async function signUpUser(email, password) {
   try {
     if (password < 6) {
