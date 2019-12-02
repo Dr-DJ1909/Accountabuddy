@@ -29,7 +29,8 @@ const SocialWrapper = createSwitchNavigator(
     }
   },
   {
-    initialRouteName: 'SocialHome'
+    initialRouteName: 'SocialHome',
+    backBehavior: 'initialRoute'
   }
 );
 

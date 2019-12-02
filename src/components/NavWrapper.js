@@ -51,6 +51,7 @@ const bottomTabNavigator = createMaterialBottomTabNavigator(
     },
     initialRouteName: 'Home',
     backBehavior: 'none',
+    resetOnBlur: true
   }
 )
 
