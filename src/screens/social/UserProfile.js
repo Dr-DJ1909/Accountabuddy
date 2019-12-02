@@ -6,10 +6,10 @@ import {
   PetView,
   BubbleText,
   AbsolutePositionBubbleView,
-  AddTaskBtnView
+  ProfileHeaderView
 } from '../../styles';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
-import {getUsers} from '../../api/UserRoute';
+import {getUsers, getUser} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import ListUsers from '../../components/social/UsersList';
 import TasksHeader from '../../components/tasks/TasksHeader';
@@ -20,7 +20,7 @@ export default class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
-      user: [],
+      user: '',
       userKey: '',
       friends: []
     };
@@ -28,56 +28,46 @@ export default class UserProfile extends Component {
   async componentDidMount() {
     AsyncStorage.getItem('userKey');
     const friends = await getFriendList(userKey);
-    Promise.all([friends, userKey]);
+    let user = await getUser(userKey);
+    Promise.all([friends, userKey, user]);
     console.log('what are friends', friends);
     this.setState({
       userKey: userKey,
+      user: user,
       friends: friends
     });
   }
+  // let userKey = AsyncStorage.getItem('userKey');
+  //   let friends = await getFriendList(userKey);
+  //   let user = await getUser(userKey);
+  //   Promise.all([friends, userKey, user]);
+  //   this.setState({
+  //     user: user,
+  //     friends: friends
+  //   });
+  //   console.log('AAYY', this.state.user);
   render() {
+    console.log('AAYY', this.state.user);
     let {userKey, friends} = this.state;
     if (this.state.friends) {
       return (
-        <View style={styles.container}>
+        <View>
           <TasksHeader></TasksHeader>
 
-          <View style={styles.header}>
+          <ProfileHeaderView>
             <View style={styles.headerText}>
               <Image
-                style={styles.icon}
+                style={styles.pic}
                 source={require('../../assets/catIcon.png')}
               />
 
               <Text style={styles.name}>User Name Here</Text>
-              <Text style={styles.userInfo}>Email </Text>
-              <Text style={styles.userInfo}>Test </Text>
             </View>
-          </View>
+          </ProfileHeaderView>
 
           <View style={styles.content}>
             <View style={styles.item}>
-              <View style={styles.iconContent}>
-                <Image
-                  style={styles.icon}
-                  source={{uri: 'https://png.icons8.com/home/win8/50/ffffff'}}
-                />
-              </View>
-              {/* <Profile /> */}
-            </View>
-
-            <View style={styles.item}>
-              <View style={styles.iconContent}>
-                <Image
-                  style={styles.icon}
-                  source={{
-                    uri: 'https://png.icons8.com/settings/win8/50/ffffff'
-                  }}
-                />
-              </View>
-              <View style={styles.infoContent}>
-                <Text style={styles.info}>Friends</Text>
-              </View>
+              <Profile />
             </View>
           </View>
         </View>
@@ -89,14 +79,11 @@ export default class UserProfile extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: '#644D78'
-  },
   headerText: {
     padding: 20,
     alignItems: 'center'
   },
-  icon: {
+  pic: {
     width: 130,
     height: 130,
     borderRadius: 63,
@@ -108,11 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#FFFAF0',
     fontWeight: '700'
-  },
-  userInfo: {
-    fontSize: 16,
-    color: '#778899',
-    fontWeight: '600'
   },
   content: {
     backgroundColor: '#D8C4E9',
@@ -126,11 +108,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     paddingLeft: 5
-  },
-  iconContent: {
-    flex: 1,
-    alignItems: 'flex-end',
-    paddingRight: 5
   },
   icon: {
     width: 30,

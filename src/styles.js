@@ -7,6 +7,10 @@ export const PageWrapperView = styled.View`
   justify-content: center;
 `;
 
+export const ProfileHeaderView = styled.View`
+  background-color: #644d78;
+`;
+
 export const ProfileWrapperView = styled.View`
   flex: 1;
   background-color: #ffe4e1;
