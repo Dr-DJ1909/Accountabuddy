@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import '@firebase/firestore';
 
-export async function newPet(userKey, petName){
+export async function newPetName(userKey, petName){
   try {
     await firebase
     .firestore()
