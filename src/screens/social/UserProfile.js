@@ -77,7 +77,6 @@ export default class UserProfile extends Component {
               </View>
               <View style={styles.infoContent}>
                 <Text style={styles.info}>Friends</Text>
-                <UserFriends />
               </View>
             </View>
           </View>
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#644D78'
   },
   headerText: {
-    padding: 30,
+    padding: 20,
     alignItems: 'center'
   },
   icon: {
@@ -106,9 +105,9 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   name: {
-    fontSize: 22,
-    color: '#000000',
-    fontWeight: '600'
+    fontSize: 20,
+    color: '#FFFAF0',
+    fontWeight: '700'
   },
   userInfo: {
     fontSize: 16,
