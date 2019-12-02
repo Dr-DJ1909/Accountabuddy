@@ -8,17 +8,8 @@ import {
   KeyboardAvoidingView,
   AsyncStorage
 } from 'react-native';
-import {Container, Form, Input, Item, Label, Button} from 'native-base';
-import {withNavigation} from 'react-navigation';
-import {
-  newUser,
-  googleUser,
-  signUpUser,
-  signInWithGoogleAsync,
-  loginUser,
-  getUser
-} from '../api/UserRoute';
-import * as firebase from 'firebase';
+import { PageWrapperView, HeaderText } from '../styles';
+import { getUser } from '../api/UserRoute';
 import {getUserThunk, getUserKeyThunk} from '../store/user';
 import NavWrapper from './NavWrapper';
 
@@ -26,37 +17,37 @@ class PersistedLogin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
-      imageURI: ''
+      loaded: false
     };
   }
 
   persistedUser = async (userKey) => {
     try {
       const currentUser = await getUser(userKey);
-      // console.log('currentUser >>>>' , currentUser)
       this.props.getUserAction(currentUser);
       this.props.getUserKey(userKey);
+      this.setState({loaded: true})
     } catch (err) {
       console.log(err.toString());
     }
   }
 
-  render() {
+  componentWillMount() {
     this.persistedUser(this.props.userKey)
+  }
+
+  render() {
+    let display = this.state.loaded
+      ? <NavWrapper />
+      : <PageWrapperView>
+        <HeaderText>Loading...</HeaderText>
+        <HeaderText>(*＾▽＾)／</HeaderText>
+      </PageWrapperView>;
     return (
-      <NavWrapper />
+      display
     );
   }
 }
-
-const mapStateToProps = function(state) {
-  console.log('state >>>>>>>>>', this.state)
-  return {
-    user: state.user.user
-  };
-};
 
 const mapDispatchToProps = function(dispatch) {
   return {

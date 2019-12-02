@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {PageWrapperAlignTopView, HeaderText, OrangeButton, ButtonText} from '../styles';
+import {PageWrapperAlignTopView, HeaderText, BlueButton, ButtonText} from '../styles';
 import {
   StyleSheet,
   View,
@@ -21,10 +21,10 @@ class SettingsWrapper extends Component {
     return (
       <PageWrapperAlignTopView>
         <HeaderText>Settings</HeaderText>
-        <OrangeButton
+        <BlueButton
           onPress={() => navigate('ChangeInfo')}>
           <ButtonText>Change your username or your pet's name</ButtonText>
-        </OrangeButton>
+        </BlueButton>
       </PageWrapperAlignTopView>
     );
   }

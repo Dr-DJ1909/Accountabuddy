@@ -23,6 +23,10 @@ export const PageWrapperKeyboardAvoidingView = styled.KeyboardAvoidingView`
   padding-top: 70;
 `;
 
+export const Divider = styled.View`
+  height: 20px;
+`
+
 export const HeaderWrapperView = styled.View`
   height: 90;
   padding-top: 30;
@@ -57,7 +61,18 @@ export const TaskView = styled.View`
   background-color: #FF6700;
   border-style: solid;
   border-width: 3px;
+  padding: 5px;
 `;
+
+export const TaskBtns = styled.View`
+  display: flex;
+  position: absolute;
+  height: 60;
+  left: 5;
+  top: 6;
+  justify-content: space-between;
+  align-items: flex-start;
+`
 
 export const AddTaskBtnView = styled.View`
   position: absolute;
@@ -75,6 +90,7 @@ export const TaskNavBtnView = styled.View`
 export const HeaderText = styled.Text`
   font-size: 30px;
   color: #0A369D;
+  margin-bottom: 10px;
 `;
 
 export const BubbleText = styled.Text`
@@ -162,5 +178,10 @@ export const TextInput = styled.TextInput`
   margin: 10px;
   padding: 5px;
   padding-left: 15px;
+`
+export const Picker = styled.Picker`
+  height: 50;
+  width: 300px;
+  margin: 10px;
 `
 

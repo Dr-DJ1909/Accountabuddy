@@ -1,53 +1,54 @@
 import React, {Component} from 'react';
 import {
-  PageWrapperView,
+  PageWrapperKeyboardAvoidingView,
   HeaderText,
   HeaderTasksText,
   TaskWrapperView,
   HeaderWrapperView,
   LabelText,
-  TaskView
+  TaskView,
+  TextInput,
+  BlueButton,
+  ButtonText,
+  Picker
 } from '../../styles';
 import {
   Text,
-  TextInput,
   StyleSheet,
   KeyboardAvoidingView,
   TouchableHighlight,
-  Picker,
   AsyncStorage
 } from 'react-native';
 
 export default function AddTaskInput(props) {
   return (
-    <KeyboardAvoidingView style={styles.formView}>
-      <Text style={styles.subheadText}>New Task</Text>
-      <LabelText>Describe Task</LabelText>
+    <PageWrapperKeyboardAvoidingView>
+      <HeaderText>Add a new task</HeaderText>
+      <LabelText>What are you going to do?</LabelText>
       <TextInput
-        placeholder="Task Name"
+        placeholder="Go to the gym"
         placeholderColor="#c4c3cb"
-        style={styles.textInput}
         onChange={props.handleNameChange}
         defaultValue={props.name}
       />
-      <LabelText>Choose Category: </LabelText>
+      <LabelText>What category does it belong to?:</LabelText>
       <Picker
         selectedValue={props.category}
         onValueChange={props.handleCategoryChange}
+        mode='dropdown'
       >
         <Picker.Item label="Exercise" value="Exercise" />
         <Picker.Item label="Chores" value="Chores" />
         <Picker.Item label="Social" value="Social" />
       </Picker>
 
-      <TouchableHighlight
-        style={styles.button}
+      <BlueButton
         underlayColor="white"
         onPress={props.handleSubmit}
       >
-        <Text style={styles.buttonText}>Add</Text>
-      </TouchableHighlight>
-    </KeyboardAvoidingView>
+        <ButtonText>Add</ButtonText>
+      </BlueButton>
+    </PageWrapperKeyboardAvoidingView>
   );
 }
 

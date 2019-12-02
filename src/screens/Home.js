@@ -21,7 +21,7 @@ class Home extends Component {
     let petName = this.props ? this.props.petName : <Text />;
     return (
       <PageWrapperView>
-        {/* <HeaderText>{petName}</HeaderText> */}
+        <HeaderText>{petName}</HeaderText>
         <HomePet />
       </PageWrapperView>
     );

@@ -55,7 +55,6 @@ export default class App extends Component {
   render() {
     if (this.state.loading) return null;
     if (this.state.user) {
-      console.log('this.state.user >>>', this.state.user.uid)
       getUser(this.state.user.uid);
       return (
         <Provider store={Store}>
