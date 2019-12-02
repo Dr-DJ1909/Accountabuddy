@@ -9,12 +9,27 @@ export async function newFriend(user, friendId) {
       .collection('Friendships')
       .doc(user)
       .update({
-        [friendId]: true
+        [friendId]: 'noChat'
       });
   } catch (error) {
     console.log('error', error);
   }
 }
+
+export async function addChatRoom(user, friendId, chatRoom){
+  try {
+    await firebase
+    .firestore()
+    .collection('Friendships')
+    .doc(user)
+    .update({
+      [friendId]:chatRoom
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 
 export async function userFriendList(user) {
   try {

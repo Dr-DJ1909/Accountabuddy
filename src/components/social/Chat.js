@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { PageWrapperAlignTopView } from '../../styles';
-import {newChat, newMessage} from '../../api/ChatRoute'
+import {newChat, newMessage, previousMessages} from '../../api/ChatRoute'
 
 
 class Chat extends Component {
@@ -11,8 +11,9 @@ class Chat extends Component {
   // });
 
   state = {
-    messages: [],
-    messagesArray:''
+    messages: [{
+      createdAt : new Date()
+    }],
   };
 
   // get user() {
@@ -24,6 +25,29 @@ class Chat extends Component {
   //     _id: firebaseSDK.uid
   //   };
   // }
+  async componentWillMount() {
+    try {
+      let loadChat = await previousMessages()
+      loadChat.messages.reverse()
+      loadChat.messages.forEach((current)=>{
+        let date = current.createdAt.toDate()
+        current.createdAt = date
+        console.log('are you here?', current.createdAt)
+      })
+
+    console.log('previous messages object>>>>>>>>><>>><>>>>>>>>', loadChat.messages)
+    this.setState({
+      messages:loadChat.messages
+    })
+    } catch (error) {
+      console.error(error)
+    }
+    // login.refOn(message =>
+    //   this.setState(previousState => ({
+    //     messages: GiftedChat.append(previousState.messages, message)
+    //   }))
+    // );
+  }
 
   render() {
     return (
@@ -34,34 +58,28 @@ class Chat extends Component {
         />
     );
   }
-
-  componentDidMount() {
-    // login.refOn(message =>
-    //   this.setState(previousState => ({
-    //     messages: GiftedChat.append(previousState.messages, message)
-    //   }))
-    // );
-  }
   componentWillUnmount() {
     // login.refOff();
   }
 
   async onSend(messages) {
-    console.log('this is getting passed in', messages[0].text)
+    console.log('how does this look?',messages)
     this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-      messagesArray:[...this.state.messagesArray, messages[0].text]
-    }))
-    console.log('hello?', this.state.messagesArray)
+      messages: GiftedChat.append(previousState.messages, messages)}))
     let user = this.props.userKey
-    console.log('this is the user', this.props.userKey)
-    const chatObject = {
-      content:messages[0].text,
-      author:user,
-      timeCreated:Date()
-    }
-    console.log('chatobject to be passed',chatObject)
-    newMessage(chatObject)
+    messages[0].author = user
+    newMessage(messages[0])
+    // const chatObject = {
+    //   content:messages[0].text,
+    //   author:user,
+    //   timeCreated:Date()
+    // }
+    // let message = this.state.messages[this.state.messages.length-1]
+    // console.log('single latest message',message)
+    // if(message){
+    //   message.author = user
+    //   newMessage(message)
+    // }
   }
 }
 
