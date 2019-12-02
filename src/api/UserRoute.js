@@ -110,21 +110,6 @@ export async function loginUser(email, password) {
   }
 }
 
-export async function renameUserName(userKey, userName){
-  try{
-    await firebase
-    .firestore()
-    .collection('Users')
-    .doc(userKey)
-    .update({
-      UserName:userName
-    })
-  }
-  catch(error){
-    console.error(error)
-  }
-}
-
 export async function signInWithGoogleAsync() {
   try {
     const result = await Google.logInAsync({
