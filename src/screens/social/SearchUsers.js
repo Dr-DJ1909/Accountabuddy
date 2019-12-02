@@ -2,10 +2,9 @@ import {ListItem, SearchBar} from 'react-native-elements';
 import React from 'react';
 import {View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
 import {PageWrapperView, AddTaskBtnView} from '../../styles';
-import {newFriend, getFriendList} from '../../api/FriendsRoute';
+import {newFriend, getFriendList, requestFriend} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-import ListUsers from '../../components/social/UsersList';
 import Constants from 'expo-constants';
 import TasksHeader from '../../components/tasks/TasksHeader';
 class SearchUsers extends React.Component {
@@ -76,26 +75,23 @@ class SearchUsers extends React.Component {
   render() {
     let users = this.state.users;
     let friends = this.state.friends;
-    // newFriend(this.state.userKey, 'TvKvKUdwTrZfmLc5Xu7kkqlXZVC3');
-    // newFriend('TvKvKUdwTrZfmLc5Xu7kkqlXZVC3', this.state.userKey);
-    // newFriend('XeTqoqUIyBabuPw23ZKHJgufx4W2', this.state.userKey);
-    // newFriend(this.state.userKey, 'XeTqoqUIyBabuPw23ZKHJgufx4W2');
     if (this.state.users.length) {
       return (
-        <View style={{flex: 1}}>
-          <TasksHeader></TasksHeader>
+        <View style={{flex: 1, paddingTop: 70}}>
           <FlatList
             extraData={this.state}
             data={this.state.users}
             renderItem={({item}) => (
               <ListItem
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
+                rightElement={
+                  <Button
+                    title="Request"
+                    onPress={requestFriend(item.uId, this.state.userKey)}
+                  />
+                }
                 title={item.email}
                 subtitle={item.UserName}
-                onPress={() => {
-                  newFriend(this.state.userKey, item.uId);
-                  newFriend(item.uId, this.state.userKey);
-                }}
               />
             )}
             // keyExtractor={item => item.email}

@@ -31,7 +31,7 @@ export const PageWrapperKeyboardAvoidingView = styled.KeyboardAvoidingView`
 
 export const Divider = styled.View`
   height: 20px;
-`
+`;
 
 export const HeaderWrapperView = styled.View`
   height: 90;
@@ -77,7 +77,7 @@ export const TaskBtns = styled.View`
   top: 6;
   justify-content: space-between;
   align-items: flex-start;
-`
+`;
 
 export const TaskBtnsRight = styled.View`
   display: flex;
@@ -147,8 +147,8 @@ export const TaskText = styled.Text`
 
 export const OrangeButton = styled.TouchableOpacity`
   color: #ffffff;
-  background-color: #FF6700;
-  border: solid 2px #FF6700;
+  background-color: #ff6700;
+  border: solid 2px #ff6700;
   border-radius: 1px;
   align-items: center;
   justify-content: center;
@@ -156,12 +156,12 @@ export const OrangeButton = styled.TouchableOpacity`
   height: 35px;
   width: auto;
   elevation: 3;
-`
+`;
 
 export const BlueButton = styled.TouchableOpacity`
   color: #ffffff;
-  background-color: #0A369D;
-  border: solid 2px #0A369D;
+  background-color: #0a369d;
+  border: solid 2px #0a369d;
   border-radius: 1px;
   align-items: center;
   justify-content: center;
@@ -169,34 +169,32 @@ export const BlueButton = styled.TouchableOpacity`
   height: 35px;
   width: auto;
   elevation: 3;
-`
+`;
 
 export const ButtonText = styled.Text`
   color: #ffffff;
   font-size: 16;
-  font-family: 'normal';
   text-align: center;
   margin-left: 5px;
   margin-right: 5px;
   text-transform: uppercase;
   font-weight: bold;
-`
+`;
 
 export const TextInput = styled.TextInput`
   height: 50;
   font-size: 14;
-  background-color: #EBEBEB;
-  border-color: #0A369D;
+  background-color: #ebebeb;
+  border-color: #0a369d;
   border-width: 4px;
   width: 300px;
   align-self: center;
   margin: 10px;
   padding: 5px;
   padding-left: 15px;
-`
+`;
 export const Picker = styled.Picker`
   height: 50;
   width: 300px;
   margin: 10px;
-`
-
+`;
