@@ -45,3 +45,8 @@ export async function getFriendList(key) {
     console.log('error', error);
   }
 }
+
+
+export async function ChatLog(){
+
+}

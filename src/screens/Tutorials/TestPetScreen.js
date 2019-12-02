@@ -21,10 +21,8 @@ export default class TestPetScreen extends Component{
   }
 
   async handleSubmit(newName){
-    console.log('newname for pet', newName)
 
     let userKey = await AsyncStorage.getItem('userKey')
-
 
     await newPet(userKey, newName)
 

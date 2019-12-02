@@ -9,22 +9,27 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
-import {renameUserName} from '../../api/UserRoute'
+import {renameUserName,getUser} from '../../api/UserRoute'
+import {getUserThunk} from '../../store/user';
+import { connect } from 'react-redux';
 
-export default class UserNameScreen extends Component{
+
+class UserNameScreen extends Component{
   constructor(){
     super()
     this.state = {
       UserName:''
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit.bind(this)
   }
 
   async handleSubmit(newUserName){
-    console.log('this is the userNAme', newUserName)
     let userKey = await AsyncStorage.getItem('userKey')
     await renameUserName(userKey, newUserName)
+    let newUser = await getUser(userKey)
+    console.log('user to be set on state',newUser)
+    this.props.getUserAction(newUser)
     const {navigate} = this.props.navigation
     navigate('NavWrapper')
   }
@@ -72,3 +77,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+
+const mapDispatchToProps = function(dispatch){
+  return{
+    getUserAction:(user) =>dispatch(getUserThunk(user))
+  }
+}
+export default connect(
+  null,
+  mapDispatchToProps)
+(UserNameScreen);
