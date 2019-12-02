@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {
   PageWrapperView,
   HeaderText,
@@ -10,54 +10,57 @@ import {
   TaskView,
   MessageText
 } from '../../styles';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 import TaskItem from '../../screens/tasks/TaskItem';
-import {decreaseChoreHPThunk,increaseChoreHPThunk,decreaseExerciseHPThunk,increaseExerciseHPThunk, updateTaskThunk, deleteTaskThunk, failedTaskThunk } from '../../store/user';
+import {
+  decreaseChoreHPThunk,
+  increaseChoreHPThunk,
+  decreaseExerciseHPThunk,
+  increaseExerciseHPThunk,
+  updateTaskThunk,
+  deleteTaskThunk,
+  failedTaskThunk
+} from '../../store/user';
 import TasksHeader from './TasksHeader';
-import { Header } from 'react-navigation-stack';
+import {Header} from 'react-navigation-stack';
 
 class TaskList extends Component {
   constructor() {
     super();
     this.complete.bind(this);
     this.delete.bind(this);
-    this.failed.bind(this)
+    this.failed.bind(this);
   }
   complete(completedTask) {
     console.log('are you here?', completedTask);
     // this.props.updateTaskAction(CompletedTask)
 
-    if(completedTask.category === 'Chores'){
-      this.props.increaseChoreHPAction(completedTask)
+    if (completedTask.category === 'Chores') {
+      this.props.increaseChoreHPAction(completedTask);
     }
-    if(completedTask.category === 'Exercise'){
-      this.props.increaseExerciseHPAction(completedTask)
+    if (completedTask.category === 'Exercise') {
+      this.props.increaseExerciseHPAction(completedTask);
     }
   }
-  delete(unwantedTask){
-    console.log('unwantedTaskHere', unwantedTask)
-    this.props.deleteTaskAction(unwantedTask)
+  delete(unwantedTask) {
+    console.log('unwantedTaskHere', unwantedTask);
+    this.props.deleteTaskAction(unwantedTask);
   }
-  failed(failedTask){
-    console.log('failedTaskHere', failedTask)
+  failed(failedTask) {
+    console.log('failedTaskHere', failedTask);
     // this.props.failedTaskAction(failedTask)
-    if(failedTask.category === 'Chores'){
-      this.props.decreaseChoreHPAction(failedTask)
-      return
+    if (failedTask.category === 'Chores') {
+      this.props.decreaseChoreHPAction(failedTask);
+      return;
     }
-    if(failedTask.category === 'Exercise'){
-      this.props.decreaseExerciseHPAction(failedTask)
-      return
+    if (failedTask.category === 'Exercise') {
+      this.props.decreaseExerciseHPAction(failedTask);
+      return;
     }
-
   }
 
   render() {
-    const tasksDisplay =
+    const tasksDisplay = (
       <FlatList
         style={{flex: 2, width: '100%'}}
         data={this.props.incompleteTasks}
@@ -69,21 +72,31 @@ class TaskList extends Component {
               item={item}
               style={{flex: 1}}
               index={index}
-              complete={() =>{this.complete(item)}}
-              delete = {() =>{this.delete(item)}}
-              failed = {()=>{this.failed(item)}}
+              complete={() => {
+                this.complete(item);
+              }}
+              delete={() => {
+                this.delete(item);
+              }}
+              failed={() => {
+                this.failed(item);
+              }}
               addTask={this.addTask}
             />
           );
         }}
       />
+    );
 
-    const noTasksDisplay =
-    <MessageText>
-      It looks like you have no tasks yet. Why not try adding one?
-    </MessageText>
+    const noTasksDisplay = (
+      <MessageText>
+        It looks like you have no tasks yet. Why not try adding one?
+      </MessageText>
+    );
 
-    let display = this.props.incompleteTasks.length ? tasksDisplay : noTasksDisplay;
+    let display = this.props.incompleteTasks.length
+      ? tasksDisplay
+      : noTasksDisplay;
     return (
       <PageWrapperView>
         <TasksHeader />
@@ -165,7 +178,7 @@ const styles = StyleSheet.create({
     color: '#111'
   },
   taskText: {
-    fontSize: 20,
+    fontSize: 20
     // fontFamily: 'Helvetica'
   }
 });
@@ -174,24 +187,20 @@ const mapStateToProps = function(state) {
   return {
     user: state.user.user,
     incompleteTasks: state.user.user.incompleteTasks
-  }
-}
+  };
+};
 
 const mapDispatchToProps = function(dispatch) {
   return {
     getUserAction: () => dispatch(getUserThunk()),
     // updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
-    deleteTaskAction:(task) => dispatch(deleteTaskThunk(task)),
+    deleteTaskAction: task => dispatch(deleteTaskThunk(task)),
     // failedTaskAction:(task) => dispatch(failedTaskThunk(task)),
-    increaseChoreHPAction:(task) => dispatch(increaseChoreHPThunk(task)),
-    decreaseChoreHPAction: (task) => dispatch(decreaseChoreHPThunk(task)),
-    increaseExerciseHPAction:(task) =>dispatch(increaseExerciseHPThunk(task)),
-    decreaseExerciseHPAction: (task) =>dispatch(decreaseExerciseHPThunk(task))
-  }
-}
+    increaseChoreHPAction: task => dispatch(increaseChoreHPThunk(task)),
+    decreaseChoreHPAction: task => dispatch(decreaseChoreHPThunk(task)),
+    increaseExerciseHPAction: task => dispatch(increaseExerciseHPThunk(task)),
+    decreaseExerciseHPAction: task => dispatch(decreaseExerciseHPThunk(task))
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps)
-  (TaskList);
-
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

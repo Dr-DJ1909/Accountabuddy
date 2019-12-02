@@ -7,7 +7,7 @@ import {newFriend} from '../../api/FriendsRoute';
 export default function ListUsers(props) {
   return (
     <UsersView>
-      <Text>{props.item}</Text>
+      <Text>{props.item.email}</Text>
       <Button
         title="Add"
         onPress={() => {
