@@ -9,7 +9,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
-import {newPet} from '../../api/PetRoute'
+import {newPetName} from '../../api/PetRoute'
 
 export default class TestPetScreen extends Component{
   constructor(){
@@ -24,7 +24,7 @@ export default class TestPetScreen extends Component{
 
     let userKey = await AsyncStorage.getItem('userKey')
 
-    await newPet(userKey, newName)
+    await newPetName(userKey, newName)
 
     const {navigate} = this.props.navigation
     navigate('UserNameScreen')
