@@ -7,7 +7,7 @@ export async function newChat() {
     await firebase
     .firestore()
     .collection('Chat')
-    .doc('R9jeX5rLvaRDeUF0rf1R')
+    .doc()
     .set({
       messages:[]
       })
