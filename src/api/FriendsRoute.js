@@ -46,7 +46,6 @@ export async function newChat() {
    }
  }
 
-
 export async function requestFriend(user, friendId) {
   try {
     await firebase

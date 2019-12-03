@@ -21,7 +21,7 @@ class Chat extends Component {
      const message =  await firebase
       .firestore()
       .collection('Chat')
-      .doc(this.props.navigation.state.params.roomKey)
+      .doc(this.props.navigation.state.params.item.roomKey)
 
       message.onSnapshot((QuerySnapshot) =>{
         let currentMessages = QuerySnapshot.data().messages
@@ -42,7 +42,7 @@ class Chat extends Component {
   }
   async componentDidMount() {
     try {
-      let loadChat = await previousMessages(this.props.navigation.state.params.roomKey)
+      let loadChat = await previousMessages(this.props.navigation.state.params.item.roomKey)
       loadChat.messages.reverse()
       loadChat.messages.forEach((current)=>{
         let date = current.createdAt.toDate()
@@ -62,7 +62,7 @@ class Chat extends Component {
         <GiftedChat
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
-          user={this.props.user}
+          user={this.state.user}
         />
     );
   }
@@ -75,11 +75,13 @@ class Chat extends Component {
     let messageObject = {
       _id:messages[0]._id,
       text:messages[0].text,
-      user:user,
+      user:{
+        _id:user
+      },
       createdAt:messages[0].createdAt
     }
 
-    newMessage(this.props.navigation.state.params.roomKey,messageObject)
+    newMessage(this.props.navigation.state.params.item.roomKey,messageObject)
   }
 }
 

@@ -48,7 +48,8 @@ class UserFriends extends React.Component {
                 title='Chat'
                 onPress={() =>
                 this.props.navigation.navigate('Chat', {
-                  roomKey: item.roomKey
+
+                  item:item
                 })}/>
                 }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
