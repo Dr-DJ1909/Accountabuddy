@@ -17,7 +17,8 @@ async function newUser(user) {
         pet: {Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, OtherHP: 1},
         completedTasks: [],
         incompleteTasks: [],
-        failedTasks: []
+        failedTasks: [],
+        bio: ''
       });
     console.log('info in newUser', user);
   } catch (error) {
@@ -25,18 +26,17 @@ async function newUser(user) {
   }
 }
 
-export async function renameUserName(userKey, userName){
-  try{
+export async function renameUserName(userKey, userName) {
+  try {
     await firebase
-    .firestore()
-    .collection('Users')
-    .doc(userKey)
-    .update({
-      UserName:userName
-    })
-  }
-  catch(error){
-    console.error(error)
+      .firestore()
+      .collection('Users')
+      .doc(userKey)
+      .update({
+        UserName: userName
+      });
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -69,7 +69,8 @@ export async function googleUser(user) {
         email: user.email,
         UserName: '',
         pet: {Name: 'kitty', ChoreHP: 1, GymHP: 1},
-        tasks: []
+        tasks: [],
+        bio: ''
       });
   } catch (error) {
     console.log('error', error);
@@ -154,5 +155,20 @@ export async function getUsers() {
     return users;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function updateBio(userId, newBio) {
+  try {
+    console.log('args', userId, newBio);
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(userId)
+      .update({
+        bio: newBio
+      });
+  } catch (error) {
+    console.error(error);
   }
 }

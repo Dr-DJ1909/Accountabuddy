@@ -1,80 +1,105 @@
 import React, {Component} from 'react';
-import {Image, Text, View, StyleSheet, AsyncStorage} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  AsyncStorage,
+  Button
+} from 'react-native';
 import {
   ProfileWrapperView,
   HeaderText,
   PetView,
   BubbleText,
   AbsolutePositionBubbleView,
-  AddTaskBtnView
+  ProfileHeaderView,
+  ProfileView
 } from '../../styles';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
-import {getUsers} from '../../api/UserRoute';
+import {getUsers, getUser, updateBio} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-
 import TasksHeader from '../../components/tasks/TasksHeader';
 import Profile from '../../components/social/Profile';
 import UserFriends from '../social/UserFriends';
+import EditProfileInput from '../../components/social/EditProfileInput';
 
 export default class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
-      user: [],
+      user: '',
+      bio: '',
       userKey: '',
-      friends: []
+      friends: [],
+      showForm: 'false'
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBioChange = this.handleBioChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   async componentDidMount() {
-    AsyncStorage.getItem('userKey');
+    let userKey = await AsyncStorage.getItem('userKey');
     const friends = await getFriendList(userKey);
-    Promise.all([friends, userKey]);
-    console.log('what are friends', friends);
+    let user = await getUser(userKey);
+    Promise.all([friends, userKey, user]);
     this.setState({
       userKey: userKey,
-      friends: friends
+      user: user,
+      friends: friends,
+      bio: user.bio
     });
   }
+  handleBioChange = event => {
+    let bio = event.nativeEvent.text;
+    this.setState({bio: bio});
+    console.log('bio', this.state.bio);
+  };
+  async handleSubmit(evt) {
+    evt.preventDefault();
+    console.log('have this:', this.state.userKey, this.state.bio);
+    await updateBio(this.state.userKey, this.state.bio);
+    this.setState({bio: this.state.bio});
+  }
+
+  handleClick = event => {
+    return this.setState({
+      showForm: !this.state.showForm
+    });
+  };
   render() {
+    console.log('AAYY', this.state.user);
+    console.log('YOO', this.state.userKey);
+    console.log('biooooo', this.state.bio);
     let {userKey, friends} = this.state;
-    if (this.state.friends) {
+    if (this.state.userKey) {
       return (
-        <View style={styles.container}>
-          <View style={styles.header}>
+        <View>
+          <ProfileHeaderView>
             <View style={styles.headerText}>
               <Image
-                style={styles.icon}
+                style={styles.pic}
                 source={require('../../assets/catIcon.png')}
               />
 
-              <Text style={styles.name}>User Name Here</Text>
-              <Text style={styles.userInfo}>Email </Text>
-              <Text style={styles.userInfo}>Test </Text>
+              <Text style={styles.name}>{this.state.user.email}</Text>
             </View>
-          </View>
+          </ProfileHeaderView>
 
           <View style={styles.content}>
             <View style={styles.item}>
-              <View style={styles.iconContent}>
-                <Image
-                  style={styles.icon}
-                  source={{uri: 'https://png.icons8.com/home/win8/50/ffffff'}}
-                />
-              </View>
-              {/* <Profile /> */}
-            </View>
-
-            <View style={styles.item}>
-              <View style={styles.iconContent}>
-                <Image
-                  style={styles.icon}
-                  source={{
-                    uri: 'https://png.icons8.com/settings/win8/50/ffffff'
-                  }}
-                />
-              </View>
-              <View style={styles.infoContent}>
-                <Text style={styles.info}>Friends</Text>
+              <View style={{flex: 1}}>
+                <ProfileView>
+                  <Text>About Me: {this.state.bio}</Text>
+                </ProfileView>
+                <Button title="Edit Bio" onPress={this.handleClick}></Button>
+                {this.state.showForm ? (
+                  <EditProfileInput
+                    handleSubmit={this.handleSubmit}
+                    handleBioChange={this.handleBioChange}
+                    bio={this.state.bio}
+                  />
+                ) : null}
               </View>
             </View>
           </View>
@@ -87,14 +112,11 @@ export default class UserProfile extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: '#644D78'
-  },
   headerText: {
     padding: 20,
     alignItems: 'center'
   },
-  icon: {
+  pic: {
     width: 130,
     height: 130,
     borderRadius: 63,
@@ -106,11 +128,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#FFFAF0',
     fontWeight: '700'
-  },
-  userInfo: {
-    fontSize: 16,
-    color: '#778899',
-    fontWeight: '600'
   },
   content: {
     backgroundColor: '#D8C4E9',
@@ -124,11 +141,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     paddingLeft: 5
-  },
-  iconContent: {
-    flex: 1,
-    alignItems: 'flex-end',
-    paddingRight: 5
   },
   icon: {
     width: 30,

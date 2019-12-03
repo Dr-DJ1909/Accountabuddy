@@ -87,7 +87,6 @@ export async function getPendingList(key) {
       .doc(key)
       .get()
       .then(function(doc) {
-        console.log(doc.data());
         data = doc.data();
       });
     for (let key in data) {

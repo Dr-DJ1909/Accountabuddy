@@ -21,6 +21,7 @@ class SearchUsers extends React.Component {
   async componentDidMount() {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
+    console.log('this is my user key', userKey);
     const friends = await getFriendList(userKey);
     Promise.all([users, friends, userKey]);
     this.setState({
