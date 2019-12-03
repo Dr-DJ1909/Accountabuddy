@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { PageWrapperAlignTopView } from '../../styles';
-import {newChat, newMessage, previousMessages} from '../../api/ChatRoute'
+import {newChat, newMessage, previousMessages, getNewMessages} from '../../api/ChatRoute'
+import firebase from 'firebase';
+// import {QuerySnapshot} from '@firebase/firestore-types';
+
 
 
 class Chat extends Component {
@@ -11,8 +14,8 @@ class Chat extends Component {
   // });
 
   state = {
-    messages: [{
-    }],
+    chatUpdated:false,
+    messages: [],
   };
 
   // get user() {
@@ -24,18 +27,60 @@ class Chat extends Component {
   //     _id: firebaseSDK.uid
   //   };
   // }
+
+  async getNewMessages(){
+    let newMessages = []
+    try {
+      await firebase
+      .firestore()
+      .collection('Chat')
+      .doc('R9jeX5rLvaRDeUF0rf1R')
+      .onSnapshot((QuerySnapshot) =>{
+        let currentMessages = QuerySnapshot.data().messages
+        // console.log("START OPF SNAPSHPT>>>>>>>>>",QuerySnapshot.data())
+        // newMessages = QuerySnapshot.data().messages
+        if(currentMessages.length){
+          QuerySnapshot.data().messages.forEach(current =>{
+            newMessages.push(current)
+          })
+        }
+        console.log('NEWMESSSAGESDDDSDFGDSGDF',newMessages)
+
+      })
+      // console.log('NEWMESSSAGESDDDSDFGDSGDF',newMessages)
+      // return newMessages
+    }
+
+    catch (error) {
+      console.error(error)
+    }
+  }
   async componentWillMount() {
+    // let updatedMessages = await getNewMessages()
+
+    // updatedMessages.messages.reverse()
+    // console.log('MESSAGES TO CONCAT',updatedMessages.messages)
     try {
       let loadChat = await previousMessages()
       loadChat.messages.reverse()
       loadChat.messages.forEach((current)=>{
         let date = current.createdAt.toDate()
         current.createdAt = date
-      })
 
-      this.setState({
-      messages:loadChat.messages
-    })
+      })
+       this.getNewMessages()
+      if(newMessages.length){
+        const newMessages = [...this.state.messages, ...updatedMessages.messages]
+        this.setState({
+          messages:newMessages
+        })
+        console.log('this.state.messagesthis.state.messagesthis.state.messagesthis.state.messages',this.state.messages)
+      }
+      else{
+        this.setState({
+        messages:loadChat.messages
+      })
+      }
     } catch (error) {
       console.error(error)
     }
@@ -60,12 +105,19 @@ class Chat extends Component {
   }
 
   async onSend(messages) {
-    console.log('how does this look?',messages)
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages)}))
     let user = this.props.userKey
     messages[0].author = user
-    newMessage(messages[0])
+    let messageObject = {
+      _id:messages[0]._id,
+      text:messages[0].text,
+      author:user,
+      createdAt:messages[0].createdAt
+    }
+
+    newMessage(messageObject)
+
     // const chatObject = {
     //   content:messages[0].text,
     //   author:user,
