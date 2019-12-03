@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AsyncStorage} from 'react-native';
-import {PageWrapperAlignTopView, HeaderText, BlueButton, ButtonText} from '../styles';
+import {PageWrapperAlignTopView, HeaderText, BlueButtonWidth, BlueButtonWidthTwo, ButtonText, TopHeader, TopHeaderText} from '../styles';
 import {getUserThunk} from '../store/user';
 import firebase from 'firebase';
 
@@ -19,15 +19,17 @@ class SettingsWrapper extends Component {
     const {navigate} = this.props.navigation;
     return (
       <PageWrapperAlignTopView>
-        <HeaderText>Settings</HeaderText>
-        <BlueButton
+        <TopHeader>
+          <TopHeaderText>Settings</TopHeaderText>
+        </TopHeader>
+        <BlueButtonWidthTwo
           onPress={() => navigate('ChangeInfo')}>
           <ButtonText>Change your username or your pet's name</ButtonText>
-        </BlueButton>
-        <BlueButton
+        </BlueButtonWidthTwo>
+        <BlueButtonWidth
           onPress={() => logOutUser()}>
           <ButtonText>Log out</ButtonText>
-        </BlueButton>
+        </BlueButtonWidth>
       </PageWrapperAlignTopView>
     );
   }

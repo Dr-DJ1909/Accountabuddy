@@ -9,9 +9,11 @@ class HomeWrapper extends Component {
   }
 
   render() {
-    let petName = this.props.user ? this.props.user.pet.Name : <Text />;
 
-    return <Home petName={petName} />;
+    let petName = this.props.user ? this.props.user.pet.Name : <Text />;
+    let username = this.props.user ? this.props.user.UserName : <Text />;
+
+    return <Home petName={petName} username={username}/>;
   }
 }
 

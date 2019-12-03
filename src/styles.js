@@ -1,10 +1,25 @@
 import styled from 'styled-components/native';
 
+export const TopHeader = styled.View`
+  position: absolute;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  background-color: #3A6EA5;
+  align-self: flex-start;
+  padding-top: 36px;
+  width: 100%;
+  height: 90px;
+  z-index: 2;
+`
+
 export const PageWrapperView = styled.View`
   flex: 1;
   background-color: #EBEBEB;
   align-items: center;
   justify-content: center;
+  padding-top: 40px;
 `;
 
 export const ProfileHeaderView = styled.View`
@@ -22,19 +37,28 @@ export const PageWrapperAlignTopView = styled.View`
   background-color: #EBEBEB;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 70;
+  padding-top: 110px;
 `;
 
 export const PageWrapperKeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1;
-  background-color: #7cc6fe;
+  background-color: #EBEBEB;
   align-items: center;
   justify-content: flex-start;
   padding-top: 70;
+  height: 500px;
 `;
 
 export const Divider = styled.View`
+  height: 5px;
+`;
+
+export const DividerLarge = styled.View`
   height: 20px;
+`;
+
+export const DividerHeader = styled.View`
+  height: 80px;
 `;
 
 export const HeaderWrapperView = styled.View`
@@ -46,7 +70,7 @@ export const HeaderWrapperView = styled.View`
 export const PetView = styled.View`
   align-items: center;
   justify-content: center;
-  height: 500px;
+  height: 450px;
   width: 300px;
   background-color: #fff8f3;
   border-width: 3px;
@@ -67,6 +91,8 @@ export const AbsolutePositionBubbleView = styled.View`
 
 export const TaskView = styled.View`
   height: 80;
+  width: 90%;
+  align-self: center;
   background-color: #fff8f3;
   border-style: solid;
   border-width: 3px;
@@ -108,16 +134,27 @@ export const AddTaskBtnView = styled.View`
   z-index: 2;
 `;
 
+export const MessageView = styled.View`
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+`;
+
 export const TaskNavBtnView = styled.View`
-  padding-top: 40;
   align-self: flex-start;
-  z-index: 2;
-  margin-bottom: -40px;
+  margin-top: -30px;
+  z-index: 3;
+`;
+
+export const TopHeaderText = styled.Text`
+  font-size: 30px;
+  color: #fff;
+  font-weight: bold;
 `;
 
 export const HeaderText = styled.Text`
-  font-size: 30px;
-  color: #0a369d;
+  font-size: 24px;
+  color: #0A369D;
 `;
 
 export const BubbleText = styled.Text`
@@ -148,6 +185,7 @@ export const UsersView = styled.View`
 export const MessageText = styled.Text`
   font-size: 16px;
   align-self: center;
+  color: #3A6EA5;
 `;
 
 export const TaskText = styled.Text`
@@ -181,6 +219,34 @@ export const BlueButton = styled.TouchableOpacity`
   height: 35px;
   width: auto;
   elevation: 3;
+`;
+
+export const BlueButtonWidth = styled.TouchableOpacity`
+  color: #ffffff;
+  background-color: #3A6EA5;
+  border: solid 2px #3A6EA5;
+  border-radius: 1px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 35px;
+  width: 200px;
+  elevation: 3;
+  margin-bottom: 3px;
+`;
+
+export const BlueButtonWidthTwo = styled.TouchableOpacity`
+  color: #ffffff;
+  background-color: #3A6EA5;
+  border: solid 2px #3A6EA5;
+  border-radius: 1px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+  width: 200px;
+  elevation: 3;
+  margin-bottom: 3px;
 `;
 
 export const ButtonText = styled.Text`

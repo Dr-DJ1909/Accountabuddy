@@ -4,11 +4,10 @@ import {
   PageWrapperView,
   HeaderText,
   HeaderTasksText,
-  TaskWrapperView,
-  HeaderWrapperView,
-  LabelText,
-  TaskView,
-  MessageText
+  MessageText,
+  TopHeader,
+  TopHeaderText,
+  DividerHeader
 } from '../../styles';
 import {View, StyleSheet, FlatList} from 'react-native';
 import TaskItem from '../../screens/tasks/TaskItem';
@@ -32,7 +31,6 @@ class TaskList extends Component {
     this.failed.bind(this);
   }
   complete(completedTask) {
-    console.log('are you here?', completedTask);
     // this.props.updateTaskAction(CompletedTask)
 
     if (completedTask.category === 'Chores') {
@@ -43,11 +41,9 @@ class TaskList extends Component {
     }
   }
   delete(unwantedTask) {
-    console.log('unwantedTaskHere', unwantedTask);
     this.props.deleteTaskAction(unwantedTask);
   }
   failed(failedTask) {
-    console.log('failedTaskHere', failedTask);
     // this.props.failedTaskAction(failedTask)
     if (failedTask.category === 'Chores') {
       this.props.decreaseChoreHPAction(failedTask);
@@ -99,8 +95,11 @@ class TaskList extends Component {
       : noTasksDisplay;
     return (
       <PageWrapperView>
-        <TasksHeader />
-        <HeaderText>Current Tasks</HeaderText>
+        <TopHeader>
+          <TopHeaderText>Current tasks</TopHeaderText>
+          <TasksHeader />
+        </TopHeader>
+        <DividerHeader />
         {display}
       </PageWrapperView>
     );

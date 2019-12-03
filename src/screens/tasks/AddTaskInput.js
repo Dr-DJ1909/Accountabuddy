@@ -23,7 +23,6 @@ import {
 export default function AddTaskInput(props) {
   return (
     <PageWrapperKeyboardAvoidingView>
-      <HeaderText>Add a new task</HeaderText>
       <LabelText>What are you going to do?</LabelText>
       <TextInput
         placeholder="Go to the gym"

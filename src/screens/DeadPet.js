@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView, TopHeaderText, TopHeader } from '../../styles';
+import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView } from '../styles';
 
-class ChoresPet extends Component {
+class DeadPet extends Component {
   constructor() {
     super();
     this.state = {
@@ -21,12 +21,12 @@ class ChoresPet extends Component {
   render() {
     let sprite = this.state.on
       ? <Image
-        source={require('../../assets/img/cat/CatClean01.png')}
-        style={{height: 300, width: 300}}
+        source={require('../assets/img/cat/CatDead01.png')}
+        style={{height: 400, width: 300}}
         />
       : <Image
-        source={require('../../assets/img/cat/CatClean02.png')}
-        style={{height: 300, width: 300}}
+        source={require('../assets/img/cat/CatDead02.png')}
+        style={{height: 400, width: 300}}
         />
     return (
       <PetView>
@@ -36,4 +36,4 @@ class ChoresPet extends Component {
   }
 }
 
-export default ChoresPet;
+export default DeadPet;
