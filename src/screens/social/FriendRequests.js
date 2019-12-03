@@ -73,10 +73,10 @@ class FriendRequests extends React.Component {
                 rightElement={
                   <Button
                     title="Accept"
-                    onPress={() => {
-                      newFriend(this.state.userKey, item.uId);
-                      newFriend(item.uId, this.state.userKey);
-                    }}
+                    onPress={
+                      newFriend(this.state.userKey, item.uId)
+                      newFriend(item.uId, this.state.userKey)
+                    }
                   />
                 }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}

@@ -16,7 +16,7 @@ export default function ProfileDisplay(props) {
     'MY FUNCTIONAL PROFILE CAN ACCESS THIS',
     props.navigation.state.params.user
   );
-  let {userName, bio, email, pet} = props.navigation.state.params.user;
+  let {UserName, bio, email, pet} = props.navigation.state.params.user;
   return (
     <View>
       <ProfileHeaderView>
@@ -26,9 +26,7 @@ export default function ProfileDisplay(props) {
             source={require('../../assets/catIcon.png')}
           />
 
-          <Text style={styles.name}>
-            {email} - {userName}
-          </Text>
+          <Text style={styles.name}>{UserName}</Text>
         </View>
       </ProfileHeaderView>
       <View style={styles.content}>
