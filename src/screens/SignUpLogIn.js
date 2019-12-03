@@ -18,7 +18,6 @@ import {
   loginUser,
   getUser
 } from '../api/UserRoute';
-import * as firebase from 'firebase';
 import {getUserThunk, getUserKeyThunk} from '../store/user';
 
 class SignUpLogIn extends React.Component {
