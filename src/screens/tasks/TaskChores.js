@@ -53,6 +53,7 @@ const TaskChores = (props) => {
         value={props.hp * 100}
         maxValue={100}
       />
+      <Divider /><Divider />
       {image}
       <Divider />
       <MessageView>

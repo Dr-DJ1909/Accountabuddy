@@ -20,8 +20,9 @@ class Home extends Component {
 
   render() {
     let petName = this.props ? this.props.petName : <Text />;
-    let username = this.props ? this.props.username : <Text />;
-    let usernameDisplay = (typeof username === 'string') && username.length > 20 ? `Hi!` : `Hi, ${username}!`
+    let username = this.props ? this.props.username : null;
+    let usernameDisplay = ((typeof username === 'string') && username.length && username.length > 20) ? `Hi!` : `Hi, ${username}!`;
+    if (!username.length || username.length > 22) usernameDisplay = 'Hi!';
     return (
       <PageWrapperView>
         <TopHeader>

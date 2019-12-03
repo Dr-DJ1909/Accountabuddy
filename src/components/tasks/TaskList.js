@@ -4,12 +4,13 @@ import {
   PageWrapperView,
   HeaderText,
   HeaderTasksText,
-  MessageText,
+  MessageTextLarge,
+  MessageView,
   TopHeader,
   TopHeaderText,
   DividerHeader
 } from '../../styles';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import TaskItem from '../../screens/tasks/TaskItem';
 import {
   decreaseChoreHPThunk,
@@ -85,9 +86,11 @@ class TaskList extends Component {
     );
 
     const noTasksDisplay = (
-      <MessageText>
-        It looks like you have no tasks yet. Why not try adding one?
-      </MessageText>
+      <MessageView>
+        <MessageTextLarge>
+          It looks like you have no tasks yet. Why not try adding one?
+        </MessageTextLarge>
+      </MessageView>
     );
 
     let display = this.props.incompleteTasks.length
