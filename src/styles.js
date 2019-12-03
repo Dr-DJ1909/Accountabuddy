@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const PageWrapperView = styled.View`
   flex: 1;
-  background-color: #7cc6fe;
+  background-color: #EBEBEB;
   align-items: center;
   justify-content: center;
 `;
@@ -15,7 +15,7 @@ export const ProfileWrapperView = styled.View`
 
 export const PageWrapperAlignTopView = styled.View`
   flex: 1;
-  background-color: #7cc6fe;
+  background-color: #EBEBEB;
   align-items: center;
   justify-content: flex-start;
   padding-top: 70;
@@ -63,7 +63,7 @@ export const AbsolutePositionBubbleView = styled.View`
 
 export const TaskView = styled.View`
   height: 80;
-  background-color: #EBEBEB;
+  background-color: #fff8f3;
   border-style: solid;
   border-width: 3px;
   padding: 5px;
