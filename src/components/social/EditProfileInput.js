@@ -32,10 +32,8 @@ export default class EditProfileInput extends React.Component {
         <TextInput
           multiline={true}
           numberOfLines={8}
-          placeholder={this.props.bio}
-          placeholderColor="#c4c3cb"
           onChange={this.props.handleBioChange}
-          defaultValue={this.props.name}
+          defaultValue={this.props.bio}
           style={styles.textInput}
         />
         <TouchableHighlight

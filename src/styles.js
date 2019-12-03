@@ -67,9 +67,17 @@ export const AbsolutePositionBubbleView = styled.View`
 
 export const TaskView = styled.View`
   height: 80;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   border-style: solid;
   border-width: 3px;
+  padding: 5px;
+`;
+
+export const ProfileView = styled.View`
+  height: 200;
+  background-color: #dce2f2
+  border-style: solid;
+  border-width: 6px;
   padding: 5px;
 `;
 
@@ -91,7 +99,7 @@ export const TaskBtnsRight = styled.View`
   top: 6;
   justify-content: flex-end;
   align-items: flex-end;
-`
+`;
 
 export const AddTaskBtnView = styled.View`
   position: absolute;

@@ -1,28 +1,42 @@
 import React, {Component} from 'react';
-import {Image, Text, View, StyleSheet, AsyncStorage} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  AsyncStorage,
+  Button
+} from 'react-native';
 import {
   ProfileWrapperView,
   HeaderText,
   PetView,
   BubbleText,
   AbsolutePositionBubbleView,
-  ProfileHeaderView
+  ProfileHeaderView,
+  ProfileView
 } from '../../styles';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
-import {getUsers, getUser} from '../../api/UserRoute';
+import {getUsers, getUser, updateBio} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import TasksHeader from '../../components/tasks/TasksHeader';
 import Profile from '../../components/social/Profile';
 import UserFriends from '../social/UserFriends';
+import EditProfileInput from '../../components/social/EditProfileInput';
 
 export default class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
       user: '',
+      bio: '',
       userKey: '',
-      friends: []
+      friends: [],
+      showForm: 'false'
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBioChange = this.handleBioChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   async componentDidMount() {
     let userKey = await AsyncStorage.getItem('userKey');
@@ -32,21 +46,31 @@ export default class UserProfile extends Component {
     this.setState({
       userKey: userKey,
       user: user,
-      friends: friends
+      friends: friends,
+      bio: user.bio
     });
   }
-  // let userKey = AsyncStorage.getItem('userKey');
-  //   let friends = await getFriendList(userKey);
-  //   let user = await getUser(userKey);
-  //   Promise.all([friends, userKey, user]);
-  //   this.setState({
-  //     user: user,
-  //     friends: friends
-  //   });
-  //   console.log('AAYY', this.state.user);
+  handleBioChange = event => {
+    let bio = event.nativeEvent.text;
+    this.setState({bio: bio});
+    console.log('bio', this.state.bio);
+  };
+  async handleSubmit(evt) {
+    evt.preventDefault();
+    console.log('have this:', this.state.userKey, this.state.bio);
+    await updateBio(this.state.userKey, this.state.bio);
+    this.setState({bio: this.state.bio});
+  }
+
+  handleClick = event => {
+    return this.setState({
+      showForm: !this.state.showForm
+    });
+  };
   render() {
     console.log('AAYY', this.state.user);
     console.log('YOO', this.state.userKey);
+    console.log('biooooo', this.state.bio);
     let {userKey, friends} = this.state;
     if (this.state.userKey) {
       return (
@@ -64,7 +88,19 @@ export default class UserProfile extends Component {
 
           <View style={styles.content}>
             <View style={styles.item}>
-              <Profile user={this.state.user} userKey={this.state.userKey} />
+              <View style={{flex: 1}}>
+                <ProfileView>
+                  <Text>About Me: {this.state.bio}</Text>
+                </ProfileView>
+                <Button title="Edit Bio" onPress={this.handleClick}></Button>
+                {this.state.showForm ? (
+                  <EditProfileInput
+                    handleSubmit={this.handleSubmit}
+                    handleBioChange={this.handleBioChange}
+                    bio={this.state.bio}
+                  />
+                ) : null}
+              </View>
             </View>
           </View>
         </View>

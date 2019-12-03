@@ -160,6 +160,7 @@ export async function getUsers() {
 
 export async function updateBio(userId, newBio) {
   try {
+    console.log('args', userId, newBio);
     await firebase
       .firestore()
       .collection('Users')
