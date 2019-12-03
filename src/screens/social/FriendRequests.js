@@ -14,7 +14,12 @@ import {
   HeaderText
 } from '../../styles';
 import {ListItem, ButtonGroup} from 'react-native-elements';
-import {newFriend, getPendingList} from '../../api/FriendsRoute';
+import {
+  newFriend,
+  getPendingList,
+  denyResponse,
+  acceptResponse
+} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import TasksHeader from '../../components/tasks/TasksHeader';
@@ -39,8 +44,7 @@ class FriendRequests extends React.Component {
       userKey: userKey,
       friends: friends
     });
-    console.log('friendReq>>>>', friends);
-    console.log('check', this.state.users);
+    // console.log('friendReq>>>>', friends);
   }
 
   renderSeparator = () => {
@@ -53,15 +57,12 @@ class FriendRequests extends React.Component {
           marginLeft: '14%',
           marginBottom: '5%'
         }}
-      >
-        {/* <Button title="click" /> */}
-      </View>
+      ></View>
     );
   };
 
   render() {
     let friends = this.state.friends;
-    console.log('friendshere', friends);
     if (this.state.friends.length) {
       return (
         <View style={{flex: 1, paddingTop: 70}}>
@@ -70,15 +71,36 @@ class FriendRequests extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
-                rightElement={
-                  <Button
-                    title="Accept"
-                    onPress={() => {
-                      newFriend(this.state.userKey, item.uId);
-                      newFriend(item.uId, this.state.userKey);
-                    }}
-                  />
-                }
+                rightElement={() => (
+                  <View style={{flex: 1, flexDirection: 'row'}}>
+                    <Button
+                      title="Deny"
+                      onPress={() => {
+                        denyResponse(this.state.userKey, item.uId);
+                        denyResponse(item.uId, this.state.userKey);
+                        this.setState({
+                          friends: this.state.friends.filter(
+                            friend => friend.uId !== item.uId
+                          )
+                        });
+                      }}
+                    />
+                    <Button
+                      title="Accept"
+                      onPress={() => {
+                        newFriend(this.state.userKey, item.uId);
+                        newFriend(item.uId, this.state.userKey);
+                        acceptResponse(this.state.userKey, item.uId);
+                        acceptResponse(item.uId, this.state.userKey);
+                        this.setState({
+                          friends: this.state.friends.filter(
+                            friend => friend.uId !== item.uId
+                          )
+                        });
+                      }}
+                    />
+                  </View>
+                )}
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
                 subtitle={item.UserName}
