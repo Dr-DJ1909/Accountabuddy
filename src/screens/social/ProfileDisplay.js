@@ -12,10 +12,7 @@ import {getFriendList} from '../../api/FriendsRoute';
 import {getUser, updateBio} from '../../api/UserRoute';
 
 export default function ProfileDisplay(props) {
-  console.log(
-    'MY FUNCTIONAL PROFILE CAN ACCESS THIS',
-    props.navigation.state.params.user
-  );
+  console.log('item', props.navigation.state.params.user);
   let {UserName, bio, email, pet} = props.navigation.state.params.user;
   return (
     <View>

@@ -72,7 +72,11 @@ class UserFriends extends React.Component {
         </View>
       );
     } else {
-      return <View></View>;
+      return (
+        <PageWrapperView>
+          <Text>No friends yet :( Search for a user and add someone! </Text>
+        </PageWrapperView>
+      );
     }
   }
 }
