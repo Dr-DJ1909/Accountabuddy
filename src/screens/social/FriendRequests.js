@@ -24,7 +24,6 @@ import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import TasksHeader from '../../components/tasks/TasksHeader';
 import {ScrollView} from 'react-native-gesture-handler';
-
 class FriendRequests extends React.Component {
   constructor() {
     super();
@@ -46,7 +45,6 @@ class FriendRequests extends React.Component {
     });
     // console.log('friendReq>>>>', friends);
   }
-
   renderSeparator = () => {
     return (
       <View
@@ -60,7 +58,6 @@ class FriendRequests extends React.Component {
       ></View>
     );
   };
-
   render() {
     let friends = this.state.friends;
     if (this.state.friends.length) {
@@ -129,9 +126,7 @@ class FriendRequests extends React.Component {
     }
   }
 }
-
 export default FriendRequests;
-
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#20B2AA'
