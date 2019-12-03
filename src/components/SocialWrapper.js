@@ -6,6 +6,7 @@ import UserFriends from '../screens/social/UserFriends';
 import SearchUsers from '../screens/social/SearchUsers';
 import FriendRequests from '../screens/social/FriendRequests';
 import Chat from '../components/social/Chat';
+import ProfileDisplay from '../screens/social/ProfileDisplay';
 
 const SocialWrapper = createSwitchNavigator(
   {
@@ -26,6 +27,9 @@ const SocialWrapper = createSwitchNavigator(
     },
     Chat: {
       screen: Chat
+    },
+    ProfileDisplay: {
+      screen: ProfileDisplay
     }
   },
   {
