@@ -6,11 +6,9 @@ import {newChat, newMessage, previousMessages} from '../../api/ChatRoute'
 import firebase from 'firebase';
 //import {QuerySnapshot} from '@firebase/firestore-types';
 
-
-
 class Chat extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       chatUpdated: false,
       messages: [],
@@ -23,7 +21,7 @@ class Chat extends Component {
      const message =  await firebase
       .firestore()
       .collection('Chat')
-      .doc('R9jeX5rLvaRDeUF0rf1R')
+      .doc(this.props.navigation.state.params.roomKey)
 
       message.onSnapshot((QuerySnapshot) =>{
         let currentMessages = QuerySnapshot.data().messages
@@ -44,7 +42,7 @@ class Chat extends Component {
   }
   async componentDidMount() {
     try {
-      let loadChat = await previousMessages()
+      let loadChat = await previousMessages(this.props.navigation.state.params.roomKey)
       loadChat.messages.reverse()
       loadChat.messages.forEach((current)=>{
         let date = current.createdAt.toDate()
@@ -59,6 +57,7 @@ class Chat extends Component {
   }
 
   render() {
+    console.log('props in chat', this.props)
     return (
         <GiftedChat
           messages={this.state.messages}
@@ -80,7 +79,7 @@ class Chat extends Component {
       createdAt:messages[0].createdAt
     }
 
-    newMessage(messageObject)
+    newMessage(this.props.navigation.state.params.roomKey,messageObject)
   }
 }
 

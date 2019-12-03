@@ -1,19 +1,26 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  AsyncStorage,
+  TouchableOpacity,
+  Button
+} from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
   HeaderText
 } from '../../styles';
-import {ListItem} from 'react-native-elements';
-import {newFriend, getFriendList} from '../../api/FriendsRoute';
+import {ListItem, ButtonGroup} from 'react-native-elements';
+import {newFriend, getPendingList, newChat, addChatRoom,} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-
 import TasksHeader from '../../components/tasks/TasksHeader';
 import {ScrollView} from 'react-native-gesture-handler';
 
-class UserFriends extends React.Component {
+class FriendRequests extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -25,13 +32,32 @@ class UserFriends extends React.Component {
   async componentDidMount() {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
-    const friends = await getFriendList(userKey);
+    const friends = await getPendingList(userKey);
     Promise.all([friends, userKey]);
     this.setState({
+      users: users,
       userKey: userKey,
       friends: friends
     });
+    console.log('friendReq>>>>', friends);
   }
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%',
+          marginBottom: '5%'
+        }}
+      >
+        {/* <Button title="click" /> */}
+      </View>
+    );
+  };
+
   render() {
     let friends = this.state.friends;
     console.log('friendshere', friends);
@@ -43,13 +69,19 @@ class UserFriends extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
-              rightElement={
-                <Button
-                title='Chat'
-                onPress={() =>
-                this.props.navigation.navigate('Chat', {
-                  roomKey: item.roomKey
-                })}/>
+                rightElement={
+                  <Button
+                    title="Accept"
+                    onPress={async () => {
+                      console.log('this.state.userkey', this.state.userKey)
+                      console.log('item.uid', item.uId)
+                      // newFriend(this.state.userKey, item.uId);
+                      // newFriend(item.uId, this.state.userKey);
+                      let chatRoom = await newChat()
+                      await addChatRoom(this.state.userKey, item.uId, chatRoom)
+                      await addChatRoom(item.uId, this.state.userKey, chatRoom)
+                    }}
+                  />
                 }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
@@ -64,12 +96,23 @@ class UserFriends extends React.Component {
         </View>
       );
     } else {
-      return <View></View>;
+      return (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: 70,
+            flex: 1
+          }}
+        >
+          <Text>No friends...</Text>
+        </View>
+      );
     }
   }
 }
 
-export default UserFriends;
+export default FriendRequests;
 
 const styles = StyleSheet.create({
   header: {

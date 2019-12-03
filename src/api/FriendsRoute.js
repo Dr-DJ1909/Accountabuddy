@@ -30,6 +30,36 @@ export async function addChatRoom(user, friendId, chatRoom){
   }
 }
 
+export async function newChat() {
+  let chatRoom =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+   try {
+     await firebase
+     .firestore()
+     .collection('Chat')
+     .doc(chatRoom)
+     .set({
+       messages:[]
+       })
+        return chatRoom
+   } catch (error) {
+     console.error(error)
+   }
+ }
+
+
+export async function requestFriend(user, friendId) {
+  try {
+    await firebase
+      .firestore()
+      .collection('FriendRequest')
+      .doc(user)
+      .update({
+        [friendId]: true
+      });
+  } catch (error) {
+    console.log('error', error);
+  }
+}
 
 export async function userFriendList(user) {
   try {
@@ -43,21 +73,49 @@ export async function userFriendList(user) {
   }
 }
 
-export async function getFriendList(key) {
+export async function userPendingList(user) {
+  try {
+    await firebase
+      .firestore()
+      .collection('FriendRequest')
+      .doc(user.uid)
+      .set({});
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+export async function getRoom(user,friend){
+  try {
+    console.log('what is friend here', friend)
+    let friends = await firebase
+    .firestore()
+    .collection('Friendships')
+    .doc(user)
+    .get()
+    console.log('what do i get back?',friends.data())
+    console.log('friend room', friends.data()[friend])
+    return friends.data()[friend]
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getFriendList(userKey) {
   try {
     let friendsList = [];
     let data = '';
     await firebase
       .firestore()
       .collection('Friendships')
-      .doc(key)
+      .doc(userKey)
       .get()
       .then(function(doc) {
-        console.log(doc.data());
         data = doc.data();
       });
     for (let key in data) {
       let friend = await getUser(key);
+       let roomKey = await getRoom(userKey,key)
+       friend.roomKey = roomKey
       friendsList.push(friend);
     }
     return friendsList;
@@ -66,7 +124,29 @@ export async function getFriendList(key) {
   }
 }
 
-
-export async function ChatLog(){
-
+export async function getPendingList(key) {
+  try {
+    let friendsList = [];
+    let data = '';
+    await firebase
+      .firestore()
+      .collection('FriendRequest')
+      .doc(key)
+      .get()
+      .then(function(doc) {
+        data = doc.data();
+      });
+    for (let key in data) {
+      let friend = await getUser(key);
+      friend = {...friend, uId: key};
+      friendsList.push(friend);
+    }
+    return friendsList;
+  } catch (error) {
+    console.log('error', error);
+  }
 }
+
+// export async function ChatLog(){
+
+// }

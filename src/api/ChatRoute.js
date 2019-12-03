@@ -2,28 +2,13 @@ import firebase from 'firebase';
 import '@firebase/firestore';
 
 
-export async function newChat() {
- let chatRoom =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+export async function newMessage(chatRoom,messageObject) {
   try {
     await firebase
     .firestore()
     .collection('Chat')
     .doc(chatRoom)
-    .set({
-      messages:[]
-      })
-      return randomString
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-export async function newMessage(messageObject) {
-  try {
-    await firebase
-    .firestore()
-    .collection('Chat')
-    .doc('R9jeX5rLvaRDeUF0rf1R')
     .update({
       messages:firebase.firestore.FieldValue.arrayUnion(messageObject)
       })
@@ -32,12 +17,12 @@ export async function newMessage(messageObject) {
   }
 }
 
-export async function previousMessages(){
+export async function previousMessages(chatRoom){
   try {
     let previousMessages = await firebase
     .firestore()
     .collection('Chat')
-    .doc('R9jeX5rLvaRDeUF0rf1R')
+    .doc(chatRoom)
     .get()
     return previousMessages.data()
   } catch (error) {

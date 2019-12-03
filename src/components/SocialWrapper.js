@@ -4,8 +4,8 @@ import SocialHome from '../components/social/SocialHome';
 import UserProfile from '../screens/social/UserProfile';
 import UserFriends from '../screens/social/UserFriends';
 import SearchUsers from '../screens/social/SearchUsers';
+import FriendRequests from '../screens/social/FriendRequests';
 import Chat from '../components/social/Chat';
-import { createStackNavigator } from 'react-navigation-stack'
 
 const SocialWrapper = createSwitchNavigator(
   {
@@ -13,13 +13,16 @@ const SocialWrapper = createSwitchNavigator(
       screen: SocialHome
     },
     FriendList: {
-      screen: UserFriends,
+      screen: UserFriends
     },
     AddFriend: {
-      screen: SearchUsers,
+      screen: SearchUsers
     },
     UserProfile: {
-      screen: UserProfile,
+      screen: UserProfile
+    },
+    FriendRequests: {
+      screen: FriendRequests
     },
     Chat: {
       screen: Chat
