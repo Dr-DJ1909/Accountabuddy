@@ -7,21 +7,9 @@ import {
   AsyncStorage,
   Button
 } from 'react-native';
-import {
-  ProfileWrapperView,
-  HeaderText,
-  PetView,
-  BubbleText,
-  AbsolutePositionBubbleView,
-  ProfileHeaderView,
-  ProfileView
-} from '../../styles';
-import {newFriend, getFriendList} from '../../api/FriendsRoute';
-import {getUsers, getUser, updateBio} from '../../api/UserRoute';
-import Icon from 'react-native-vector-icons/Feather';
-import TasksHeader from '../../components/tasks/TasksHeader';
-import Profile from '../../components/social/Profile';
-import UserFriends from '../social/UserFriends';
+import {ProfileHeaderView, ProfileView} from '../../styles';
+import {getFriendList} from '../../api/FriendsRoute';
+import {getUser, updateBio} from '../../api/UserRoute';
 import EditProfileInput from '../../components/social/EditProfileInput';
 
 export default class UserProfile extends Component {
@@ -68,9 +56,7 @@ export default class UserProfile extends Component {
     });
   };
   render() {
-    console.log('AAYY', this.state.user);
-    console.log('YOO', this.state.userKey);
-    console.log('biooooo', this.state.bio);
+    console.log('current state', this.state);
     let {userKey, friends} = this.state;
     if (this.state.userKey) {
       return (
@@ -82,7 +68,7 @@ export default class UserProfile extends Component {
                 source={require('../../assets/catIcon.png')}
               />
 
-              <Text style={styles.name}>{this.state.user.email}</Text>
+              <Text style={styles.name}>{this.state.user.UserName}</Text>
             </View>
           </ProfileHeaderView>
 

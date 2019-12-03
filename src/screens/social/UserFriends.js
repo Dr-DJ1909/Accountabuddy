@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, StyleSheet, AsyncStorage} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  AsyncStorage,
+  Button
+} from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
@@ -9,8 +16,7 @@ import {ListItem} from 'react-native-elements';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-
-import TasksHeader from '../../components/tasks/TasksHeader';
+import ProfileDisplay from './ProfileDisplay';
 import {ScrollView} from 'react-native-gesture-handler';
 
 class UserFriends extends React.Component {
@@ -44,7 +50,16 @@ class UserFriends extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
-                // leftAvatar={{source: {uri: item.picture.thumbnail}}}
+                rightElement={
+                  <Button
+                    title="View Profile"
+                    onPress={() =>
+                      this.props.navigation.navigate('ProfileDisplay', {
+                        user: item
+                      })
+                    }
+                  />
+                }
                 title={item.email}
                 subtitle={item.UserName}
               />
