@@ -48,7 +48,7 @@ class Chat extends Component {
 
       })
       // console.log('NEWMESSSAGESDDDSDFGDSGDF',newMessages)
-      // return newMessages
+      return newMessages
     }
 
     catch (error) {
@@ -69,17 +69,29 @@ class Chat extends Component {
 
       })
        this.getNewMessages()
-      if(newMessages.length){
-        const newMessages = [...this.state.messages, ...updatedMessages.messages]
+       console.log('getNewMessages >>>>', await getNewMessages())
+      // if(newMessages.length){
+      //   const newMessages = [...this.state.messages, ...updatedMessages.messages]
+      //   this.setState({
+      //     messages:newMessages
+      //   })
+      //   console.log('this.state.messagesthis.state.messagesthis.state.messagesthis.state.messages',this.state.messages)
+      // }
+      // else{
+      //   this.setState({
+      //   messages:loadChat.messages
+      // })
+      // }
+      const messagesToAppend = await getNewMessages();
+      if (messagesToAppend.length) {
         this.setState({
-          messages:newMessages
+          messages: messagesToAppend
         })
-        console.log('this.state.messagesthis.state.messagesthis.state.messagesthis.state.messages',this.state.messages)
       }
-      else{
+      else {
         this.setState({
         messages:loadChat.messages
-      })
+        })
       }
     } catch (error) {
       console.error(error)
