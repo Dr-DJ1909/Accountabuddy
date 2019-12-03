@@ -8,20 +8,26 @@ import {
   HeaderTasksText,
   HeaderWrapperView,
   LabelText,
-  TaskView
+  TaskView,
+  Divider,
+  TopHeader,
+  TopHeaderText,
+  MessageView
 } from '../../styles';
-import ExercisePet from './ExercisePet';
+import ChoresPet from './ChoresPet';
+import DeadPet from '../DeadPet'
 import TasksHeader from '../../components/tasks/TasksHeader';
 import { MessageText } from '../../styles';
+import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 const TaskChores = (props) => {
   const hp = props.hp;
   const user = props.user;
   let image;
   if (hp <=1 && hp >= 0.4) {
-    image = <ExercisePet />;
+    image = <ChoresPet />;
   } else {
-    image = <Text>(=ｘェｘ=)</Text>
+    image = <DeadPet />
   }
 
   let message;
@@ -37,10 +43,22 @@ const TaskChores = (props) => {
 
   return (
     <PageWrapperView>
+    <TopHeader>
+      <TopHeaderText>Chores</TopHeaderText>
       <TasksHeader />
-      <HeaderText>Exercise stuff</HeaderText>
+    </TopHeader>
+      <MessageText>{user.pet.Name}'s health:</MessageText>
+      <ProgressBarAnimated
+        width={200}
+        value={props.hp * 100}
+        maxValue={100}
+      />
+      <Divider /><Divider />
       {image}
-      {message}
+      <Divider />
+      <MessageView>
+        {message}
+      </MessageView>
     </PageWrapperView>
   )
 }

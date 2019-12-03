@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Home from '../Home';
-import { Text } from 'react-native';
+import { Dimensions } from 'react-native';
 import {
   PageWrapperView,
   HeaderText,
-  HeaderTasksText,
-  HeaderWrapperView,
-  LabelText,
-  TaskView
+  Divider,
+  TopHeader,
+  TopHeaderText,
+  MessageView
 } from '../../styles';
 import ExercisePet from './ExercisePet';
 import TasksHeader from '../../components/tasks/TasksHeader';
 import { MessageText } from '../../styles';
+import DeadPet from '../DeadPet';
+import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 const TaskExercise = (props) => {
   const hp = props.hp;
@@ -21,7 +23,7 @@ const TaskExercise = (props) => {
   if (hp <=1 && hp >= 0.4) {
     image = <ExercisePet />;
   } else {
-    image = <Text>(=ｘェｘ=)</Text>
+    image = <DeadPet />
   }
 
   let message;
@@ -37,10 +39,22 @@ const TaskExercise = (props) => {
 
   return (
     <PageWrapperView>
-      <TasksHeader />
-      <HeaderText>Exercise stuff</HeaderText>
+      <TopHeader>
+        <TopHeaderText>Exercise tasks</TopHeaderText>
+        <TasksHeader />
+      </TopHeader>
+      <MessageText>{user.pet.Name}'s health:</MessageText>
+      <ProgressBarAnimated
+        width={200}
+        value={props.hp * 100}
+        maxValue={100}
+      />
+      <Divider /><Divider />
       {image}
-      {message}
+      <Divider />
+      <MessageView>
+        {message}
+      </MessageView>
     </PageWrapperView>
   )
 }

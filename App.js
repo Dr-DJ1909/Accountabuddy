@@ -16,6 +16,7 @@ import {getUser} from './src/api/UserRoute';
 // import { createStackNavigator } from 'react-navigation-stack'
 
 ignoreWarnings('Setting a timer');
+ignoreWarnings('Require cycle');
 
 const MainNavigator = createSwitchNavigator(
   {

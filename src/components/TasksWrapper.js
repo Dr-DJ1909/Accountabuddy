@@ -23,6 +23,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import AddTask from './tasks/AddTask';
 import TaskList from './tasks/TaskList';
 import TaskExercise from '../screens/tasks/TaskExercise';
+import TaskChores from '../screens/tasks/TaskChores';
 import TaskListCompleted from './tasks/TaskListCompleted';
 import TasksDrawerBtn from './tasks/TasksDrawerBtn';
 import Icon from 'react-native-vector-icons/Feather';
@@ -65,6 +66,12 @@ const TasksWrapper = createDrawerNavigator({
     screen: TaskExercise,
     navigationOptions: {
       drawerLabel: "Exercise tasks"
+    }
+  },
+  TaskChores: {
+    screen: TaskChores,
+    navigationOptions: {
+      drawerLabel: "Chores tasks"
     }
   },
   TaskListCompleted: {

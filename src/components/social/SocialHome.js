@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {PageWrapperAlignTopView, HeaderText} from '../../styles';
+import {PageWrapperAlignTopView, HeaderText, TopHeaderText, TopHeader} from '../../styles';
 import {
   StyleSheet,
   Button,
@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
   AsyncStorage
 } from 'react-native';
-import {BlueButton, ButtonText} from '../../styles';
+import {BlueButtonWidth, ButtonText} from '../../styles';
 import {getUserThunk} from '../../store/user';
 import UserProfile from '../../screens/social/UserProfile';
 import {newFriend} from '../../api/FriendsRoute';
@@ -28,30 +28,31 @@ class SocialHome extends Component {
   render() {
     return (
       <PageWrapperAlignTopView>
-        <HeaderText>Social Page</HeaderText>
-        {/* <UserProfile /> */}
-        <BlueButton
+        <TopHeader>
+          <TopHeaderText>Social</TopHeaderText>
+        </TopHeader>
+        <BlueButtonWidth
           onPress={() => this.props.navigation.navigate('UserProfile')}
         >
           <ButtonText>My Profile</ButtonText>
-        </BlueButton>
-        <BlueButton
+        </BlueButtonWidth>
+        <BlueButtonWidth
           onPress={() => this.props.navigation.navigate('FriendList')}
         >
           <ButtonText>Friends List</ButtonText>
-        </BlueButton>
-        <BlueButton onPress={() => this.props.navigation.navigate('AddFriend')}>
+        </BlueButtonWidth>
+        <BlueButtonWidth onPress={() => this.props.navigation.navigate('AddFriend')}>
           <ButtonText>Add friend</ButtonText>
-        </BlueButton>
-        <BlueButton onPress={() => this.props.navigation.navigate('Chat')}>
+        </BlueButtonWidth>
+        <BlueButtonWidth onPress={() => this.props.navigation.navigate('Chat')}>
           <ButtonText>Navigate to Chat</ButtonText>
-        </BlueButton>
+        </BlueButtonWidth>
 
-        <BlueButton
+        <BlueButtonWidth
           onPress={() => this.props.navigation.navigate('FriendRequests')}
         >
           <ButtonText>Friend Requests</ButtonText>
-        </BlueButton>
+        </BlueButtonWidth>
       </PageWrapperAlignTopView>
     );
   }

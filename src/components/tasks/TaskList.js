@@ -4,13 +4,13 @@ import {
   PageWrapperView,
   HeaderText,
   HeaderTasksText,
-  TaskWrapperView,
-  HeaderWrapperView,
-  LabelText,
-  TaskView,
-  MessageText
+  MessageTextLarge,
+  MessageView,
+  TopHeader,
+  TopHeaderText,
+  DividerHeader
 } from '../../styles';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import TaskItem from '../../screens/tasks/TaskItem';
 import {
   decreaseChoreHPThunk,
@@ -32,7 +32,6 @@ class TaskList extends Component {
     this.failed.bind(this);
   }
   complete(completedTask) {
-    console.log('are you here?', completedTask);
     // this.props.updateTaskAction(CompletedTask)
 
     if (completedTask.category === 'Chores') {
@@ -43,11 +42,9 @@ class TaskList extends Component {
     }
   }
   delete(unwantedTask) {
-    console.log('unwantedTaskHere', unwantedTask);
     this.props.deleteTaskAction(unwantedTask);
   }
   failed(failedTask) {
-    console.log('failedTaskHere', failedTask);
     // this.props.failedTaskAction(failedTask)
     if (failedTask.category === 'Chores') {
       this.props.decreaseChoreHPAction(failedTask);
@@ -89,9 +86,11 @@ class TaskList extends Component {
     );
 
     const noTasksDisplay = (
-      <MessageText>
-        It looks like you have no tasks yet. Why not try adding one?
-      </MessageText>
+      <MessageView>
+        <MessageTextLarge>
+          It looks like you have no tasks yet. Why not try adding one?
+        </MessageTextLarge>
+      </MessageView>
     );
 
     let display = this.props.incompleteTasks.length
@@ -99,8 +98,11 @@ class TaskList extends Component {
       : noTasksDisplay;
     return (
       <PageWrapperView>
-        <TasksHeader />
-        <HeaderText>Current Tasks</HeaderText>
+        <TopHeader>
+          <TopHeaderText>Current tasks</TopHeaderText>
+          <TasksHeader />
+        </TopHeader>
+        <DividerHeader />
         {display}
       </PageWrapperView>
     );

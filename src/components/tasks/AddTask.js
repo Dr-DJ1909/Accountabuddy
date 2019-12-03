@@ -7,7 +7,9 @@ import {
   TaskWrapperView,
   HeaderWrapperView,
   LabelText,
-  TaskView
+  TaskView,
+  TopHeaderText,
+  TopHeader
 } from '../../styles';
 import {
   AsyncStorage
@@ -51,7 +53,10 @@ class AddTask extends Component {
   render() {
     return (
       <PageWrapperView>
-        <TasksHeader />
+        <TopHeader>
+          <TopHeaderText>Add a new task</TopHeaderText>
+          <TasksHeader />
+        </TopHeader>
           <AddTaskInput
             handleSubmit={this.handleSubmit}
             handleCategoryChange={this.handleCategoryChange}
