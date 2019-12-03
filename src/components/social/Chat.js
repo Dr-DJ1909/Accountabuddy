@@ -4,7 +4,7 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import { PageWrapperAlignTopView } from '../../styles';
 import {newChat, newMessage, previousMessages} from '../../api/ChatRoute'
 import firebase from 'firebase';
-// import {QuerySnapshot} from '@firebase/firestore-types';
+//import {QuerySnapshot} from '@firebase/firestore-types';
 
 
 
@@ -12,11 +12,14 @@ class Chat extends Component {
   // static navigationOptions = ({ navigation }) => ({
   //   title: (navigation.state.params || {}).name || 'Chat!'
   // });
-
-  state = {
-    chatUpdated: false,
-    messages: [],
-  };
+  constructor() {
+    super();
+    this.state = {
+      chatUpdated: false,
+      messages: [],
+    };
+    this.getNewMessages();
+  }
 
   // get user() {
   //   return {
@@ -37,26 +40,27 @@ class Chat extends Component {
     let newMessages = []
     // this.setState({chatUpdated: !this.state.chatUpdated})
     try {
-      await firebase
+     const message =  await firebase
       .firestore()
       .collection('Chat')
       .doc('R9jeX5rLvaRDeUF0rf1R')
-      .onSnapshot((QuerySnapshot) =>{
+
+      message.onSnapshot((QuerySnapshot) =>{
         let currentMessages = QuerySnapshot.data().messages
-        console.log("START OPF SNAPSHPT>>>>>>>>>",QuerySnapshot.data())
+        console.log("START OF SNAPSHOT>>>>>>>>>",QuerySnapshot.data())
         this.setState({
           messages: currentMessages
         })
-        // newMessages = QuerySnapshot.data().messages
+
         // if(currentMessages.length){
-          // QuerySnapshot.data().messages.forEach((current, idx, arr) =>{
-          //   // newMessages.push(current)
-          //   // if (idx === arr.length-1) {
-          //     const updatedMessages = [...this.state.messages, current]
-          //     this.setState({messages: updatedMessages})
-          //   // }
-          // })
-          console.log('can set state??????????????')
+        //   QuerySnapshot.data().messages.forEach((current, idx, arr) =>{
+        //     // newMessages.push(current)
+        //     // if (idx === arr.length-1) {
+        //       const updatedMessages = [...this.state.messages, current]
+        //       this.setState({messages: updatedMessages})
+        //     // }
+        //   })
+        //   console.log('can set state??????????????')
           // this.setState({
           //   messages: currentMessages
           // })
@@ -74,7 +78,7 @@ class Chat extends Component {
       console.error(error)
     }
   }
-  async componentWillMount() {
+  async componentDidMount() {
     // let updatedMessages = await getNewMessages()
 
     // updatedMessages.messages.reverse()
@@ -156,9 +160,6 @@ class Chat extends Component {
           user={this.props.user}
         />
     );
-  }
-  componentWillUnmount() {
-    // login.refOff();
   }
 
   async onSend(messages) {
