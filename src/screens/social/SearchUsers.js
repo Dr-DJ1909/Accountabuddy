@@ -27,16 +27,12 @@ class SearchUsers extends React.Component {
   async componentDidMount() {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
-    // console.log('this is my user key', userKey);
-    // console.log('searchUser users array>>>>>>>', users);
-    const requestHistory = await getRequestList(this.state.targetUser);
-    Promise.all([users, userKey, requestHistory]);
+
+    Promise.all([users, userKey]);
     this.setState({
       users: users,
-      userKey: userKey,
-      requestHistory: requestHistory
+      userKey: userKey
     });
-    // console.log('searchUser newState>>>>>>', this.state);
     this.arrayholder = this.state.users;
   }
   renderSeparator = () => {
@@ -81,6 +77,14 @@ class SearchUsers extends React.Component {
       />
     );
   };
+
+  async getTargetUserHistory() {
+    const targetUserHistory = await getRequestList(this.state.targetUser);
+    this.setState({
+      requestHistory: targetUserHistory
+    });
+  }
+
   render() {
     let users = this.state.users;
     let friends = this.state.friends;
@@ -98,9 +102,17 @@ class SearchUsers extends React.Component {
                   <Button
                     title="Request"
                     onPress={() => {
-                      requestFriend(item.uId, this.state.userKey);
-                      target = item.uId;
-                      this.setState({targetUser: target});
+                      if (
+                        !this.state.requestHistory.includes(this.state.userKey)
+                      ) {
+                        requestFriend(item.uId, this.state.userKey);
+                        target = item.uId;
+                        this.setState({targetUser: target}, () => {
+                          this.getTargetUserHistory();
+                        });
+                      } else {
+                        console.log('NO REQ');
+                      }
                     }}
                   />
                 }

@@ -17,6 +17,7 @@ export async function newFriend(user, friendId) {
 }
 
 export async function requestFriend(user, friendId) {
+  //user is targetId, friendId is loggedIn user Id
   try {
     await firebase
       .firestore()
