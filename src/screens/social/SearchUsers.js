@@ -2,7 +2,12 @@ import {ListItem, SearchBar} from 'react-native-elements';
 import React from 'react';
 import {View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
 import {PageWrapperView, AddTaskBtnView} from '../../styles';
-import {newFriend, getFriendList, requestFriend} from '../../api/FriendsRoute';
+import {
+  newFriend,
+  getFriendList,
+  requestFriend,
+  getRequestList
+} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import Constants from 'expo-constants';
@@ -13,22 +18,25 @@ class SearchUsers extends React.Component {
     this.state = {
       users: [],
       userKey: '',
-      friends: [],
-      value: ''
+      value: '',
+      requestHistory: [],
+      targetUser: ''
     };
     this.arrayholder = [];
   }
   async componentDidMount() {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
-    console.log('this is my user key', userKey);
-    const friends = await getFriendList(userKey);
-    Promise.all([users, friends, userKey]);
+    // console.log('this is my user key', userKey);
+    // console.log('searchUser users array>>>>>>>', users);
+    const requestHistory = await getRequestList(this.state.targetUser);
+    Promise.all([users, userKey, requestHistory]);
     this.setState({
       users: users,
       userKey: userKey,
-      friends: friends
+      requestHistory: requestHistory
     });
+    // console.log('searchUser newState>>>>>>', this.state);
     this.arrayholder = this.state.users;
   }
   renderSeparator = () => {
@@ -76,6 +84,7 @@ class SearchUsers extends React.Component {
   render() {
     let users = this.state.users;
     let friends = this.state.friends;
+    let target = '';
     if (this.state.users.length) {
       return (
         <View style={{flex: 1, paddingTop: 70}}>
@@ -90,6 +99,8 @@ class SearchUsers extends React.Component {
                     title="Request"
                     onPress={() => {
                       requestFriend(item.uId, this.state.userKey);
+                      target = item.uId;
+                      this.setState({targetUser: target});
                     }}
                   />
                 }
