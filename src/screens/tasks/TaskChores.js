@@ -18,6 +18,7 @@ import ChoresPet from './ChoresPet';
 import DeadPet from '../DeadPet'
 import TasksHeader from '../../components/tasks/TasksHeader';
 import { MessageText } from '../../styles';
+import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 const TaskChores = (props) => {
   const hp = props.hp;
@@ -46,6 +47,12 @@ const TaskChores = (props) => {
       <TopHeaderText>Chores</TopHeaderText>
       <TasksHeader />
     </TopHeader>
+      <MessageText>{user.pet.Name}'s health:</MessageText>
+      <ProgressBarAnimated
+        width={200}
+        value={props.hp * 100}
+        maxValue={100}
+      />
       {image}
       <Divider />
       <MessageView>
