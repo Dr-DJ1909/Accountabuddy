@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
   AsyncStorage
 } from 'react-native';
-import { BlueButton, ButtonText } from '../../styles';
+import {BlueButton, ButtonText} from '../../styles';
 import {getUserThunk} from '../../store/user';
 import UserProfile from '../../screens/social/UserProfile';
 import {newFriend} from '../../api/FriendsRoute';
@@ -21,8 +21,7 @@ class SocialHome extends Component {
     super();
   }
 
-  async componentDidMount() {
-  }
+  async componentDidMount() {}
 
   handleSubmit() {}
 
@@ -32,24 +31,26 @@ class SocialHome extends Component {
         <HeaderText>Social Page</HeaderText>
         {/* <UserProfile /> */}
         <BlueButton
-          onPress = {()=>this.props.navigation.navigate('UserProfile')}
+          onPress={() => this.props.navigation.navigate('UserProfile')}
         >
           <ButtonText>My Profile</ButtonText>
         </BlueButton>
         <BlueButton
-          onPress = {()=>this.props.navigation.navigate('FriendList')}
+          onPress={() => this.props.navigation.navigate('FriendList')}
         >
           <ButtonText>Friends List</ButtonText>
         </BlueButton>
-        <BlueButton
-          onPress = {()=>this.props.navigation.navigate('AddFriend')}
-        >
+        <BlueButton onPress={() => this.props.navigation.navigate('AddFriend')}>
           <ButtonText>Add friend</ButtonText>
         </BlueButton>
-        <BlueButton
-          onPress = {()=>this.props.navigation.navigate('Chat')}
-        >
+        <BlueButton onPress={() => this.props.navigation.navigate('Chat')}>
           <ButtonText>Navigate to Chat</ButtonText>
+        </BlueButton>
+
+        <BlueButton
+          onPress={() => this.props.navigation.navigate('FriendRequests')}
+        >
+          <ButtonText>Friend Requests</ButtonText>
         </BlueButton>
       </PageWrapperAlignTopView>
     );
@@ -65,7 +66,7 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch) {
   return {
     getUserAction: () => dispatch(getUserThunk())
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocialHome);
