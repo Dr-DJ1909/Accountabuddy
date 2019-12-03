@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { PageWrapperAlignTopView } from '../../styles';
-import {newChat, newMessage, previousMessages, getNewMessages} from '../../api/ChatRoute'
+import {newChat, newMessage, previousMessages} from '../../api/ChatRoute'
 import firebase from 'firebase';
 // import {QuerySnapshot} from '@firebase/firestore-types';
 
@@ -66,10 +66,8 @@ class Chat extends Component {
       loadChat.messages.forEach((current)=>{
         let date = current.createdAt.toDate()
         current.createdAt = date
-
       })
-       this.getNewMessages()
-       console.log('getNewMessages >>>>', await getNewMessages())
+      //  console.log('getNewMessages >>>>', await this.getNewMessages())
       // if(newMessages.length){
       //   const newMessages = [...this.state.messages, ...updatedMessages.messages]
       //   this.setState({
@@ -82,13 +80,17 @@ class Chat extends Component {
       //   messages:loadChat.messages
       // })
       // }
-      const messagesToAppend = await getNewMessages();
+      const messagesToAppend = await this.getNewMessages();
+      console.log('messagestoappend on first load >>>>>>>>>>>>>>>>>>>>>>>>>>>', messagesToAppend)
       if (messagesToAppend.length) {
-        this.setState({
-          messages: messagesToAppend
-        })
-      }
-      else {
+        // messagesToAppend.messages.reverse();
+        console.log('messagestoappend >>>>>>>', messagesToAppend)
+        if (messagesToAppend.messages.length) {
+          this.setState({
+            messages: messagesToAppend.messages
+          })
+        }
+      } else {
         this.setState({
         messages:loadChat.messages
         })
@@ -104,6 +106,7 @@ class Chat extends Component {
   }
 
   render() {
+    console.log('current state? >>>>', this.state.messages)
     return (
         <GiftedChat
           messages={this.state.messages}
