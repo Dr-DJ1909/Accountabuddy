@@ -45,28 +45,6 @@ export async function previousMessages(){
   }
 }
 
-export async function getNewMessages(){
-  try {
-     await firebase
-    .firestore()
-    .collection('Chat')
-    .doc('R9jeX5rLvaRDeUF0rf1R')
-    .onSnapshot((doc) =>{
-      let changes = doc.data()
-      console.log('changes in snapshot',changes)
-
-    })
-    let previousMessages = await firebase
-    .firestore()
-    .collection('Chat')
-    .doc('R9jeX5rLvaRDeUF0rf1R')
-    .get()
-    return previousMessages.data()
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 
 
 
