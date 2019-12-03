@@ -14,7 +14,7 @@ class Chat extends Component {
   // });
 
   state = {
-    chatUpdated:false,
+    chatUpdated: false,
     messages: [],
   };
 
@@ -28,8 +28,14 @@ class Chat extends Component {
   //   };
   // }
 
-  async getNewMessages(){
+  // changeState() {
+  //   console.log(this.state)
+  //   this.setState({chatUpdated: !chatUpdated})
+  // }
+
+  getNewMessages = async () => {
     let newMessages = []
+    // this.setState({chatUpdated: !this.state.chatUpdated})
     try {
       await firebase
       .firestore()
@@ -37,18 +43,31 @@ class Chat extends Component {
       .doc('R9jeX5rLvaRDeUF0rf1R')
       .onSnapshot((QuerySnapshot) =>{
         let currentMessages = QuerySnapshot.data().messages
-        // console.log("START OPF SNAPSHPT>>>>>>>>>",QuerySnapshot.data())
+        console.log("START OPF SNAPSHPT>>>>>>>>>",QuerySnapshot.data())
+        this.setState({
+          messages: currentMessages
+        })
         // newMessages = QuerySnapshot.data().messages
-        if(currentMessages.length){
-          QuerySnapshot.data().messages.forEach(current =>{
-            newMessages.push(current)
-          })
-        }
-        console.log('NEWMESSSAGESDDDSDFGDSGDF',newMessages)
+        // if(currentMessages.length){
+          // QuerySnapshot.data().messages.forEach((current, idx, arr) =>{
+          //   // newMessages.push(current)
+          //   // if (idx === arr.length-1) {
+          //     const updatedMessages = [...this.state.messages, current]
+          //     this.setState({messages: updatedMessages})
+          //   // }
+          // })
+          console.log('can set state??????????????')
+          // this.setState({
+          //   messages: currentMessages
+          // })
+        // }
+        // console.log('NEWMESSSAGESDDDSDFGDSGDF',newMessages)
+        // this.setState({chatUpdated: !this.state.chatUpdated})
 
       })
       // console.log('NEWMESSSAGESDDDSDFGDSGDF',newMessages)
-      return newMessages
+      console.log('newMessages >>>>>>>>>>>>>>>', newMessages)
+      return newMessages.messages
     }
 
     catch (error) {
@@ -67,6 +86,9 @@ class Chat extends Component {
         let date = current.createdAt.toDate()
         current.createdAt = date
       })
+      this.setState({
+        messages:loadChat.messages
+      })
       //  console.log('getNewMessages >>>>', await this.getNewMessages())
       // if(newMessages.length){
       //   const newMessages = [...this.state.messages, ...updatedMessages.messages]
@@ -80,21 +102,21 @@ class Chat extends Component {
       //   messages:loadChat.messages
       // })
       // }
-      const messagesToAppend = await this.getNewMessages();
-      console.log('messagestoappend on first load >>>>>>>>>>>>>>>>>>>>>>>>>>>', messagesToAppend)
-      if (messagesToAppend.length) {
-        // messagesToAppend.messages.reverse();
-        console.log('messagestoappend >>>>>>>', messagesToAppend)
-        if (messagesToAppend.messages.length) {
-          this.setState({
-            messages: messagesToAppend.messages
-          })
-        }
-      } else {
-        this.setState({
-        messages:loadChat.messages
-        })
-      }
+      // let messagesToAppend = await this.getNewMessages();
+      // console.log('messagestoappend on first load >>>>>>>>>>>>>>>>>>>>>>>>>>>', messagesToAppend)
+      // if (messagesToAppend.length) {
+      //   // messagesToAppend.messages.reverse();
+      //   console.log('messagestoappend >>>>>>>', messagesToAppend)
+      //   if (messagesToAppend.messages.length) {
+      //     this.setState({
+      //       messages: messagesToAppend.messages
+      //     })
+      //   }
+      // } else {
+      //   this.setState({
+      //   messages:loadChat.messages
+      //   })
+      // }
     } catch (error) {
       console.error(error)
     }
@@ -105,8 +127,28 @@ class Chat extends Component {
     // );
   }
 
+  // async componentWillUpdate() {
+  //   console.log('component will update!!!!!!!!')
+  //   try {
+  //     let messagesToAppend = await this.getNewMessages();
+  //     console.log('messagestoappend on first load >>>>>>>>>>>>>>>>>>>>>>>>>>>', messagesToAppend)
+  //     if (messagesToAppend.length) {
+  //       // messagesToAppend.messages.reverse();
+  //       console.log('messagestoappend >>>>>>>', messagesToAppend)
+  //       if (messagesToAppend.messages.length) {
+  //         this.setState({
+  //           messages: messagesToAppend.messages
+  //         })
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
   render() {
     console.log('current state? >>>>', this.state.messages)
+    // let currMessages =(this.getNewMessages().length) ? this.getNewMessages() : this.state.messages
     return (
         <GiftedChat
           messages={this.state.messages}
