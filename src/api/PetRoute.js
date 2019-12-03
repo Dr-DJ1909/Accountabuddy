@@ -4,14 +4,13 @@ import '@firebase/firestore';
 
 export async function newPetName(userKey, petName){
   try {
-    const newPet = await firebase
+    await firebase
     .firestore()
     .collection('Users')
     .doc(userKey)
     .update({
-      pet:{Name:petName}
+      'pet.Name':petName
     })
-    return newPet
   } catch (error) {
     console.error(error)
   }
@@ -19,7 +18,7 @@ export async function newPetName(userKey, petName){
 
 export async function HPChange(userKey, petObject){
   try {
-    const newPet = await firebase
+    await firebase
     .firestore()
     .collection('Users')
     .doc(userKey)

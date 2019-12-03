@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import '@firebase/firestore';
 import * as Google from 'expo-google-app-auth';
 import {GoogleID} from '../../ApiKeys';
-import {userFriendList} from '../api/FriendsRoute';
+import {userFriendList, userPendingList} from '../api/FriendsRoute';
 // import {debug} from 'util';
 
 async function newUser(user) {
@@ -13,16 +13,30 @@ async function newUser(user) {
       .doc(user.uid)
       .set({
         email: user.email,
-        UserName:'',
-        pet:{Name:'Kitty',ChoresHP:1,ExerciseHP:1, OtherHP:1},
-        completedTasks:[],
-        incompleteTasks:[],
-        failedTasks:[],
-      })
-      console.log('info in newUser', user)
-
+        UserName: '',
+        pet: {Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, OtherHP: 1},
+        completedTasks: [],
+        incompleteTasks: [],
+        failedTasks: [],
+        bio: ''
+      });
+    console.log('info in newUser', user);
   } catch (error) {
     console.log('error', error);
+  }
+}
+
+export async function renameUserName(userKey, userName) {
+  try {
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(userKey)
+      .update({
+        UserName: userName
+      });
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -38,6 +52,7 @@ export async function signUpUser(email, password) {
     console.log('in signup user route', loggedInUser.user);
     await newUser(loggedInUser.user);
     await userFriendList(loggedInUser.user);
+    await userPendingList(loggedInUser.user);
     return loggedInUser.user.uid;
   } catch (err) {
     console.log(err.toString());
@@ -54,7 +69,8 @@ export async function googleUser(user) {
         email: user.email,
         UserName: '',
         pet: {Name: 'kitty', ChoreHP: 1, GymHP: 1},
-        tasks: []
+        tasks: [],
+        bio: ''
       });
   } catch (error) {
     console.log('error', error);
@@ -139,5 +155,19 @@ export async function getUsers() {
     return users;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function updateBio(userId, newBio) {
+  try {
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(userId)
+      .update({
+        bio: newBio
+      });
+  } catch (error) {
+    console.error(error);
   }
 }

@@ -14,9 +14,8 @@ import {
 } from '../../styles';
 import {ListItem} from 'react-native-elements';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
-import {getUsers} from '../../api/UserRoute';
+import {getUsers, updateBio} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-import ListUsers from '../../components/social/UsersList';
 import TasksHeader from '../../components/tasks/TasksHeader';
 import {ScrollView} from 'react-native-gesture-handler';
 import EditProfileInput from '../social/EditProfileInput';
@@ -27,6 +26,7 @@ class Profile extends React.Component {
     this.state = {
       name: '',
       bio: '',
+      userKey: '',
       showForm: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,18 +39,22 @@ class Profile extends React.Component {
     Promise.all([friends, userKey, user]);
     this.setState({
       user: '',
-      friends: friends
+      friends: friends,
+      userKey: userKey
     });
-    console.log('check', this.state.users);
-  }
-  handleSubmit(evt) {
-    evt.preventDefault();
+    console.log('checkerr', this.state);
   }
   handleBioChange = event => {
     let bio = event.nativeEvent.text;
     this.setState({bio: bio});
     console.log('bio', this.state.bio);
   };
+  async handleSubmit(evt) {
+    evt.preventDefault();
+    console.log('have this:', this.state.userKey, this.state.bio);
+    await updateBio(this.props.userKey, this.state.bio);
+  }
+
   handleClick = event => {
     return this.setState({
       showForm: !this.state.showForm
@@ -69,6 +73,9 @@ class Profile extends React.Component {
               bio={this.state.bio}
             />
           ) : null}
+          <View>
+            <Text>About Me: {this.props.user.bio}</Text>
+          </View>
         </View>
       );
     } else {

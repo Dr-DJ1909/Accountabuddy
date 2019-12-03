@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 export const PageWrapperView = styled.View`
   flex: 1;
@@ -21,7 +21,20 @@ export const PageWrapperAlignTopView = styled.View`
   flex: 1;
   background-color: #7cc6fe;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 70;
+`;
+
+export const PageWrapperKeyboardAvoidingView = styled.KeyboardAvoidingView`
+  flex: 1;
+  background-color: #7cc6fe;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 70;
+`;
+
+export const Divider = styled.View`
+  height: 20px;
 `;
 
 export const HeaderWrapperView = styled.View`
@@ -31,10 +44,9 @@ export const HeaderWrapperView = styled.View`
 `;
 
 export const PetView = styled.View`
-  flex-basis: 75%;
   align-items: center;
   justify-content: center;
-  height: 380px;
+  height: 500px;
   width: 300px;
   background-color: #fff8f3;
   border-width: 3px;
@@ -55,10 +67,31 @@ export const AbsolutePositionBubbleView = styled.View`
 
 export const TaskView = styled.View`
   height: 80;
-  background-color: #ff6700;
+  background-color: #EBEBEB;
   border-style: solid;
   border-width: 3px;
+  padding: 5px;
 `;
+
+export const TaskBtns = styled.View`
+  display: flex;
+  position: absolute;
+  height: 60;
+  left: 5;
+  top: 6;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+
+export const TaskBtnsRight = styled.View`
+  display: flex;
+  position: absolute;
+  height: 60;
+  right: 5;
+  top: 6;
+  justify-content: flex-end;
+  align-items: flex-end;
+`
 
 export const AddTaskBtnView = styled.View`
   position: absolute;
@@ -71,6 +104,7 @@ export const TaskNavBtnView = styled.View`
   padding-top: 40;
   align-self: flex-start;
   z-index: 2;
+  margin-bottom: -40px;
 `;
 
 export const HeaderText = styled.Text`
@@ -113,4 +147,58 @@ export const TaskText = styled.Text`
   font-weight: bold;
   align-self: center;
   color: #000000;
+`;
+
+export const OrangeButton = styled.TouchableOpacity`
+  color: #ffffff;
+  background-color: #ff6700;
+  border: solid 2px #ff6700;
+  border-radius: 1px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 35px;
+  width: auto;
+  elevation: 3;
+`;
+
+export const BlueButton = styled.TouchableOpacity`
+  color: #ffffff;
+  background-color: #0a369d;
+  border: solid 2px #0a369d;
+  border-radius: 1px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 35px;
+  width: auto;
+  elevation: 3;
+`;
+
+export const ButtonText = styled.Text`
+  color: #ffffff;
+  font-size: 16;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+`;
+
+export const TextInput = styled.TextInput`
+  height: 50;
+  font-size: 14;
+  background-color: #ebebeb;
+  border-color: #0a369d;
+  border-width: 4px;
+  width: 300px;
+  align-self: center;
+  margin: 10px;
+  padding: 5px;
+  padding-left: 15px;
+`;
+export const Picker = styled.Picker`
+  height: 50;
+  width: 300px;
+  margin: 10px;
 `;

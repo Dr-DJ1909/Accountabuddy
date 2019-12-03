@@ -18,31 +18,37 @@ import {
   AsyncStorage
 } from 'react-native';
 
-export default function EditProfileInput(props) {
-  let text = '';
-  return (
-    <KeyboardAvoidingView style={styles.formView}>
-      <LabelText>About Me:</LabelText>
-      <TextInput
-        multiline={true}
-        numberOfLines={8}
-        placeholder={props.bio}
-        placeholderColor="#c4c3cb"
-        onChange={props.handleBioChange}
-        defaultValue={props.name}
-        style={styles.textInput}
-      />
-      <TouchableHighlight
-        style={styles.button}
-        underlayColor="white"
-        onPress={props.handleSubmit}
-      >
-        <Text style={styles.buttonText}>Update</Text>
-      </TouchableHighlight>
-    </KeyboardAvoidingView>
-  );
+export default class EditProfileInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bio: ''
+    };
+  }
+  render() {
+    return (
+      <KeyboardAvoidingView style={styles.formView}>
+        <LabelText>About Me:</LabelText>
+        <TextInput
+          multiline={true}
+          numberOfLines={8}
+          placeholder={this.props.bio}
+          placeholderColor="#c4c3cb"
+          onChange={this.props.handleBioChange}
+          defaultValue={this.props.name}
+          style={styles.textInput}
+        />
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="white"
+          onPress={this.props.handleSubmit}
+        >
+          <Text style={styles.buttonText}>Update</Text>
+        </TouchableHighlight>
+      </KeyboardAvoidingView>
+    );
+  }
 }
-
 const styles = StyleSheet.create({
   button: {
     height: 30,

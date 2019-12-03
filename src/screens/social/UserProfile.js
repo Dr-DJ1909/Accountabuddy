@@ -11,7 +11,6 @@ import {
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
 import {getUsers, getUser} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-import ListUsers from '../../components/social/UsersList';
 import TasksHeader from '../../components/tasks/TasksHeader';
 import Profile from '../../components/social/Profile';
 import UserFriends from '../social/UserFriends';
@@ -26,11 +25,10 @@ export default class UserProfile extends Component {
     };
   }
   async componentDidMount() {
-    AsyncStorage.getItem('userKey');
+    let userKey = await AsyncStorage.getItem('userKey');
     const friends = await getFriendList(userKey);
     let user = await getUser(userKey);
     Promise.all([friends, userKey, user]);
-    console.log('what are friends', friends);
     this.setState({
       userKey: userKey,
       user: user,
@@ -48,12 +46,11 @@ export default class UserProfile extends Component {
   //   console.log('AAYY', this.state.user);
   render() {
     console.log('AAYY', this.state.user);
+    console.log('YOO', this.state.userKey);
     let {userKey, friends} = this.state;
-    if (this.state.friends) {
+    if (this.state.userKey) {
       return (
         <View>
-          <TasksHeader></TasksHeader>
-
           <ProfileHeaderView>
             <View style={styles.headerText}>
               <Image
@@ -61,13 +58,13 @@ export default class UserProfile extends Component {
                 source={require('../../assets/catIcon.png')}
               />
 
-              <Text style={styles.name}>User Name Here</Text>
+              <Text style={styles.name}>{this.state.user.email}</Text>
             </View>
           </ProfileHeaderView>
 
           <View style={styles.content}>
             <View style={styles.item}>
-              <Profile />
+              <Profile user={this.state.user} userKey={this.state.userKey} />
             </View>
           </View>
         </View>
