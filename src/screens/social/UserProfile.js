@@ -60,44 +60,38 @@ export default class UserProfile extends Component {
     const gymBadge = (
       <Image
         style={styles.badge}
+        key={'gymBadge'}
         source={require('../../assets/img/badges/Badge_Gym.png')}
       />
     );
     const choresBadge = (
       <Image
         style={styles.badge}
+        key={'choresBadge'}
         source={require('../../assets/img/badges/Badge_Chore.png')}
       />
     );
     const socialBadge = (
       <Image
         style={styles.badge}
+        key={'socialBadge'}
         source={require('../../assets/img/badges/Badge_Social.png')}
       />
     );
-    if (this.state.user.completedTasks.length) {
-      let badgeType = !badges.includes();
-      for (let i = 0; i < this.state.user.completedTasks.length; i++) {
-        if (this.state.user.completedTasks[i].category === 'Exercise') {
-          if (!badges.includes(gymBadge)) {
-            badges.push(gymBadge);
-          }
-        }
-        if (this.state.user.completedTasks[i].category === 'Chores') {
-          if (!badges.includes(choresBadge)) {
-            badges.push(choresBadge);
-          }
-        }
-        if (this.state.user.completedTasks[i].category === 'Social') {
-          if (!badges.includes(socialBadge)) {
-            badges.push(socialBadge);
-          }
-        }
+
+    this.state.user.completedTasks.forEach(task => {
+      if (task.category === 'Exercise' && !badges.includes(gymBadge)) {
+        badges.push(gymBadge);
       }
-      return badges.map(badge => badge);
-    } else {
-      return <Text>no badges</Text>;
-    }
+      if (task.category === 'Chores' && !badges.includes(choresBadge)) {
+        badges.push(choresBadge);
+      }
+      if (task.category === 'Social' && !badges.includes(socialBadge)) {
+        badges.push(socialBadge);
+      }
+    });
+
+    return badges.map(badge => badge);
   };
   render() {
     console.log('user obj', this.state.user);
