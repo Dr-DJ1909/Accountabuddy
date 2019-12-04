@@ -1,18 +1,10 @@
 import {ListItem, SearchBar} from 'react-native-elements';
 import React from 'react';
 import {View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
-import {PageWrapperView, AddTaskBtnView} from '../../styles';
-import {
-  newFriend,
-  getFriendList,
-  requestFriend,
-  getRequestList,
-  getSentList
-} from '../../api/FriendsRoute';
+import {requestFriend, getSentList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
-import Icon from 'react-native-vector-icons/Feather';
 import Constants from 'expo-constants';
-import TasksHeader from '../../components/tasks/TasksHeader';
+
 class SearchUsers extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +47,7 @@ class SearchUsers extends React.Component {
     const newData = this.arrayholder.filter(item => {
       const itemData = `${item.email.toLowerCase()}`;
       const textData = text.toLowerCase();
-      return itemData.includes(textData); // this will return true if our itemData contains the textData
+      return itemData.includes(textData);
     });
     this.setState({
       users: newData
@@ -80,11 +72,12 @@ class SearchUsers extends React.Component {
   };
 
   render() {
-    if (this.state.sentList) {
+    if (this.state.sentList && this.state.userKey) {
       let users = this.state.users.filter(
-        user => !this.state.sentList.includes(user.uId)
+        user =>
+          !this.state.sentList.includes(user.uId) &&
+          user.uId !== this.state.userKey
       );
-      console.log('allUsers', users);
       return (
         <View style={{flex: 1, paddingTop: 70}}>
           <FlatList
@@ -96,8 +89,6 @@ class SearchUsers extends React.Component {
                   <Button
                     title="Request"
                     onPress={() => {
-                      console.log('this condition works');
-
                       requestFriend(item.uId, this.state.userKey);
                     }}
                   />
@@ -124,8 +115,6 @@ class SearchUsers extends React.Component {
                   <Button
                     title="Request"
                     onPress={() => {
-                      console.log('this condition works');
-
                       requestFriend(item.uId, this.state.userKey);
                     }}
                   />
