@@ -42,7 +42,8 @@ class UserFriends extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
-              rightElement={
+              rightElement={ () =>(
+                <View style={{flex: 1, flexDirection: 'row'}}>
                 <Button
                 title='Chat'
                 onPress={() =>{
@@ -52,6 +53,17 @@ class UserFriends extends React.Component {
                     })
                 }
                   }/>
+                <Button
+                    title="View Profile"
+                    onPress={() =>
+                      this.props.navigation.navigate('ProfileDisplay', {
+                        user: item
+                      })
+                    }
+                  />
+                </View>
+
+              )
                 }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
