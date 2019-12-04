@@ -85,14 +85,11 @@ export async function userPendingList(user) {
 }
 export async function getRoom(user,friend){
   try {
-    console.log('what is friend here', friend)
     let friends = await firebase
     .firestore()
     .collection('Friendships')
     .doc(user)
     .get()
-    console.log('what do i get back?',friends.data())
-    console.log('friend room', friends.data()[friend])
     return friends.data()[friend]
   } catch (error) {
     console.log(error)
