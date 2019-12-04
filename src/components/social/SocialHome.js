@@ -44,9 +44,7 @@ class SocialHome extends Component {
         <BlueButtonWidth onPress={() => this.props.navigation.navigate('AddFriend')}>
           <ButtonText>Add friend</ButtonText>
         </BlueButtonWidth>
-        <BlueButtonWidth onPress={() => this.props.navigation.navigate('Chat')}>
-          <ButtonText>Navigate to Chat</ButtonText>
-        </BlueButtonWidth>
+
 
         <BlueButtonWidth
           onPress={() => this.props.navigation.navigate('FriendRequests')}
