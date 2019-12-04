@@ -46,7 +46,7 @@ const TaskExercise = (props) => {
       <MessageText>{user.pet.Name}'s health:</MessageText>
       <ProgressBarAnimated
         width={200}
-        value={props.hp * 100}
+        value={hp * 100}
         maxValue={100}
       />
       <Divider /><Divider />

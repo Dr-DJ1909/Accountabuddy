@@ -83,6 +83,7 @@ const TasksWrapper = createDrawerNavigator({
 },{
   initialRouteName: 'TaskList',
   drawerPosition: 'left',
+  unmountInactiveRoutes: true
 	// // drawerWidth: WIDTH*0.83,
 	// contentComponent: ({ navigation }) => {
 	// 	return(<TasksDrawer navigation={navigation} />)}
