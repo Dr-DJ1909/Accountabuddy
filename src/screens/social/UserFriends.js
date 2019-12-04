@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  AsyncStorage,
+  Button,
+  Image
+} from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
@@ -42,16 +50,16 @@ class UserFriends extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
-              rightElement={
-                <Button
-                title='Chat'
-                onPress={() =>{
-                  console.log('what is item being passed?', item)
-                  this.props.navigation.navigate('Chat', {
-                    item:item
-                    })
-                }
-                  }/>
+                rightElement={
+                  <Button
+                    title="Chat"
+                    onPress={() => {
+                      console.log('what is item being passed?', item);
+                      this.props.navigation.navigate('Chat', {
+                        item: item
+                      });
+                    }}
+                  />
                 }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}

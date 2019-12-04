@@ -55,9 +55,29 @@ export default class UserProfile extends Component {
       showForm: !this.state.showForm
     });
   };
+  displayBadge = () => {
+    const gymBadge = () => {
+      return (
+        <Image
+          style={styles.badge}
+          source={require('../../assets/img/badges/Badge_Gym.png')}
+        />
+      );
+    };
+    if (this.state.user.completedTasks.length) {
+      this.state.user.completedTasks.map(task => {
+        if (task.category === 'Chores') {
+          return gymBadge();
+        }
+      });
+    } else {
+      return <Text>no badges</Text>;
+    }
+  };
   render() {
-    console.log('current state', this.state);
+    console.log('user obj', this.state.user);
     let {userKey, friends} = this.state;
+
     if (this.state.userKey) {
       return (
         <View>
@@ -78,7 +98,11 @@ export default class UserProfile extends Component {
                 <ProfileView>
                   <Text>About Me: {this.state.bio}</Text>
                 </ProfileView>
-                <Button title="Edit Bio" onPress={this.handleClick}></Button>
+                {this.displayBadge()}
+                <Button
+                  title="Edit Profile"
+                  onPress={this.handleClick}
+                ></Button>
                 {this.state.showForm ? (
                   <EditProfileInput
                     handleSubmit={this.handleSubmit}
@@ -137,5 +161,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 20,
     color: '#FFFFFF'
+  },
+  badge: {
+    width: 100,
+    height: 100
   }
 });
