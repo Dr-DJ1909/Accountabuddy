@@ -19,12 +19,14 @@ import AddTaskInput from '../../screens/tasks/AddTaskInput';
 import {addTaskThunk} from '../../store/user';
 import TasksHeader from './TasksHeader';
 
+
 class AddTask extends Component {
   constructor() {
     super();
     this.state = {
       name: '',
       category: 'Exercise',
+      id: 0
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -50,6 +52,13 @@ class AddTask extends Component {
     this.setState({ name: name });
   };
 
+  componentDidMount() {
+    const test = this.props.user.incompleteTasks.length;
+    let tasksArr = this.props.user.incompleteTasks;
+    let newTaskId = test ? tasksArr[tasksArr.length-1].id + 1 : 0;
+    this.setState({id: newTaskId})
+  }
+
   render() {
     return (
       <PageWrapperView>
@@ -69,6 +78,12 @@ class AddTask extends Component {
   }
 }
 
+const mapStateToProps = function(state) {
+  return {
+    user: state.user.user,
+  }
+}
+
 const mapDispatchToProps = function(dispatch) {
   return {
     addTaskDispatcher: (task) => dispatch(addTaskThunk(task))
@@ -76,6 +91,6 @@ const mapDispatchToProps = function(dispatch) {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps)
   (AddTask);

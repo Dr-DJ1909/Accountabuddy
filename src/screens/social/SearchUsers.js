@@ -88,9 +88,7 @@ class SearchUsers extends React.Component {
                 rightElement={
                   <Button
                     title="Request"
-                    onPress={() => {
-                      requestFriend(item.uId, this.state.userKey);
-                    }}
+                    onPress={() =>requestFriend(item.uId, this.state.userKey)}
                   />
                 }
                 title={item.email}

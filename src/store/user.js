@@ -140,11 +140,14 @@ export const decreaseChoreHPThunk = (failedTask) =>{
       const retrievedData = await AsyncStorage.getItem('loggedinUser')
       const user = JSON.parse(retrievedData)
       TaskFailed(userKey,failedTask)
-      user.pet.ChoresHP -= 0.1
+      user.pet.ChoresHP -= 0.3
+      if (user.pet.ChoresHP < 0) {
+        user.pet.ChoresHP = 0
+      }
       HPChange(userKey, user.pet)
       user.failedTasks.push(failedTask)
       let newIncomplete = user.incompleteTasks.filter((current) =>{
-        if(current.name != failedTask.name){
+        if(current.id != failedTask.id){
           return current}
         })
         user.incompleteTasks = newIncomplete
@@ -163,11 +166,14 @@ export const decreaseExerciseHPThunk = (failedTask) =>{
       const retrievedData = await AsyncStorage.getItem('loggedinUser')
       const user = JSON.parse(retrievedData)
       TaskFailed(userKey,failedTask)
-      user.pet.ExerciseHP -= 0.1
+      user.pet.ExerciseHP -= 0.3
+      if (user.pet.ExerciseHP < 0) {
+        user.pet.ExerciseHP = 0
+      }
       HPChange(userKey, user.pet)
       user.failedTasks.push(failedTask)
       let newIncomplete = user.incompleteTasks.filter((current) =>{
-        if(current.name != failedTask.name){
+        if(current.id != failedTask.id){
           return current}
         })
         user.incompleteTasks = newIncomplete
@@ -188,7 +194,7 @@ export const updateTaskThunk = updatedTask =>{
       const user = JSON.parse(retrievedData)
       user.completedTasks.push(updatedTask)//updates asyncStorage
       let newIncomplete = user.incompleteTasks.filter((current) =>{
-      if(current.name != updatedTask.name){
+      if(current.id != updatedTask.id){
         return current}
       })
       user.incompleteTasks = newIncomplete
@@ -208,11 +214,14 @@ export const increaseChoreHPThunk = (completedTask) =>{
       const userKey = await AsyncStorage.getItem('userKey')
       const user = JSON.parse(retrievedData)
       TaskComplete(userKey,completedTask)
-      user.pet.ChoresHP += 0.05
+      user.pet.ChoresHP += 0.3
+      if (user.pet.ChoresHP > 1) {
+        user.pet.ChoresHP = 1
+      }
       HPChange(userKey, user.pet)
       user.completedTasks.push(completedTask)
       let newIncomplete = user.incompleteTasks.filter((current) =>{
-        if(current.name != completedTask.name){
+        if(current.id != completedTask.id){
           return current}
         })
         user.incompleteTasks = newIncomplete
@@ -232,11 +241,14 @@ export const increaseExerciseHPThunk = (completedTask) =>{
       const userKey = await AsyncStorage.getItem('userKey')
       const user = JSON.parse(retrievedData)
       TaskComplete(userKey,completedTask)
-      user.pet.ExerciseHP += 0.05
+      user.pet.ExerciseHP += 0.3
+      if (user.pet.ExerciseHP > 1) {
+        user.pet.ExerciseHP = 1
+      }
       HPChange(userKey, user.pet)
       user.completedTasks.push(completedTask)
       let newIncomplete = user.incompleteTasks.filter((current) =>{
-        if(current.name != completedTask.name){
+        if(current.id != completedTask.id){
           return current}
         })
         user.incompleteTasks = newIncomplete
@@ -304,7 +316,7 @@ export const deleteTaskThunk = deletedTask =>{
       const retrievedData = await AsyncStorage.getItem('loggedinUser')
       const user = JSON.parse(retrievedData)
       let newIncomplete = user.incompleteTasks.filter((current) =>{
-        if(current.name != deletedTask.name){
+        if(current.id != deletedTask.id){
           return current}
         })
         user.incompleteTasks = newIncomplete

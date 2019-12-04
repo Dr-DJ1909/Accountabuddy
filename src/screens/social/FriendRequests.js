@@ -18,7 +18,9 @@ import {
   newFriend,
   getPendingList,
   denyResponse,
-  acceptResponse
+  acceptResponse,
+  newChat,
+  addChatRoom,
 } from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
@@ -43,7 +45,7 @@ class FriendRequests extends React.Component {
       userKey: userKey,
       friends: friends
     });
-    // console.log('friendReq>>>>', friends);
+    console.log('friendReq>>>>', friends);
   }
   renderSeparator = () => {
     return (
@@ -68,9 +70,8 @@ class FriendRequests extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
-                rightElement={() => (
-                  <View style={{flex: 1, flexDirection: 'row'}}>
-                    <Button
+                rightElement={
+                  <Button
                       title="Deny"
                       onPress={() => {
                         denyResponse(this.state.userKey, item.uId);
@@ -81,23 +82,20 @@ class FriendRequests extends React.Component {
                           )
                         });
                       }}
-                    />
-                    <Button
-                      title="Accept"
-                      onPress={() => {
-                        newFriend(this.state.userKey, item.uId);
-                        newFriend(item.uId, this.state.userKey);
-                        acceptResponse(this.state.userKey, item.uId);
-                        acceptResponse(item.uId, this.state.userKey);
-                        this.setState({
-                          friends: this.state.friends.filter(
-                            friend => friend.uId !== item.uId
-                          )
-                        });
-                      }}
-                    />
-                  </View>
-                )}
+                    />,
+                  <Button
+                    title="Accept"
+                    onPress={async () => {
+                      console.log('this.state.userkey', this.state.userKey)
+                      console.log('item.uid', item.uId)
+                      // newFriend(this.state.userKey, item.uId);
+                      // newFriend(item.uId, this.state.userKey);
+                      let chatRoom = await newChat()
+                      await addChatRoom(this.state.userKey, item.uId, chatRoom)
+                      await addChatRoom(item.uId, this.state.userKey, chatRoom)
+                    }}
+                  />
+                }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
                 subtitle={item.UserName}
