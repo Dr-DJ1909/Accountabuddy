@@ -56,20 +56,45 @@ export default class UserProfile extends Component {
     });
   };
   displayBadge = () => {
-    const gymBadge = () => {
-      return (
-        <Image
-          style={styles.badge}
-          source={require('../../assets/img/badges/Badge_Gym.png')}
-        />
-      );
-    };
+    let badges = [];
+    const gymBadge = (
+      <Image
+        style={styles.badge}
+        source={require('../../assets/img/badges/Badge_Gym.png')}
+      />
+    );
+    const choresBadge = (
+      <Image
+        style={styles.badge}
+        source={require('../../assets/img/badges/Badge_Chore.png')}
+      />
+    );
+    const socialBadge = (
+      <Image
+        style={styles.badge}
+        source={require('../../assets/img/badges/Badge_Social.png')}
+      />
+    );
     if (this.state.user.completedTasks.length) {
-      this.state.user.completedTasks.map(task => {
-        if (task.category === 'Chores') {
-          return gymBadge();
+      let badgeType = !badges.includes();
+      for (let i = 0; i < this.state.user.completedTasks.length; i++) {
+        if (this.state.user.completedTasks[i].category === 'Exercise') {
+          if (!badges.includes(gymBadge)) {
+            badges.push(gymBadge);
+          }
         }
-      });
+        if (this.state.user.completedTasks[i].category === 'Chores') {
+          if (!badges.includes(choresBadge)) {
+            badges.push(choresBadge);
+          }
+        }
+        if (this.state.user.completedTasks[i].category === 'Social') {
+          if (!badges.includes(socialBadge)) {
+            badges.push(socialBadge);
+          }
+        }
+      }
+      return badges.map(badge => badge);
     } else {
       return <Text>no badges</Text>;
     }
@@ -98,7 +123,11 @@ export default class UserProfile extends Component {
                 <ProfileView>
                   <Text>About Me: {this.state.bio}</Text>
                 </ProfileView>
-                {this.displayBadge()}
+
+                <View style={{flexDirection: 'row'}}>
+                  {this.displayBadge()}
+                </View>
+
                 <Button
                   title="Edit Profile"
                   onPress={this.handleClick}

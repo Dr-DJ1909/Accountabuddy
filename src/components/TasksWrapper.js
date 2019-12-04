@@ -19,11 +19,12 @@ import {
 import {CheckBox} from 'native-base';
 import {newTask} from '../api/TaskRoute';
 import Swipeout from 'react-native-swipeout';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import {createDrawerNavigator} from 'react-navigation-drawer';
 import AddTask from './tasks/AddTask';
 import TaskList from './tasks/TaskList';
 import TaskExercise from '../screens/tasks/TaskExercise';
 import TaskChores from '../screens/tasks/TaskChores';
+import TaskSocial from '../screens/tasks/TaskSocial';
 import TaskListCompleted from './tasks/TaskListCompleted';
 import TasksDrawerBtn from './tasks/TasksDrawerBtn';
 import Icon from 'react-native-vector-icons/Feather';
@@ -49,45 +50,54 @@ import Icon from 'react-native-vector-icons/Feather';
 //   );
 // }
 
-const TasksWrapper = createDrawerNavigator({
-  TaskList: {
-    screen: TaskList,
-    navigationOptions: {
-      drawerLabel: "Current task list"
+const TasksWrapper = createDrawerNavigator(
+  {
+    TaskList: {
+      screen: TaskList,
+      navigationOptions: {
+        drawerLabel: 'Current task list'
+      }
+    },
+    AddTask: {
+      screen: AddTask,
+      navigationOptions: {
+        drawerLabel: 'Add a new task'
+      }
+    },
+    TaskExercise: {
+      screen: TaskExercise,
+      navigationOptions: {
+        drawerLabel: 'Exercise tasks'
+      }
+    },
+    TaskChores: {
+      screen: TaskChores,
+      navigationOptions: {
+        drawerLabel: 'Chores tasks'
+      }
+    },
+    TaskSocial: {
+      screen: TaskSocial,
+      navigationOptions: {
+        drawerLabel: 'Social tasks'
+      }
+    },
+    TaskListCompleted: {
+      screen: TaskListCompleted,
+      navigationOptions: {
+        drawerLabel: 'Task history'
+      }
     }
   },
-  AddTask: {
-    screen: AddTask,
-    navigationOptions: {
-      drawerLabel: "Add a new task"
-    }
-  },
-  TaskExercise: {
-    screen: TaskExercise,
-    navigationOptions: {
-      drawerLabel: "Exercise tasks"
-    }
-  },
-  TaskChores: {
-    screen: TaskChores,
-    navigationOptions: {
-      drawerLabel: "Chores tasks"
-    }
-  },
-  TaskListCompleted: {
-    screen: TaskListCompleted,
-    navigationOptions: {
-      drawerLabel: "Task history"
-    }
+  {
+    initialRouteName: 'TaskList',
+    drawerPosition: 'left',
+    unmountInactiveRoutes: true
+    // // drawerWidth: WIDTH*0.83,
+    // contentComponent: ({ navigation }) => {
+    // 	return(<TasksDrawer navigation={navigation} />)}
   }
-},{
-  initialRouteName: 'TaskList',
-  drawerPosition: 'left',
-  unmountInactiveRoutes: true
-	// // drawerWidth: WIDTH*0.83,
-	// contentComponent: ({ navigation }) => {
-	// 	return(<TasksDrawer navigation={navigation} />)}
-});
+);
 
 // renderSeparator = () => {
 //   return (
@@ -102,6 +112,5 @@ const TasksWrapper = createDrawerNavigator({
 //     />
 //   );
 // };
-
 
 export default TasksWrapper;
