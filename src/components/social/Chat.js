@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Text, View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { PageWrapperAlignTopView } from '../../styles';
@@ -59,13 +60,16 @@ class Chat extends Component {
   render() {
     console.log('props in chat', this.props)
     return (
+      <View>
         <GiftedChat
+
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{_id:this.props.userKey,
                   name:this.props.user.UserName
           }}
         />
+      </View>
     );
   }
 
