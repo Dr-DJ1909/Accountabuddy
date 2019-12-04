@@ -15,6 +15,7 @@ class TasksDrawerBtn extends Component {
         <Icon
           name="menu"
           size={23}
+          color='#fff'
         />
       </TouchableOpacity>
     )

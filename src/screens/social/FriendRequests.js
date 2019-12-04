@@ -14,12 +14,18 @@ import {
   HeaderText
 } from '../../styles';
 import {ListItem, ButtonGroup} from 'react-native-elements';
-import {newFriend, getPendingList, newChat, addChatRoom,} from '../../api/FriendsRoute';
+import {
+  newFriend,
+  getPendingList,
+  denyResponse,
+  acceptResponse,
+  newChat,
+  addChatRoom,
+} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import TasksHeader from '../../components/tasks/TasksHeader';
 import {ScrollView} from 'react-native-gesture-handler';
-
 class FriendRequests extends React.Component {
   constructor() {
     super();
@@ -41,7 +47,6 @@ class FriendRequests extends React.Component {
     });
     console.log('friendReq>>>>', friends);
   }
-
   renderSeparator = () => {
     return (
       <View
@@ -52,15 +57,11 @@ class FriendRequests extends React.Component {
           marginLeft: '14%',
           marginBottom: '5%'
         }}
-      >
-        {/* <Button title="click" /> */}
-      </View>
+      ></View>
     );
   };
-
   render() {
     let friends = this.state.friends;
-    console.log('friendshere', friends);
     if (this.state.friends.length) {
       return (
         <View style={{flex: 1, paddingTop: 70}}>
@@ -70,6 +71,18 @@ class FriendRequests extends React.Component {
             renderItem={({item}) => (
               <ListItem
                 rightElement={
+                  <Button
+                      title="Deny"
+                      onPress={() => {
+                        denyResponse(this.state.userKey, item.uId);
+                        denyResponse(item.uId, this.state.userKey);
+                        this.setState({
+                          friends: this.state.friends.filter(
+                            friend => friend.uId !== item.uId
+                          )
+                        });
+                      }}
+                    />,
                   <Button
                     title="Accept"
                     onPress={async () => {
@@ -111,9 +124,7 @@ class FriendRequests extends React.Component {
     }
   }
 }
-
 export default FriendRequests;
-
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#20B2AA'

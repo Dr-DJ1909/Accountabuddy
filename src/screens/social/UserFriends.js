@@ -9,8 +9,7 @@ import {ListItem} from 'react-native-elements';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
-
-import TasksHeader from '../../components/tasks/TasksHeader';
+import ProfileDisplay from './ProfileDisplay';
 import {ScrollView} from 'react-native-gesture-handler';
 
 class UserFriends extends React.Component {
@@ -65,7 +64,11 @@ class UserFriends extends React.Component {
         </View>
       );
     } else {
-      return <View></View>;
+      return (
+        <PageWrapperView>
+          <Text>No friends yet :( Search for a user and add someone! </Text>
+        </PageWrapperView>
+      );
     }
   }
 }

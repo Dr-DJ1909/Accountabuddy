@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView } from '../styles';
+import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView, DividerLarge, Divider } from '../styles';
 import Icon from 'react-native-vector-icons/Feather';
 
 class HomePet extends Component {
@@ -47,6 +47,7 @@ class HomePet extends Component {
             /> */}
           </AddTaskBtnView>
         </AbsolutePositionPetView>
+        <DividerLarge /><DividerLarge /><DividerLarge />
         {sprite}
       </PetView>
     );

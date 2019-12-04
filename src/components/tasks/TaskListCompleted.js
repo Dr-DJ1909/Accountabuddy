@@ -7,7 +7,10 @@ import {
   TaskWrapperView,
   HeaderWrapperView,
   LabelText,
-  TaskView
+  TaskView,
+  TopHeaderText,
+  TopHeader,
+  DividerHeader
 } from '../../styles';
 import {
   View,
@@ -31,8 +34,11 @@ class TaskListCompleted extends Component {
   render() {
     return (
       <PageWrapperView>
-        <TasksHeader />
-        <HeaderText>Task History</HeaderText>
+        <TopHeader>
+          <TopHeaderText>Task history</TopHeaderText>
+          <TasksHeader />
+        </TopHeader>
+        <DividerHeader />
         <FlatList
           style={{flex: 2, width: '100%'}}
           data={this.props.completedTasks}

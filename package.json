@@ -45,6 +45,7 @@
     "react-native-gifted-chat": "^0.12.0-beta-0",
     "react-native-ignore-warnings": "^0.1.1",
     "react-native-paper": "^3.2.1",
+    "react-native-progress-bar-animated": "^1.0.6",
     "react-native-reanimated": "^1.4.0",
     "react-native-swipeout": "^2.3.6",
     "react-native-vector-icons": "^6.6.0",
