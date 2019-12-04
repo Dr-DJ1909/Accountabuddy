@@ -80,7 +80,7 @@ class SearchUsers extends React.Component {
   };
 
   render() {
-    if (this.state.sentList.length) {
+    if (this.state.sentList) {
       let users = this.state.users.filter(
         user => !this.state.sentList.includes(user.uId)
       );
@@ -113,7 +113,33 @@ class SearchUsers extends React.Component {
         </View>
       );
     } else {
-      return <View></View>;
+      return (
+        <View style={{flex: 1, paddingTop: 70}}>
+          <FlatList
+            extraData={this.state}
+            data={this.state.users}
+            renderItem={({item}) => (
+              <ListItem
+                rightElement={
+                  <Button
+                    title="Request"
+                    onPress={() => {
+                      console.log('this condition works');
+
+                      requestFriend(item.uId, this.state.userKey);
+                    }}
+                  />
+                }
+                title={item.email}
+                subtitle={item.UserName}
+              />
+            )}
+            keyExtractor={(item, index) => `${index}`}
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
+          />
+        </View>
+      );
     }
   }
 }
