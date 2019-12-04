@@ -26,6 +26,13 @@ export async function requestFriend(user, friendId) {
       .update({
         [friendId]: 'pending'
       });
+    await firebase
+      .firestore()
+      .collection('FriendRequest')
+      .doc(friendId)
+      .update({
+        sent: firebase.firestore.FieldValue.arrayUnion(user)
+      });
   } catch (error) {
     console.log('error', error);
   }
@@ -151,6 +158,23 @@ export async function getRequestList(key) {
     return friendsList;
   } catch (error) {
     console.log('error', error);
+  }
+}
+
+export async function getSentList(key) {
+  try {
+    let userData = '';
+    await firebase
+      .firestore()
+      .collection('FriendRequest')
+      .doc(key)
+      .get()
+      .then(function(doc) {
+        userData = doc.data();
+      });
+    return userData.sent;
+  } catch (error) {
+    console.log('error in getSentList', error);
   }
 }
 

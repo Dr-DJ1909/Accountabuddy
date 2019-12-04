@@ -6,7 +6,8 @@ import {
   newFriend,
   getFriendList,
   requestFriend,
-  getRequestList
+  getRequestList,
+  getSentList
 } from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
@@ -19,19 +20,19 @@ class SearchUsers extends React.Component {
       users: [],
       userKey: '',
       value: '',
-      requestHistory: [],
-      targetUser: ''
+      sentList: []
     };
     this.arrayholder = [];
   }
   async componentDidMount() {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
-
-    Promise.all([users, userKey]);
+    const sentList = await getSentList(userKey);
+    Promise.all([users, userKey, sentList]);
     this.setState({
       users: users,
-      userKey: userKey
+      userKey: userKey,
+      sentList: sentList
     });
     this.arrayholder = this.state.users;
   }
@@ -78,41 +79,26 @@ class SearchUsers extends React.Component {
     );
   };
 
-  async getTargetUserHistory() {
-    const targetUserHistory = await getRequestList(this.state.targetUser);
-    this.setState({
-      requestHistory: targetUserHistory
-    });
-  }
-
   render() {
-    let users = this.state.users;
-    let friends = this.state.friends;
-    let target = '';
-    if (this.state.users.length) {
+    if (this.state.sentList.length) {
+      let users = this.state.users.filter(
+        user => !this.state.sentList.includes(user.uId)
+      );
+      console.log('allUsers', users);
       return (
         <View style={{flex: 1, paddingTop: 70}}>
           <FlatList
             extraData={this.state}
-            data={this.state.users}
+            data={users}
             renderItem={({item}) => (
               <ListItem
-                // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 rightElement={
                   <Button
                     title="Request"
                     onPress={() => {
-                      if (
-                        !this.state.requestHistory.includes(this.state.userKey)
-                      ) {
-                        requestFriend(item.uId, this.state.userKey);
-                        target = item.uId;
-                        this.setState({targetUser: target}, () => {
-                          this.getTargetUserHistory();
-                        });
-                      } else {
-                        console.log('NO REQ');
-                      }
+                      console.log('this condition works');
+
+                      requestFriend(item.uId, this.state.userKey);
                     }}
                   />
                 }
@@ -120,7 +106,6 @@ class SearchUsers extends React.Component {
                 subtitle={item.UserName}
               />
             )}
-            // keyExtractor={item => item.email}
             keyExtractor={(item, index) => `${index}`}
             ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}

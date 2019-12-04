@@ -1,0 +1,44 @@
+ <FlatList
+            extraData={this.state}
+            data={this.state.users}
+            renderItem={({item}) => (
+              <ListItem
+                // leftAvatar={{source: {uri: item.picture.thumbnail}}}
+                rightElement={
+                  <Button
+                    title="Request"
+                    onPress={() => {
+                      target = item.uId;
+                      this.setState({targetUser: target}, () => {
+                        this.getTargetUserHistory();
+                        console.log(
+                          'is target history updating?????',
+                          this.state.targetUser
+                        );
+                      });
+                      // console.log('reqHistory', this.state.requestHistory);
+                      // console.log('targetUser', this.state.targetUser);
+                      if (this.state.requestHistory.length) {
+                        console.log('intial if statement');
+                        if (
+                          !this.state.requestHistory.includes(
+                            this.state.userKey
+                          )
+                        ) {
+                          requestFriend(item.uId, this.state.userKey);
+                        } else {
+                          console.log('NO REQ');
+                        }
+                      }
+                    }}
+                  />
+                }
+                title={item.email}
+                subtitle={item.UserName}
+              />
+            )}
+            // keyExtractor={item => item.email}
+            keyExtractor={(item, index) => `${index}`}
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
+          />
