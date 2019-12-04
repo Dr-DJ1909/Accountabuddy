@@ -45,11 +45,13 @@ class UserFriends extends React.Component {
               rightElement={
                 <Button
                 title='Chat'
-                onPress={() =>
-                this.props.navigation.navigate('Chat', {
-
-                  item:item
-                })}/>
+                onPress={() =>{
+                  console.log('what is item being passed?', item)
+                  this.props.navigation.navigate('Chat', {
+                    item:item
+                    })
+                }
+                  }/>
                 }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}

@@ -62,7 +62,9 @@ class Chat extends Component {
         <GiftedChat
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
-          user={this.state.user}
+          user={{_id:this.props.userKey,
+                  name:this.props.user.UserName
+          }}
         />
     );
   }
@@ -76,7 +78,8 @@ class Chat extends Component {
       _id:messages[0]._id,
       text:messages[0].text,
       user:{
-        _id:user
+        _id:user,
+        name:this.props.user.UserName
       },
       createdAt:messages[0].createdAt
     }
