@@ -1,33 +1,30 @@
 import {ListItem, SearchBar} from 'react-native-elements';
 import React from 'react';
 import {View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
-import {PageWrapperView, AddTaskBtnView} from '../../styles';
-import {newFriend, getFriendList, requestFriend} from '../../api/FriendsRoute';
+import {requestFriend, getSentList} from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
-import Icon from 'react-native-vector-icons/Feather';
 import Constants from 'expo-constants';
-import TasksHeader from '../../components/tasks/TasksHeader';
+
 class SearchUsers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
       userKey: '',
-      friends: [],
-      value: ''
+      value: '',
+      sentList: []
     };
     this.arrayholder = [];
   }
   async componentDidMount() {
     let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
-    console.log('this is my user key', userKey);
-    const friends = await getFriendList(userKey);
-    Promise.all([users, friends, userKey]);
+    const sentList = await getSentList(userKey);
+    Promise.all([users, userKey, sentList]);
     this.setState({
       users: users,
       userKey: userKey,
-      friends: friends
+      sentList: sentList
     });
     this.arrayholder = this.state.users;
   }
@@ -50,7 +47,7 @@ class SearchUsers extends React.Component {
     const newData = this.arrayholder.filter(item => {
       const itemData = `${item.email.toLowerCase()}`;
       const textData = text.toLowerCase();
-      return itemData.includes(textData); // this will return true if our itemData contains the textData
+      return itemData.includes(textData);
     });
     this.setState({
       users: newData
@@ -73,18 +70,21 @@ class SearchUsers extends React.Component {
       />
     );
   };
+
   render() {
-    let users = this.state.users;
-    let friends = this.state.friends;
-    if (this.state.users.length) {
+    if (this.state.sentList && this.state.userKey) {
+      let users = this.state.users.filter(
+        user =>
+          !this.state.sentList.includes(user.uId) &&
+          user.uId !== this.state.userKey
+      );
       return (
         <View style={{flex: 1, paddingTop: 70}}>
           <FlatList
             extraData={this.state}
-            data={this.state.users}
+            data={users}
             renderItem={({item}) => (
               <ListItem
-                // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 rightElement={
                   <Button
                     title="Request"
@@ -97,7 +97,6 @@ class SearchUsers extends React.Component {
                 subtitle={item.UserName}
               />
             )}
-            // keyExtractor={item => item.email}
             keyExtractor={(item, index) => `${index}`}
             ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}
@@ -105,7 +104,31 @@ class SearchUsers extends React.Component {
         </View>
       );
     } else {
-      return <View></View>;
+      return (
+        <View style={{flex: 1, paddingTop: 70}}>
+          <FlatList
+            extraData={this.state}
+            data={this.state.users}
+            renderItem={({item}) => (
+              <ListItem
+                rightElement={
+                  <Button
+                    title="Request"
+                    onPress={() => {
+                      requestFriend(item.uId, this.state.userKey);
+                    }}
+                  />
+                }
+                title={item.email}
+                subtitle={item.UserName}
+              />
+            )}
+            keyExtractor={(item, index) => `${index}`}
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
+          />
+        </View>
+      );
     }
   }
 }
