@@ -10,8 +10,8 @@ class HomeWrapper extends Component {
 
   render() {
 
-    let petName = this.props.user ? this.props.user.pet.Name : <Text />;
-    let username = this.props.user ? this.props.user.UserName : <Text />;
+    let petName = this.props.userKey ? this.props.user.pet.Name : <Text />;
+    let username = this.props.userKey ? this.props.user.UserName : <Text />;
 
     return <Home petName={petName} username={username}/>;
   }
@@ -19,7 +19,8 @@ class HomeWrapper extends Component {
 
 const mapStateToProps = function(state) {
   return {
-    user: state.user.user
+    user: state.user.user,
+    userKey:state.user.userKey
   };
 };
 export default connect(mapStateToProps, null)(HomeWrapper);

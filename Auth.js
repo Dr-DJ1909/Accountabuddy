@@ -19,10 +19,11 @@ const MainNavigator = createSwitchNavigator(
     SignUpLogIn: {screen: SignUpLogIn},
     TestPetScreen: {screen: TestPetScreen},
     UserNameScreen:{screen:UserNameScreen},
-    NavWrapper: {screen: NavWrapper}
+    NavWrapper: {screen: NavWrapper},
   },
   {
-    backBehavior: 'none'
+    backBehavior: 'none',
+    initialRouteName:'SignUpLogIn'
   }
 );
 
@@ -36,22 +37,39 @@ class Auth extends Component {
     };
   }
 
-   componentDidMount() {
-    this.authSubscription = firebase.auth().onAuthStateChanged(async (user) => {
-      let loggedinUser = await getUser(user.uid)
-      console.log('what are you?????',loggedinUser)
-      this.setState({
-        loading: false,
-        user
-      });
+    componentDidMount() {
+      console.log('hello')
+    this.authSubscription =  firebase.auth().onAuthStateChanged(async (user) => {
+      try {
+        const userLoggedIn = this.props.user.uid
+        if(userLoggedIn){
+          let loggedinUser = await getUser(user.uid)
+          console.log('what are you?????',loggedinUser)
+          this.setState({
+            loading: false,
+            user
+          });
+        }
+        else{
+          console.log('esle statement',this.props)
+          this.setState({
+            loading:false
 
+          });
+        }
+
+      } catch (error) {
+        console.error(error)
+      }
     });
 
   }
     render() {
+      const userCheck = this.props.user && this.props.user.uid
     if (this.state.loading) return null;
-    if (this.props.user && !this.props.user.isDoingTutorial) {
-
+    console.log('im being hit', this.props.user)
+    if (userCheck && !this.props.user.isDoingTutorial) {
+      console.log('usercheck', this.props)
       return (
           <PersistedLogin userKey={this.state.user.uid}/>
       )

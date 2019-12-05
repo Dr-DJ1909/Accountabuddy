@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AsyncStorage} from 'react-native';
 import {PageWrapperAlignTopView, HeaderText, BlueButtonWidth, BlueButtonWidthTwo, ButtonText, TopHeader, TopHeaderText} from '../styles';
-import {getUserThunk} from '../store/user';
+import {getUserThunk, getUserKeyThunk} from '../store/user';
 import firebase from 'firebase';
+
 
 logOutUser = async () => {
   try {
+    console.log('are you being hit?', this.props)
       await firebase.auth().signOut();
+      console.log('')
       AsyncStorage.clear();
   } catch (error) {
       console.error(error);
@@ -27,7 +30,12 @@ class SettingsWrapper extends Component {
           <ButtonText>Change your username or your pet's name</ButtonText>
         </BlueButtonWidthTwo>
         <BlueButtonWidth
-          onPress={() => logOutUser()}>
+          onPress={() => {
+
+            logOutUser()
+            this.props.deleteUser()
+            this.props.deleteUserKey()
+            }}>
           <ButtonText>Log out</ButtonText>
         </BlueButtonWidth>
       </PageWrapperAlignTopView>
@@ -43,7 +51,8 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = function(dispatch) {
   return {
-    getUserAction: () => dispatch(getUserThunk())
+    deleteUser: () => dispatch(getUserThunk({})),
+    deleteUserKey: () =>dispatch(getUserKeyThunk(''))
   }
 }
 
