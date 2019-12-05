@@ -9,13 +9,21 @@ class ExercisePet extends Component {
       on: true,
     }
 
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState(previousState => {
         return {
           on: !previousState.on,
         };
       });
     }, 1200);
+  }
+
+  componentDidMount() {
+    this.intervalId;
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   render() {
