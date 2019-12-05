@@ -17,11 +17,8 @@ export default class ImageUpload extends React.Component {
       progress: 0
     };
   }
-
   render() {
     let {image} = this.state;
-    console.log('HITTING HERE', this.props);
-    console.log('this is the state', this.state);
     return (
       <KeyboardAvoidingView>
         <Button
@@ -35,14 +32,13 @@ export default class ImageUpload extends React.Component {
     );
   }
   async uploadImage(uri) {
-    console.log('this is the uri', uri);
-    console.log('and this is the state', this.state);
     const {image} = this.state;
+    const username = this.props.UserName;
     const response = await fetch(uri);
     const blob = await response.blob();
     const uploadTask = firebase
       .storage()
-      .ref(`images/${image.name}`)
+      .ref(`images/${username}`)
       .put(blob);
     uploadTask.on(
       'state_changed',
@@ -70,7 +66,7 @@ export default class ImageUpload extends React.Component {
   }
   componentDidMount() {
     this.getPermissionAsync();
-    console.log('hi');
+    const username = this.props.props.UserName;
   }
 
   getPermissionAsync = async () => {

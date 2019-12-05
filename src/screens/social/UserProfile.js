@@ -133,7 +133,7 @@ export default class UserProfile extends Component {
                   //   handleBioChange={this.handleBioChange}
                   //   bio={this.state.bio}
                   // />
-                  <ImageUpload />
+                  <ImageUpload props={this.state.user} />
                 ) : null}
               </View>
             </View>
