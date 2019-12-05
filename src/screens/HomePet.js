@@ -18,7 +18,8 @@ class HomePet extends Component {
     super();
     this.state = {
       on: true,
-      meow: false
+      meow: false,
+      count: 0
     };
 
     setInterval(() => {
@@ -31,6 +32,13 @@ class HomePet extends Component {
   }
 
   render() {
+    let angerMeow = () => {
+      if (this.state.count >= 10) {
+        return <Text>STOP BEING DISTRACTED BY MY FLUFFINESS!</Text>;
+      } else {
+        return <Text></Text>;
+      }
+    };
     let meow = () => {
       if (this.state.meow === true) {
         return <Text>Meow</Text>;
@@ -73,13 +81,22 @@ class HomePet extends Component {
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => {
-            this.setState({meow: !this.state.meow});
+            if (this.state.count < 10) {
+              this.setState({
+                meow: !this.state.meow,
+                count: this.state.count + 1
+              });
+            }
+            this.setState({
+              count: this.state.count + 1
+            });
             console.log('meow', this.state.meow);
           }}
         >
           {sprite}
         </TouchableOpacity>
         {meow()}
+        {angerMeow()}
       </PetView>
     );
   }
