@@ -12,8 +12,10 @@ import {getFriendList} from '../../api/FriendsRoute';
 import {getUser, updateBio} from '../../api/UserRoute';
 
 export default function ProfileDisplay(props) {
-  console.log('item', props.navigation.state.params.user);
-  let {UserName, bio, email, pet} = props.navigation.state.params.user;
+
+  console.log('userPet', props.navigation.state.params.userPet)
+  console.log('item', props.navigation.state.params.friend);
+  let {UserName, bio, email, pet} = props.navigation.state.params.friend;
   return (
     <View>
       <ProfileHeaderView>
