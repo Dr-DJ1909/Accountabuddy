@@ -55,9 +55,48 @@ export default class UserProfile extends Component {
       showForm: !this.state.showForm
     });
   };
+  displayBadge = () => {
+    let badges = [];
+    const gymBadge = (
+      <Image
+        style={styles.badge}
+        key={'gymBadge'}
+        source={require('../../assets/img/badges/Badge_Gym.png')}
+      />
+    );
+    const choresBadge = (
+      <Image
+        style={styles.badge}
+        key={'choresBadge'}
+        source={require('../../assets/img/badges/Badge_Chore.png')}
+      />
+    );
+    const socialBadge = (
+      <Image
+        style={styles.badge}
+        key={'socialBadge'}
+        source={require('../../assets/img/badges/Badge_Social.png')}
+      />
+    );
+
+    this.state.user.completedTasks.forEach(task => {
+      if (task.category === 'Exercise' && !badges.includes(gymBadge)) {
+        badges.push(gymBadge);
+      }
+      if (task.category === 'Chores' && !badges.includes(choresBadge)) {
+        badges.push(choresBadge);
+      }
+      if (task.category === 'Social' && !badges.includes(socialBadge)) {
+        badges.push(socialBadge);
+      }
+    });
+
+    return badges.map(badge => badge);
+  };
   render() {
-    console.log('current state', this.state);
+    console.log('user obj', this.state.user);
     let {userKey, friends} = this.state;
+
     if (this.state.userKey) {
       return (
         <View>
@@ -78,7 +117,15 @@ export default class UserProfile extends Component {
                 <ProfileView>
                   <Text>About Me: {this.state.bio}</Text>
                 </ProfileView>
-                <Button title="Edit Bio" onPress={this.handleClick}></Button>
+
+                <View style={{flexDirection: 'row'}}>
+                  {this.displayBadge()}
+                </View>
+
+                <Button
+                  title="Edit Profile"
+                  onPress={this.handleClick}
+                ></Button>
                 {this.state.showForm ? (
                   <EditProfileInput
                     handleSubmit={this.handleSubmit}
@@ -137,5 +184,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 20,
     color: '#FFFFFF'
+  },
+  badge: {
+    width: 100,
+    height: 100
   }
 });

@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  AsyncStorage,
+  Button,
+  Image
+} from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
@@ -42,29 +50,27 @@ class UserFriends extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
-              rightElement={ () =>(
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                <Button
-                title='Chat'
-                onPress={() =>{
-                  console.log('what is item being passed?', item)
-                  this.props.navigation.navigate('Chat', {
-                    item:item
-                    })
-                }
-                  }/>
-                <Button
-                    title="View Profile"
-                    onPress={() =>
-                      this.props.navigation.navigate('ProfileDisplay', {
-                        user: item
-                      })
-                    }
-                  />
-                </View>
-
-              )
-                }
+                rightElement={() => (
+                  <View style={{flex: 1, flexDirection: 'row'}}>
+                    <Button
+                      title="Chat"
+                      onPress={() => {
+                        console.log('what is item being passed?', item);
+                        this.props.navigation.navigate('Chat', {
+                          item: item
+                        });
+                      }}
+                    />
+                    <Button
+                      title="View Profile"
+                      onPress={() =>
+                        this.props.navigation.navigate('ProfileDisplay', {
+                          user: item
+                        })
+                      }
+                    />
+                  </View>
+                )}
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
                 subtitle={item.UserName}
