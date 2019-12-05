@@ -6,20 +6,22 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import {connectableObservableDescriptor} from 'rxjs/internal/observable/ConnectableObservable';
-import {storage} from '../../../ApiKeys';
+import labelImage from '../../../src/api/UserRoute';
 
 export default class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       image: null,
-      url: ''
+      url: '',
+      progress: 0
     };
   }
 
   render() {
     let {image} = this.state;
     console.log('HITTING HERE', this.props);
+    console.log('this is the state', this.state);
     return (
       <KeyboardAvoidingView>
         <Button
@@ -33,11 +35,15 @@ export default class ImageUpload extends React.Component {
     );
   }
   async uploadImage(uri) {
+    console.log('this is the uri', uri);
+    console.log('and this is the state', this.state);
+    const {image} = this.state;
     const response = await fetch(uri);
     const blob = await response.blob();
-    const uploadTask = storage
-      .ref(`photos/${this.state.email}`)
-      .put(this.state.email);
+    const uploadTask = firebase
+      .storage()
+      .ref(`images/${image.name}`)
+      .put(blob);
     uploadTask.on(
       'state_changed',
       snapshot => {
@@ -50,15 +56,15 @@ export default class ImageUpload extends React.Component {
         console.log(error);
       },
       () => {
-        storage
-          .ref('photos')
-          .child(image.name)
+        firebase()
+          .storage.ref('images')
+          .child(image)
           .getDownloadURL()
           .then(url => {
             this.setState({url});
-            console.log(url);
-            this.setState({url});
+            console.log('SOS', this.state.url);
           });
+        // labelImage();
       }
     );
   }
@@ -84,10 +90,12 @@ export default class ImageUpload extends React.Component {
       quality: 1
     });
 
-    console.log(result);
+    console.log('this is the', result);
 
     if (!result.cancelled) {
       this.setState({image: result.uri});
+      console.log('HIII', result.uri);
+      console.log('state', this.state);
       this.uploadImage(result.uri);
     }
   };

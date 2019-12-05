@@ -19,7 +19,7 @@ async function newUser(user) {
         incompleteTasks: [],
         failedTasks: [],
         bio: '',
-        isDoingTutorial:true
+        isDoingTutorial: true
       });
   } catch (error) {
     console.log('error', error);
@@ -166,6 +166,21 @@ export async function updateBio(userId, newBio) {
       .doc(userId)
       .update({
         bio: newBio
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function labelImage() {
+  try {
+    await firebase.storage
+      .ref('images')
+      .child(image)
+      .getDownloadURL()
+      .then(url => {
+        this.setState({url});
+        console.log('SOS', this.state.url);
       });
   } catch (error) {
     console.error(error);
