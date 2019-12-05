@@ -11,6 +11,7 @@ import {ProfileHeaderView, ProfileView} from '../../styles';
 import {getFriendList} from '../../api/FriendsRoute';
 import {getUser, updateBio} from '../../api/UserRoute';
 import EditProfileInput from '../../components/social/EditProfileInput';
+import ImageUpload from '../../components/social/ImageUpload';
 
 export default class UserProfile extends Component {
   constructor() {
@@ -127,11 +128,12 @@ export default class UserProfile extends Component {
                   onPress={this.handleClick}
                 ></Button>
                 {this.state.showForm ? (
-                  <EditProfileInput
-                    handleSubmit={this.handleSubmit}
-                    handleBioChange={this.handleBioChange}
-                    bio={this.state.bio}
-                  />
+                  // <EditProfileInput
+                  //   handleSubmit={this.handleSubmit}
+                  //   handleBioChange={this.handleBioChange}
+                  //   bio={this.state.bio}
+                  // />
+                  <ImageUpload />
                 ) : null}
               </View>
             </View>
