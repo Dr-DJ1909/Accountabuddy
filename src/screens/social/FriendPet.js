@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView } from '../../styles';
+import { Text, Image, View } from 'react-native';
+import { FriendTextView,  FriendPetView,} from '../../styles';
+import { Content } from 'native-base';
 
-class ExercisePet extends Component {
-  constructor() {
-    super();
+class FriendPet extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       on: true,
     }
 
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState(previousState => {
         return {
           on: !previousState.on,
@@ -18,7 +19,19 @@ class ExercisePet extends Component {
     }, 1200);
   }
 
+  componentDidMount() {
+    this.intervalId;
+
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
   render() {
+    console.log("WHATS HERE ???????", this.props)
+    let friendPetName = this.props.friendPet.Name
+    let userPetName = this.props.userPet.Name
     let sprite = this.state.on
       ? <Image
         source={require('../../assets/img/cat/CatSquat01.png')}
@@ -29,20 +42,24 @@ class ExercisePet extends Component {
         style={{height: 300, width: 300}}
         />
     return (
-      <PetView>
-        <AbsolutePositionPetView>
-          <AddTaskBtnView>
-            {/* <Icon
-              name='plus-circle'
-              size={40}
-              backgroundColor='#4472CA'
-            /> */}
-          </AddTaskBtnView>
-        </AbsolutePositionPetView>
-        {sprite}
-      </PetView>
+
+      <FriendPetView>
+       <FriendTextView>
+
+        <Text>
+        {friendPetName}
+        </Text>
+        <Text>
+        {userPetName}
+        </Text>
+
+       </FriendTextView>
+
+
+          {sprite}
+      </FriendPetView>
     );
   }
 }
 
-export default ExercisePet;
+export default FriendPet;

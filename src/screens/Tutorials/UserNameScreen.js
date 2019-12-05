@@ -44,7 +44,7 @@ class UserNameScreen extends Component{
         <Container style={{ ...styles.container, backgroundColor: '#EFE2E5' }}>
         <Form>
             <Item floatingLabel>
-              <Label>What's your User Name? This will be the name that your friends can search you for!</Label>
+              <Label>What's your User Name?</Label>
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"

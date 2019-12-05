@@ -10,11 +10,9 @@ import {
 import {ProfileHeaderView, ProfileView, LabelText} from '../../styles';
 import {getFriendList} from '../../api/FriendsRoute';
 import {getUser, updateBio} from '../../api/UserRoute';
+import FriendPet from './FriendPet'
 
 export default function ProfileDisplay(props) {
-
-  console.log('userPet', props.navigation.state.params.userPet)
-  console.log('item', props.navigation.state.params.friend);
   let {UserName, bio, email, pet} = props.navigation.state.params.friend;
   return (
     <View>
@@ -35,6 +33,9 @@ export default function ProfileDisplay(props) {
               <LabelText>About Me:</LabelText>
               <Text>{bio}</Text>
             </ProfileView>
+            <FriendPet
+            userPet = {props.navigation.state.params.userPet}
+            friendPet = {props.navigation.state.params.friend.pet} />
           </View>
         </View>
       </View>
