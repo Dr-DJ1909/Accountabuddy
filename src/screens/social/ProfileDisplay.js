@@ -7,7 +7,7 @@ import {
   AsyncStorage,
   Button
 } from 'react-native';
-import {ProfileHeaderView, ProfileView} from '../../styles';
+import {ProfileHeaderView, ProfileView, LabelText} from '../../styles';
 import {getFriendList} from '../../api/FriendsRoute';
 import {getUser, updateBio} from '../../api/UserRoute';
 
@@ -32,7 +32,8 @@ export default function ProfileDisplay(props) {
         <View style={styles.item}>
           <View style={{flex: 1}}>
             <ProfileView>
-              <Text>About Me: {bio}</Text>
+              <LabelText>About Me:</LabelText>
+              <Text>{bio}</Text>
             </ProfileView>
           </View>
         </View>

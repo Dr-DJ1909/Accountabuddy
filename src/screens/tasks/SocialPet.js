@@ -1,18 +1,26 @@
-import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView } from '../../styles';
+import React, {Component} from 'react';
+import {Image} from 'react-native';
+import {
+  PageWrapperView,
+  AbsolutePositionPetView,
+  HeaderText,
+  PetView,
+  BubbleText,
+  AbsolutePositionBubbleView,
+  AddTaskBtnView
+} from '../../styles';
 
-class ExercisePet extends Component {
+class SocialPet extends Component {
   constructor() {
     super();
     this.state = {
-      on: true,
-    }
+      on: true
+    };
 
     this.intervalId = setInterval(() => {
       this.setState(previousState => {
         return {
-          on: !previousState.on,
+          on: !previousState.on
         };
       });
     }, 1200);
@@ -27,15 +35,17 @@ class ExercisePet extends Component {
   }
 
   render() {
-    let sprite = this.state.on
-      ? <Image
+    let sprite = this.state.on ? (
+      <Image
         source={require('../../assets/img/cat/CatSquat01.png')}
         style={{height: 300, width: 300}}
-        />
-      : <Image
+      />
+    ) : (
+      <Image
         source={require('../../assets/img/cat/CatSquat02.png')}
         style={{height: 300, width: 300}}
-        />
+      />
+    );
     return (
       <PetView>
         <AbsolutePositionPetView>
@@ -53,4 +63,4 @@ class ExercisePet extends Component {
   }
 }
 
-export default ExercisePet;
+export default SocialPet;

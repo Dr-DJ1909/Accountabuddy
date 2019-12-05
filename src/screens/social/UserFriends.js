@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, StyleSheet, AsyncStorage, Button} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  AsyncStorage,
+  Button,
+  Image
+} from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
