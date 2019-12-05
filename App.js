@@ -19,9 +19,6 @@ import Auth from './Auth'
 ignoreWarnings('Setting a timer');
 ignoreWarnings('Require cycle');
 
-
-
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +30,6 @@ export default class App extends Component {
   }
 
     render() {
-
       return (
         <Provider store={Store}>
 
@@ -41,5 +37,4 @@ export default class App extends Component {
         </Provider>
       )
     }
-
 }

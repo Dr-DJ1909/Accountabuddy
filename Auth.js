@@ -48,11 +48,7 @@ class Auth extends Component {
     });
 
   }
-
     render() {
-    // console.log('appjs persisted state here>>>>>', this.state.user)
-    // let user =  getUser(this.state.user.uid)
-
     if (this.state.loading) return null;
     if (this.props.user && !this.props.user.isDoingTutorial) {
 
