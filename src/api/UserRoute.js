@@ -18,9 +18,9 @@ async function newUser(user) {
         completedTasks: [],
         incompleteTasks: [],
         failedTasks: [],
-        bio: ''
+        bio: '',
+        isDoingTutorial:true
       });
-    console.log('info in newUser', user);
   } catch (error) {
     console.log('error', error);
   }
@@ -49,7 +49,6 @@ export async function signUpUser(email, password) {
     let loggedInUser = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    console.log('in signup user route', loggedInUser.user);
     await newUser(loggedInUser.user);
     await userFriendList(loggedInUser.user);
     await userPendingList(loggedInUser.user);
