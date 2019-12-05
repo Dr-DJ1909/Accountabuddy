@@ -27,7 +27,7 @@ export default class EditProfileInput extends React.Component {
   }
   render() {
     return (
-      <KeyboardAvoidingView style={styles.formView}>
+      <KeyboardAvoidingView>
         <LabelText>About Me:</LabelText>
         <TextInput
           multiline={true}

@@ -17,6 +17,8 @@ import {
   increaseChoreHPThunk,
   decreaseExerciseHPThunk,
   increaseExerciseHPThunk,
+  decreaseSocialHPThunk,
+  increaseSocialHPThunk,
   updateTaskThunk,
   deleteTaskThunk,
   failedTaskThunk
@@ -40,6 +42,9 @@ class TaskList extends Component {
     if (completedTask.category === 'Exercise') {
       this.props.increaseExerciseHPAction(completedTask);
     }
+    if (completedTask.category === 'Social') {
+      this.props.increaseSocialHPAction(completedTask);
+    }
   }
   delete(unwantedTask) {
     this.props.deleteTaskAction(unwantedTask);
@@ -52,6 +57,10 @@ class TaskList extends Component {
     }
     if (failedTask.category === 'Exercise') {
       this.props.decreaseExerciseHPAction(failedTask);
+      return;
+    }
+    if (failedTask.category === 'Social') {
+      this.props.decreaseSocialHPAction(failedTask);
       return;
     }
   }
@@ -139,7 +148,9 @@ const mapDispatchToProps = function(dispatch) {
     increaseChoreHPAction: task => dispatch(increaseChoreHPThunk(task)),
     decreaseChoreHPAction: task => dispatch(decreaseChoreHPThunk(task)),
     increaseExerciseHPAction: task => dispatch(increaseExerciseHPThunk(task)),
-    decreaseExerciseHPAction: task => dispatch(decreaseExerciseHPThunk(task))
+    decreaseExerciseHPAction: task => dispatch(decreaseExerciseHPThunk(task)),
+    increaseSocialHPAction: task => dispatch(increaseSocialHPThunk(task)),
+    decreaseSocialHPAction: task => dispatch(decreaseSocialHPThunk(task))
   };
 };
 

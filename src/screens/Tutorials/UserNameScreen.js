@@ -28,7 +28,7 @@ class UserNameScreen extends Component{
     let userKey = await AsyncStorage.getItem('userKey')
     await renameUserName(userKey, newUserName)
     let newUser = await getUser(userKey)
-    console.log('user to be set on state',newUser)
+
     this.props.getUserAction(newUser)
     const {navigate} = this.props.navigation
     navigate('NavWrapper')
@@ -44,7 +44,7 @@ class UserNameScreen extends Component{
         <Container style={{ ...styles.container, backgroundColor: '#EFE2E5' }}>
         <Form>
             <Item floatingLabel>
-              <Label>What's your userName?</Label>
+              <Label>What's your User Name? This will be the name that your friends can search you for!</Label>
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"
