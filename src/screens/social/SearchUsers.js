@@ -88,7 +88,7 @@ class SearchUsers extends React.Component {
                 rightElement={
                   <Button
                     title="Request"
-                    onPress={() =>requestFriend(item.uId, this.state.userKey)}
+                    onPress={() => requestFriend(item.uId, this.state.userKey)}
                   />
                 }
                 title={item.email}
@@ -102,11 +102,14 @@ class SearchUsers extends React.Component {
         </View>
       );
     } else {
+      let users = this.state.users.filter(
+        user => user.uId !== this.state.userKey
+      );
       return (
         <View style={{flex: 1, paddingTop: 70}}>
           <FlatList
             extraData={this.state}
-            data={this.state.users}
+            data={users}
             renderItem={({item}) => (
               <ListItem
                 rightElement={

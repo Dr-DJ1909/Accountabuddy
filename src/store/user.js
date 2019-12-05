@@ -414,7 +414,6 @@ export const getUserThunk = user => dispatch => {
 export const getUserKeyThunk = userKey => {
   return function(dispatch) {
     try {
-      console.log('userKey thunk being accessed');
       dispatch(getUserKey(userKey));
     } catch (error) {
       console.error(error);

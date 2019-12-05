@@ -31,6 +31,7 @@ export default class TestPetScreen extends Component{
   }
 
   render(){
+
     return(
     <KeyboardAvoidingView
         style={{ flex: 1 }}

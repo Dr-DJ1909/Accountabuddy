@@ -1,6 +1,16 @@
-import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView, DividerLarge, Divider } from '../styles';
+import React, {Component} from 'react';
+import {Image, TouchableOpacity, Text} from 'react-native';
+import {
+  PageWrapperView,
+  AbsolutePositionPetView,
+  HeaderText,
+  PetView,
+  BubbleText,
+  AbsolutePositionBubbleView,
+  AddTaskBtnView,
+  DividerLarge,
+  Divider
+} from '../styles';
 import Icon from 'react-native-vector-icons/Feather';
 
 class HomePet extends Component {
@@ -8,27 +18,45 @@ class HomePet extends Component {
     super();
     this.state = {
       on: true,
-    }
+      meow: false,
+      count: 0
+    };
 
     setInterval(() => {
       this.setState(previousState => {
         return {
-          on: !previousState.on,
+          on: !previousState.on
         };
       });
     }, 1200);
   }
 
   render() {
-    let sprite = this.state.on
-      ? <Image
+    let angerMeow = () => {
+      if (this.state.count >= 10) {
+        return <Text>STOP BEING DISTRACTED BY MY FLUFFINESS!</Text>;
+      } else {
+        return <Text></Text>;
+      }
+    };
+    let meow = () => {
+      if (this.state.meow === true) {
+        return <Text>Meow</Text>;
+      } else {
+        return <Text></Text>;
+      }
+    };
+    let sprite = this.state.on ? (
+      <Image
         source={require('../assets/img/cat/CatWave01.png')}
         style={{height: 300, width: 300}}
-        />
-      : <Image
+      />
+    ) : (
+      <Image
         source={require('../assets/img/cat/CatWave02.png')}
         style={{height: 300, width: 300}}
-        />
+      />
+    );
     return (
       <PetView>
         <AbsolutePositionPetView>
@@ -47,11 +75,37 @@ class HomePet extends Component {
             /> */}
           </AddTaskBtnView>
         </AbsolutePositionPetView>
-        <DividerLarge /><DividerLarge /><DividerLarge />
-        {sprite}
+        <DividerLarge />
+        <DividerLarge />
+        <DividerLarge />
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => {
+            if (this.state.count < 10) {
+              this.setState({
+                meow: !this.state.meow,
+                count: this.state.count + 1
+              });
+            } else if (this.state.count >= 10) {
+              this.setState({
+                count: this.state.count + 1
+              });
+              if (this.state.count >= 20) {
+                this.setState({
+                  count: 0
+                });
+              }
+            }
+            console.log(this.state.count);
+          }}
+        >
+          {sprite}
+        </TouchableOpacity>
+        {meow()}
+        {angerMeow()}
       </PetView>
     );
   }
 }
 
-export default HomePet
+export default HomePet;
