@@ -86,11 +86,17 @@ class HomePet extends Component {
                 meow: !this.state.meow,
                 count: this.state.count + 1
               });
+            } else if (this.state.count >= 10) {
+              this.setState({
+                count: this.state.count + 1
+              });
+              if (this.state.count >= 20) {
+                this.setState({
+                  count: 0
+                });
+              }
             }
-            this.setState({
-              count: this.state.count + 1
-            });
-            console.log('meow', this.state.meow);
+            console.log(this.state.count);
           }}
         >
           {sprite}
