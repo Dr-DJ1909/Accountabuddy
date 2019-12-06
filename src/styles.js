@@ -77,6 +77,24 @@ export const PetView = styled.View`
   border-color: #0a369d;
 `;
 
+export const FriendPetView = styled.View`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  height: 450px;
+  width: 100%;
+  background-color: #fff8f3;
+  border-width: 3px;
+  border-color: #0a369d;
+`;
+export const FriendTextView = styled.View`
+  justify-content: space-between;
+  display:flex;
+  flex-direction:row;
+  width:75%;
+`;
+
 export const AbsolutePositionPetView = styled.View`
   position: absolute;
   top: 0;
