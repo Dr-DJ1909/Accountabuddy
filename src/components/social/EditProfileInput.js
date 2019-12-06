@@ -1,13 +1,5 @@
 import React, {Component} from 'react';
-import {
-  PageWrapperView,
-  HeaderText,
-  HeaderTasksText,
-  TaskWrapperView,
-  HeaderWrapperView,
-  LabelText,
-  TaskView
-} from '../../styles';
+import {LabelText} from '../../styles';
 import {
   Text,
   TextInput,
@@ -37,7 +29,7 @@ export default class EditProfileInput extends React.Component {
           defaultValue={this.props.bio}
           style={styles.textInput}
         />
-        <ImageUpload user={this.props.user} uId={this.props.userKey} />
+        <ImageUpload user={this.props.user} uId={this.props.uId} />
         <TouchableHighlight
           style={styles.button}
           underlayColor="white"

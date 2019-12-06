@@ -23,8 +23,8 @@ export default class UserProfile extends Component {
       avatar: '',
       userKey: '',
       friends: [],
-      refresh: 'false',
-      showForm: 'false'
+      refresh: false,
+      showForm: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBioChange = this.handleBioChange.bind(this);
@@ -141,10 +141,6 @@ export default class UserProfile extends Component {
                       user={this.state.user}
                       uId={this.state.userKey}
                     />
-                    {/* <ImageUpload
-                      user={this.state.user}
-                      uId={this.state.userKey}
-                    /> */}
                   </KeyboardAvoidingView>
                 ) : null}
               </View>

@@ -45,7 +45,7 @@ export default class ImageUpload extends React.Component {
           .storage()
           .ref(`avatar/${email}`)
           .getDownloadURL();
-        console.log('URL', url);
+
         updateAvatar(this.props.uId, url);
       }
     );
@@ -53,7 +53,6 @@ export default class ImageUpload extends React.Component {
   componentDidMount() {
     this.getPermissionAsync();
     const uId = this.props.uId;
-    console.log('this is the id', uId);
     const email = this.props.user.email;
     console.log('total user info', this.props.user, 'userId', uId);
   }
@@ -78,7 +77,6 @@ export default class ImageUpload extends React.Component {
     if (!result.cancelled) {
       this.setState({image: result.uri});
       this.uploadImage(result.uri);
-      console.log('state', this.state);
     }
   };
   render() {
