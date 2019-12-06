@@ -9,9 +9,10 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { Container, Form, Input, Item, Label, Button } from 'native-base';
-import {renameUserName,getUser} from '../../api/UserRoute'
+import {renameUserName,getUser, finishedTutorial} from '../../api/UserRoute'
 import {getUserThunk} from '../../store/user';
 import { connect } from 'react-redux';
+
 
 
 class UserNameScreen extends Component{
@@ -24,12 +25,15 @@ class UserNameScreen extends Component{
     this.handleSubmit.bind(this)
   }
 
+
+
   async handleSubmit(newUserName){
     let userKey = await AsyncStorage.getItem('userKey')
     await renameUserName(userKey, newUserName)
-    let newUser = await getUser(userKey)
-
-    this.props.getUserAction(newUser)
+    let freshUser= await getUser(userKey)
+    await finishedTutorial(userKey)
+    freshUser.isDoingTutorial = false
+    this.props.getUserAction(freshUser)
     const {navigate} = this.props.navigation
     navigate('NavWrapper')
   }

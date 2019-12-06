@@ -172,15 +172,15 @@ export async function updateBio(userId, newBio) {
   }
 }
 
-export async function labelImage() {
+export async function finishedTutorial(userId) {
   try {
-    await firebase.storage
-      .ref('images')
-      .child(image)
-      .getDownloadURL()
-      .then(url => {
-        this.setState({url});
-        console.log('SOS', this.state.url);
+    console.log('args', userId);
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(userId)
+      .update({
+        isDoingTutorial: false
       });
   } catch (error) {
     console.error(error);
