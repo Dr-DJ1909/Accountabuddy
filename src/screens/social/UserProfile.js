@@ -65,21 +65,21 @@ export default class UserProfile extends Component {
     const gymBadge = (
       <Image
         style={styles.badge}
-        key={'gymBadge'}
+        key="gymBadge"
         source={require('../../assets/img/badges/Badge_Gym.png')}
       />
     );
     const choresBadge = (
       <Image
         style={styles.badge}
-        key={'choresBadge'}
+        key="choresBadge"
         source={require('../../assets/img/badges/Badge_Chore.png')}
       />
     );
     const socialBadge = (
       <Image
         style={styles.badge}
-        key={'socialBadge'}
+        key="socialBadge"
         source={require('../../assets/img/badges/Badge_Social.png')}
       />
     );
@@ -121,7 +121,7 @@ export default class UserProfile extends Component {
             <View style={styles.item}>
               <View style={{flex: 1}}>
                 <ProfileView>
-                  <Text>About Me: {this.state.bio}</Text>
+                  <Text style={styles.text}>About Me: {this.state.bio}</Text>
                 </ProfileView>
 
                 <View style={{flexDirection: 'row'}}>
@@ -165,10 +165,11 @@ const styles = StyleSheet.create({
     borderRadius: 63,
     borderWidth: 4,
     borderColor: 'white',
-    marginBottom: 10
+    marginBottom: 10,
+    marginTop: 20
   },
   name: {
-    fontSize: 20,
+    fontSize: 30,
     color: '#FFFAF0',
     fontWeight: '700'
   },
@@ -198,5 +199,9 @@ const styles = StyleSheet.create({
   badge: {
     width: 100,
     height: 100
+  },
+  text: {
+    fontSize: 20,
+    color: 'red'
   }
 });
