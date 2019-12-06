@@ -17,6 +17,7 @@ import {
   Picker,
   AsyncStorage
 } from 'react-native';
+import ImageUpload from '../../components/social/ImageUpload';
 
 export default class EditProfileInput extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export default class EditProfileInput extends React.Component {
           defaultValue={this.props.bio}
           style={styles.textInput}
         />
+        <ImageUpload user={this.props.user} uId={this.props.userKey} />
         <TouchableHighlight
           style={styles.button}
           underlayColor="white"

@@ -5,7 +5,8 @@ import {
   View,
   StyleSheet,
   AsyncStorage,
-  Button
+  Button,
+  KeyboardAvoidingView
 } from 'react-native';
 import {ProfileHeaderView, ProfileView} from '../../styles';
 import {getFriendList} from '../../api/FriendsRoute';
@@ -22,6 +23,7 @@ export default class UserProfile extends Component {
       avatar: '',
       userKey: '',
       friends: [],
+      refresh: 'false',
       showForm: 'false'
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,6 +51,8 @@ export default class UserProfile extends Component {
 
     await updateBio(this.state.userKey, this.state.bio);
     this.setState({bio: this.state.bio});
+    this.setState({bio: this.state.bio});
+    this.setState({refresh: !refresh});
   }
 
   handleClick = event => {
@@ -129,17 +133,19 @@ export default class UserProfile extends Component {
                   onPress={this.handleClick}
                 ></Button>
                 {this.state.showForm ? (
-                  <View>
+                  <KeyboardAvoidingView>
                     <EditProfileInput
                       handleSubmit={this.handleSubmit}
                       handleBioChange={this.handleBioChange}
                       bio={this.state.bio}
-                    />
-                    <ImageUpload
                       user={this.state.user}
                       uId={this.state.userKey}
                     />
-                  </View>
+                    {/* <ImageUpload
+                      user={this.state.user}
+                      uId={this.state.userKey}
+                    /> */}
+                  </KeyboardAvoidingView>
                 ) : null}
               </View>
             </View>
