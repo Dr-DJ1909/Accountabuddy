@@ -246,6 +246,20 @@ export const BlueButton = styled.TouchableOpacity`
   elevation: 3;
 `;
 
+export const BlueButtonLarge = styled.TouchableOpacity`
+  color: #ffffff;
+  background-color: #0a369d;
+  border: solid 2px #0a369d;
+  border-radius: 1px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 85px;
+  width: auto;
+  elevation: 3;
+  padding: 10px;
+`;
+
 export const BlueButtonWidth = styled.TouchableOpacity`
   color: #ffffff;
   background-color: #3a6ea5;
@@ -254,7 +268,7 @@ export const BlueButtonWidth = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 35px;
+  height: 55px;
   width: 200px;
   elevation: 3;
   margin-bottom: 3px;

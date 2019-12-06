@@ -38,15 +38,6 @@ class ExercisePet extends Component {
         />
     return (
       <PetView>
-        <AbsolutePositionPetView>
-          <AddTaskBtnView>
-            {/* <Icon
-              name='plus-circle'
-              size={40}
-              backgroundColor='#4472CA'
-            /> */}
-          </AddTaskBtnView>
-        </AbsolutePositionPetView>
         {sprite}
       </PetView>
     );
