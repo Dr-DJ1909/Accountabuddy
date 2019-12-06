@@ -56,16 +56,22 @@ class App extends Component {
 
     Font.loadAsync({
       'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
-      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf')
+      Aaargh: require('./src/assets/fonts/Aaargh.ttf'),
+      FallIsComing: require('./src/assets/fonts/FallIsComing.ttf'),
+      'Florentia-Regular-trial': require('./src/assets/fonts/Florentia-Regular-trial.ttf'),
+      GoodUnicorn: require('./src/assets/fonts/GoodUnicorn.ttf'),
+      LosingGrip: require('./src/assets/fonts/LosingGrip.ttf'),
+      QuiteMagical: require('./src/assets/fonts/QuiteMagical.ttf'),
+      'Roboto-Light': require('./src/assets/fonts/Roboto-Light.ttf'),
+      'Roboto-Medium': require('./src/assets/fonts/Roboto-Medium.ttf'),
+      'Roboto-Thin': require('./src/assets/fonts/Roboto-Thin.ttf'),
+      'Sparkler-demo': require('./src/assets/fonts/Sparkler-demo.ttf'),
+      TepenoSansBoldItalic: require('./src/assets/fonts/TepenoSansBoldItalic.ttf'),
+      TepenoSansBold: require('./src/assets/fonts/TepenoSansBold.ttf'),
+      TepenoSansRegular: require('./src/assets/fonts/TepenoSansRegular.ttf'),
+      TepenoSansRegularItalic: require('./src/assets/fonts/TepenoSansRegularItalic.ttf'),
+      TepenoSansLight: require('./src/assets/fonts/TepenoSansLight.ttf'),
+      TepenoSansLightItalic: require('./src/assets/fonts/TepenoSansLightItalic.ttf')
     });
   }
 
