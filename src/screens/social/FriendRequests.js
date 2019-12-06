@@ -89,6 +89,7 @@ class FriendRequests extends React.Component {
                       onPress={async () => {
                         newFriend(this.state.userKey, item.uId);
                         newFriend(item.uId, this.state.userKey);
+                        let chatRoom = await newChat()
                         await addChatRoom(this.state.userKey, item.uId, chatRoom)
                         await addChatRoom(item.uId, this.state.userKey, chatRoom)
                         // acceptResponse(this.state.userKey, item.uId);
