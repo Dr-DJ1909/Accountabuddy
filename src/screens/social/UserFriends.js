@@ -19,6 +19,7 @@ import {getUsers} from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import ProfileDisplay from './ProfileDisplay';
 import {ScrollView} from 'react-native-gesture-handler';
+import {getUser} from '../../api/UserRoute'
 
 class UserFriends extends React.Component {
   constructor() {
@@ -26,22 +27,25 @@ class UserFriends extends React.Component {
     this.state = {
       users: [],
       userKey: '',
-      friends: []
+      friends: [],
+      user:{}
     };
   }
   async componentDidMount() {
-    let users = await getUsers();
+    // let users = await getUsers();
     const userKey = await AsyncStorage.getItem('userKey');
+    const user = await getUser(userKey)
     const friends = await getFriendList(userKey);
     Promise.all([friends, userKey]);
     this.setState({
       userKey: userKey,
-      friends: friends
+      friends: friends,
+      user:user
     });
   }
   render() {
     let friends = this.state.friends;
-    console.log('friendshere', friends);
+
     if (this.state.friends.length) {
       return (
         <View style={{flex: 1, paddingTop: 70}}>
@@ -50,27 +54,29 @@ class UserFriends extends React.Component {
             data={this.state.friends}
             renderItem={({item}) => (
               <ListItem
-                rightElement={() => (
-                  <View style={{flex: 1, flexDirection: 'row'}}>
-                    <Button
-                      title="Chat"
-                      onPress={() => {
-                        console.log('what is item being passed?', item);
-                        this.props.navigation.navigate('Chat', {
-                          item: item
-                        });
-                      }}
-                    />
-                    <Button
-                      title="View Profile"
-                      onPress={() =>
-                        this.props.navigation.navigate('ProfileDisplay', {
-                          user: item
-                        })
-                      }
-                    />
-                  </View>
-                )}
+              rightElement={ () =>(
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                <Button
+                title='Chat'
+                onPress={() =>{
+                  this.props.navigation.navigate('Chat', {
+                    item:item,
+                    })
+                }
+                  }/>
+                <Button
+                    title="View Profile"
+                    onPress={() =>
+                      this.props.navigation.navigate('ProfileDisplay', {
+                        friend: item,
+                        userPet: this.state.user.pet
+                      })
+                    }
+                  />
+                </View>
+
+              )
+                }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
                 subtitle={item.UserName}
@@ -145,3 +151,4 @@ const styles = StyleSheet.create({
     marginLeft: 10
   }
 });
+
