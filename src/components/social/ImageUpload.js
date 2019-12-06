@@ -56,15 +56,16 @@ export default class ImageUpload extends React.Component {
           .ref(`avatar/${email}`)
           .getDownloadURL();
         console.log('URL', url);
-        updateAvatar(uId, url);
+        updateAvatar(this.props.uId, url);
       }
     );
   }
   componentDidMount() {
     this.getPermissionAsync();
     const uId = this.props.uId;
+    console.log('this is the id', uId);
     const email = this.props.user.email;
-    console.log('total user info', this.props.user);
+    console.log('total user info', this.props.user, 'userId', uId);
   }
 
   getPermissionAsync = async () => {
