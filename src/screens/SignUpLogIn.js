@@ -69,7 +69,13 @@ class SignUpLogIn extends React.Component {
         const currentUser = await getUser(userKey);
         this.props.getUserAction(currentUser);
         this.props.getUserKey(userKey);
-        navigate('NavWrapper');
+        if(currentUser.isDoingTutorial){
+          console.log('are you here??????')
+          navigate('TestPetScreen')
+        }
+        else{
+          navigate('NavWrapper');
+        }
       } else {
         console.log('wrong');
         this.wrongLoginAlert();

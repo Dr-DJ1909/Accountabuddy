@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Provider} from 'react-redux';
+import {Provider,connect} from 'react-redux';
 import Store from './src/store/index';
 import ApiKeys from './ApiKeys';
 import firebase from 'firebase';
@@ -12,7 +12,7 @@ import UserNameScreen from './src/screens/Tutorials/UserNameScreen';
 import NavWrapper from './src/components/NavWrapper';
 import PersistedLogin from './src/components/PersistedLogin';
 import ignoreWarnings from 'react-native-ignore-warnings';
-import {getUser} from './src/api/UserRoute';
+import {getUser, finishedTutorial} from './src/api/UserRoute';
 // import { createStackNavigator } from 'react-navigation-stack'
 
 ignoreWarnings('Setting a timer');
@@ -32,7 +32,7 @@ const MainNavigator = createSwitchNavigator(
 
 const AppLogin = createAppContainer(MainNavigator);
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,18 +56,31 @@ export default class App extends Component {
 
   render() {
     if (this.state.loading) return null;
-    if (this.state.user) {
-      getUser(this.state.user.uid);
+    if (this.state.user && !this.props.user.isDoingTutorial) {
+
       return (
-        <Provider store={Store}>
           <PersistedLogin userKey={this.state.user.uid}/>
-        </Provider>
       )
     }
     return (
-      <Provider store={Store}>
         <AppLogin />
-      </Provider>
     );
   }
+}
+
+const mapStateToProps = function(state) {
+
+  return {
+    user: state.user.user
+  };
+};
+
+const ConnectedApp = connect (mapStateToProps, null)(App)
+
+export default function(){
+  return(
+    <Provider store={Store}>
+      <ConnectedApp/>
+    </Provider>
+  )
 }
