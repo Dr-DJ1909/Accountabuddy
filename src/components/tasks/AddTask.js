@@ -63,7 +63,7 @@ class AddTask extends Component {
     return (
       <PageWrapperView>
         <TopHeader>
-          <TopHeaderText>Add a new task</TopHeaderText>
+          <TopHeaderText>Add A New Task</TopHeaderText>
           <TasksHeader />
         </TopHeader>
           <AddTaskInput

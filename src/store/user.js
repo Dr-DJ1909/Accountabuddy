@@ -160,7 +160,7 @@ export const decreaseChoreHPThunk = failedTask => {
       const retrievedData = await AsyncStorage.getItem('loggedinUser');
       const user = JSON.parse(retrievedData);
       TaskFailed(userKey, failedTask);
-      user.pet.ChoresHP -= 0.3;
+      user.pet.ChoresHP -= 0.2;
       if (user.pet.ChoresHP < 0) {
         user.pet.ChoresHP = 0;
       }
@@ -187,7 +187,7 @@ export const decreaseExerciseHPThunk = failedTask => {
       const retrievedData = await AsyncStorage.getItem('loggedinUser');
       const user = JSON.parse(retrievedData);
       TaskFailed(userKey, failedTask);
-      user.pet.ExerciseHP -= 0.3;
+      user.pet.ExerciseHP -= 0.2;
       if (user.pet.ExerciseHP < 0) {
         user.pet.ExerciseHP = 0;
       }
@@ -214,7 +214,7 @@ export const decreaseSocialHPThunk = failedTask => {
       const retrievedData = await AsyncStorage.getItem('loggedinUser');
       const user = JSON.parse(retrievedData);
       TaskFailed(userKey, failedTask);
-      user.pet.SocialHP -= 0.3;
+      user.pet.SocialHP -= 0.2;
       if (user.pet.SocialHP < 0) {
         user.pet.SocialHP = 0;
       }
@@ -263,7 +263,7 @@ export const increaseChoreHPThunk = completedTask => {
       const userKey = await AsyncStorage.getItem('userKey');
       const user = JSON.parse(retrievedData);
       TaskComplete(userKey, completedTask);
-      user.pet.ChoresHP += 0.3;
+      user.pet.ChoresHP += 0.1;
       if (user.pet.ChoresHP > 1) {
         user.pet.ChoresHP = 1;
       }
@@ -290,7 +290,7 @@ export const increaseExerciseHPThunk = completedTask => {
       const userKey = await AsyncStorage.getItem('userKey');
       const user = JSON.parse(retrievedData);
       TaskComplete(userKey, completedTask);
-      user.pet.ExerciseHP += 0.3;
+      user.pet.ExerciseHP += 0.1;
       if (user.pet.ExerciseHP > 1) {
         user.pet.ExerciseHP = 1;
       }
@@ -317,7 +317,7 @@ export const increaseSocialHPThunk = completedTask => {
       const userKey = await AsyncStorage.getItem('userKey');
       const user = JSON.parse(retrievedData);
       TaskComplete(userKey, completedTask);
-      user.pet.SocialHP += 0.3;
+      user.pet.SocialHP += 0.1;
       if (user.pet.SocialHP > 1) {
         user.pet.SocialHP = 1;
       }

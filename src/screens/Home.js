@@ -8,10 +8,13 @@ import {
   TopHeaderText,
   TopHeader,
   Divider,
-  DividerLarge
+  DividerLarge,
+  BlueButton,
+  ButtonText
 } from '../styles';
 import HomePet from './HomePet';
 import Icon from 'react-native-vector-icons/Feather';
+import { Button } from 'react-native-paper';
 
 class Home extends Component {
   constructor() {
@@ -31,6 +34,12 @@ class Home extends Component {
         <HeaderText>How is {petName} doing?</HeaderText>
         <Divider /><Divider />
         <HomePet />
+        <Divider /><Divider />
+        <BlueButton
+          onPress={() => this.props.pressAdd()}
+        >
+          <ButtonText>Start a new task?</ButtonText>
+        </BlueButton>
       </PageWrapperView>
     );
   }

@@ -8,7 +8,8 @@ import {
   LabelText,
   TextInput,
   BlueButton,
-  ButtonText
+  ButtonText,
+  Divider
 } from '../styles';
 import {
   Text,
@@ -22,7 +23,8 @@ import {
 export default function SettingsInfoInput(props) {
   return (
     <PageWrapperKeyboardAvoidingView>
-      <HeaderText>Update info</HeaderText>
+      <HeaderText>Update Info</HeaderText>
+      <Divider /><Divider />
       <LabelText>Change your username:</LabelText>
       <TextInput
         placeholder={props.username}

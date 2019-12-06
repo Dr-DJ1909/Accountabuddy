@@ -50,13 +50,17 @@ const TaskSocial = props => {
   return (
     <PageWrapperView>
       <TopHeader>
-        <TopHeaderText>Social tasks</TopHeaderText>
+        <TopHeaderText>Social Tasks</TopHeaderText>
         <TasksHeader />
       </TopHeader>
+      <Divider /><Divider /><Divider />
       <MessageText>{user.pet.Name}'s health:</MessageText>
-      <ProgressBarAnimated width={200} value={hp * 100} maxValue={100} />
-      <Divider />
-      <Divider />
+      <ProgressBarAnimated
+        width={200}
+        value={hp * 100}
+        maxValue={100}
+      />
+      <Divider /><Divider />
       {image}
       <Divider />
       <MessageView>{message}</MessageView>
