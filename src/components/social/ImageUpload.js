@@ -19,17 +19,7 @@ export default class ImageUpload extends React.Component {
       progress: 0
     };
   }
-  render() {
-    let {image} = this.state;
-    return (
-      <KeyboardAvoidingView>
-        <Button
-          title="Pick an image from camera roll"
-          onPress={this.selectImage}
-        />
-      </KeyboardAvoidingView>
-    );
-  }
+
   async uploadImage(uri) {
     const {image} = this.state;
     const email = this.props.user.email;
@@ -91,4 +81,12 @@ export default class ImageUpload extends React.Component {
       console.log('state', this.state);
     }
   };
+  render() {
+    let {image} = this.state;
+    return (
+      <KeyboardAvoidingView>
+        <Button title="Change Profile Photo" onPress={this.selectImage} />
+      </KeyboardAvoidingView>
+    );
+  }
 }

@@ -190,8 +190,7 @@ export async function finishedTutorial(userId) {
 
 export async function updateAvatar(userId, picUrl) {
   try {
-    console.log('args', userId, picUrl);
-    await firebase
+    const avatarUrl = await firebase
       .firestore()
       .collection('Users')
       .doc(userId)

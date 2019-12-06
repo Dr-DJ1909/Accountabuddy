@@ -13,15 +13,12 @@ import {getUser, updateBio} from '../../api/UserRoute';
 
 export default function ProfileDisplay(props) {
   console.log('item', props.navigation.state.params.user);
-  let {UserName, bio, email, pet} = props.navigation.state.params.user;
+  let {UserName, bio, email, pet, avatar} = props.navigation.state.params.user;
   return (
     <View>
       <ProfileHeaderView>
         <View style={styles.headerText}>
-          <Image
-            style={styles.pic}
-            source={require('../../assets/catIcon.png')}
-          />
+          <Image style={styles.pic} source={{uri: avatar}} />
 
           <Text style={styles.name}>{UserName}</Text>
         </View>

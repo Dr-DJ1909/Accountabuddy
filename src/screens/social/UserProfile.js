@@ -19,6 +19,7 @@ export default class UserProfile extends Component {
     this.state = {
       user: '',
       bio: '',
+      avatar: '',
       userKey: '',
       friends: [],
       showForm: 'false'
@@ -128,15 +129,17 @@ export default class UserProfile extends Component {
                   onPress={this.handleClick}
                 ></Button>
                 {this.state.showForm ? (
-                  // <EditProfileInput
-                  //   handleSubmit={this.handleSubmit}
-                  //   handleBioChange={this.handleBioChange}
-                  //   bio={this.state.bio}
-                  // />
-                  <ImageUpload
-                    user={this.state.user}
-                    uId={this.state.userKey}
-                  />
+                  <View>
+                    <EditProfileInput
+                      handleSubmit={this.handleSubmit}
+                      handleBioChange={this.handleBioChange}
+                      bio={this.state.bio}
+                    />
+                    <ImageUpload
+                      user={this.state.user}
+                      uId={this.state.userKey}
+                    />
+                  </View>
                 ) : null}
               </View>
             </View>
