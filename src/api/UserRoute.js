@@ -171,3 +171,19 @@ export async function updateBio(userId, newBio) {
     console.error(error);
   }
 }
+
+export async function finishedTutorial(userId) {
+  try {
+    console.log('args', userId,);
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(userId)
+      .update({
+        isDoingTutorial: false
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
+

@@ -7,6 +7,7 @@ import SettingsWrapper from './SettingsWrapper';
 import SocialWrapper from './SocialWrapper';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
+import TestPetScreen from '../screens/Tutorials/TestPetScreen'
 
 const bottomTabNavigator = createMaterialBottomTabNavigator(
   {

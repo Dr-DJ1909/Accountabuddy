@@ -6,7 +6,8 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import {Container, Form, Input, Item, Label, Button} from 'native-base';
 import {withNavigation} from 'react-navigation';
@@ -46,25 +47,39 @@ class SignUpLogIn extends React.Component {
 
   signUp = async (email, password) => {
     try {
-      const { navigate } = this.props.navigation
-      let newUserKey = await signUpUser(email, password)
+      const {navigate} = this.props.navigation;
+      let newUserKey = await signUpUser(email, password);
+      console.log('newUserId in signUp', newUserKey);
       this.props.getUserAction(await getUser(newUserKey));
       this.props.getUserKey(newUserKey);
-      navigate('TestPetScreen')
-
+      navigate('TestPetScreen');
     } catch (error) {
       console.log(error);
     }
+  };
+  wrongLoginAlert = () => {
+    alert('Incorrect email or password');
   };
 
   loginUser = async (email, password) => {
     const {navigate} = this.props.navigation;
     try {
       let userKey = await loginUser(email, password);
-      const currentUser = await getUser(userKey);
-      this.props.getUserAction(currentUser);
-      this.props.getUserKey(userKey);
-      navigate('NavWrapper');
+      if (userKey) {
+        const currentUser = await getUser(userKey);
+        this.props.getUserAction(currentUser);
+        this.props.getUserKey(userKey);
+        if(currentUser.isDoingTutorial){
+          console.log('are you here??????')
+          navigate('TestPetScreen')
+        }
+        else{
+          navigate('NavWrapper');
+        }
+      } else {
+        console.log('wrong');
+        this.wrongLoginAlert();
+      }
     } catch (err) {
       console.log(err.toString());
     }
