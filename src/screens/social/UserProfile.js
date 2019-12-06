@@ -42,11 +42,10 @@ export default class UserProfile extends Component {
   handleBioChange = event => {
     let bio = event.nativeEvent.text;
     this.setState({bio: bio});
-    console.log('bio', this.state.bio);
   };
   async handleSubmit(evt) {
     evt.preventDefault();
-    console.log('have this:', this.state.userKey, this.state.bio);
+
     await updateBio(this.state.userKey, this.state.bio);
     this.setState({bio: this.state.bio});
   }
@@ -95,7 +94,7 @@ export default class UserProfile extends Component {
     return badges.map(badge => badge);
   };
   render() {
-    console.log('user obj', this.state.user);
+    console.log('logged in user info', this.state.user);
     let {userKey, friends} = this.state;
 
     if (this.state.userKey) {
@@ -105,7 +104,8 @@ export default class UserProfile extends Component {
             <View style={styles.headerText}>
               <Image
                 style={styles.pic}
-                source={require('../../assets/catIcon.png')}
+                // source={require('../../assets/catIcon.png')}
+                source={{uri: this.state.user.avatar}}
               />
 
               <Text style={styles.name}>{this.state.user.UserName}</Text>
@@ -133,7 +133,10 @@ export default class UserProfile extends Component {
                   //   handleBioChange={this.handleBioChange}
                   //   bio={this.state.bio}
                   // />
-                  <ImageUpload props={this.state.user} />
+                  <ImageUpload
+                    user={this.state.user}
+                    uId={this.state.userKey}
+                  />
                 ) : null}
               </View>
             </View>

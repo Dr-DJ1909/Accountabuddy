@@ -19,6 +19,7 @@ async function newUser(user) {
         incompleteTasks: [],
         failedTasks: [],
         bio: '',
+        avatar: '',
         isDoingTutorial: true
       });
   } catch (error) {
@@ -181,6 +182,21 @@ export async function finishedTutorial(userId) {
       .doc(userId)
       .update({
         isDoingTutorial: false
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function updateAvatar(userId, picUrl) {
+  try {
+    console.log('args', userId, picUrl);
+    await firebase
+      .firestore()
+      .collection('Users')
+      .doc(userId)
+      .update({
+        avatar: picUrl
       });
   } catch (error) {
     console.error(error);

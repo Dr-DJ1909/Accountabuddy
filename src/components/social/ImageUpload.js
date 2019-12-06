@@ -7,6 +7,8 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import {connectableObservableDescriptor} from 'rxjs/internal/observable/ConnectableObservable';
 import labelImage from '../../../src/api/UserRoute';
+import {updateAvatar} from '../../api/UserRoute';
+import {red} from 'ansi-colors';
 
 export default class ImageUpload extends React.Component {
   constructor(props) {
@@ -25,20 +27,17 @@ export default class ImageUpload extends React.Component {
           title="Pick an image from camera roll"
           onPress={this.selectImage}
         />
-        {image && (
-          <Image source={{uri: image}} style={{width: 200, height: 200}} />
-        )}
       </KeyboardAvoidingView>
     );
   }
   async uploadImage(uri) {
     const {image} = this.state;
-    const username = this.props.UserName;
+    const email = this.props.user.email;
     const response = await fetch(uri);
     const blob = await response.blob();
     const uploadTask = firebase
       .storage()
-      .ref(`images/${username}`)
+      .ref(`avatar/${email}`)
       .put(blob);
     uploadTask.on(
       'state_changed',
@@ -51,22 +50,21 @@ export default class ImageUpload extends React.Component {
       error => {
         console.log(error);
       },
-      () => {
-        firebase()
-          .storage.ref('images')
-          .child(image)
-          .getDownloadURL()
-          .then(url => {
-            this.setState({url});
-            console.log('SOS', this.state.url);
-          });
-        // labelImage();
+      async () => {
+        const url = await firebase
+          .storage()
+          .ref(`avatar/${email}`)
+          .getDownloadURL();
+        console.log('URL', url);
+        updateAvatar(uId, url);
       }
     );
   }
   componentDidMount() {
     this.getPermissionAsync();
-    const username = this.props.props.UserName;
+    const uId = this.props.uId;
+    const email = this.props.user.email;
+    console.log('total user info', this.props.user);
   }
 
   getPermissionAsync = async () => {
@@ -86,13 +84,10 @@ export default class ImageUpload extends React.Component {
       quality: 1
     });
 
-    console.log('this is the', result);
-
     if (!result.cancelled) {
       this.setState({image: result.uri});
-      console.log('HIII', result.uri);
-      console.log('state', this.state);
       this.uploadImage(result.uri);
+      console.log('state', this.state);
     }
   };
 }
