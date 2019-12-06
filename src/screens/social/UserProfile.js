@@ -5,12 +5,14 @@ import {
   View,
   StyleSheet,
   AsyncStorage,
-  Button
+  Button,
+  KeyboardAvoidingView
 } from 'react-native';
 import {ProfileHeaderView, ProfileView} from '../../styles';
 import {getFriendList} from '../../api/FriendsRoute';
 import {getUser, updateBio} from '../../api/UserRoute';
 import EditProfileInput from '../../components/social/EditProfileInput';
+import ImageUpload from '../../components/social/ImageUpload';
 
 export default class UserProfile extends Component {
   constructor() {
@@ -18,9 +20,11 @@ export default class UserProfile extends Component {
     this.state = {
       user: '',
       bio: '',
+      avatar: '',
       userKey: '',
       friends: [],
-      showForm: 'false'
+      refresh: false,
+      showForm: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBioChange = this.handleBioChange.bind(this);
@@ -41,13 +45,14 @@ export default class UserProfile extends Component {
   handleBioChange = event => {
     let bio = event.nativeEvent.text;
     this.setState({bio: bio});
-    console.log('bio', this.state.bio);
   };
   async handleSubmit(evt) {
     evt.preventDefault();
-    console.log('have this:', this.state.userKey, this.state.bio);
+
     await updateBio(this.state.userKey, this.state.bio);
     this.setState({bio: this.state.bio});
+    this.setState({bio: this.state.bio});
+    this.setState({refresh: !refresh});
   }
 
   handleClick = event => {
@@ -94,7 +99,7 @@ export default class UserProfile extends Component {
     return badges.map(badge => badge);
   };
   render() {
-    console.log('user obj', this.state.user);
+    console.log('logged in user info', this.state.user);
     let {userKey, friends} = this.state;
 
     if (this.state.userKey) {
@@ -104,7 +109,8 @@ export default class UserProfile extends Component {
             <View style={styles.headerText}>
               <Image
                 style={styles.pic}
-                source={require('../../assets/catIcon.png')}
+                // source={require('../../assets/catIcon.png')}
+                source={{uri: this.state.user.avatar}}
               />
 
               <Text style={styles.name}>{this.state.user.UserName}</Text>
@@ -127,11 +133,15 @@ export default class UserProfile extends Component {
                   onPress={this.handleClick}
                 ></Button>
                 {this.state.showForm ? (
-                  <EditProfileInput
-                    handleSubmit={this.handleSubmit}
-                    handleBioChange={this.handleBioChange}
-                    bio={this.state.bio}
-                  />
+                  <KeyboardAvoidingView>
+                    <EditProfileInput
+                      handleSubmit={this.handleSubmit}
+                      handleBioChange={this.handleBioChange}
+                      bio={this.state.bio}
+                      user={this.state.user}
+                      uId={this.state.userKey}
+                    />
+                  </KeyboardAvoidingView>
                 ) : null}
               </View>
             </View>

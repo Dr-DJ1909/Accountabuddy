@@ -19,7 +19,8 @@ async function newUser(user) {
         incompleteTasks: [],
         failedTasks: [],
         bio: '',
-        isDoingTutorial:true
+        avatar: '',
+        isDoingTutorial: true
       });
   } catch (error) {
     console.log('error', error);
@@ -174,7 +175,7 @@ export async function updateBio(userId, newBio) {
 
 export async function finishedTutorial(userId) {
   try {
-    console.log('args', userId,);
+    console.log('args', userId);
     await firebase
       .firestore()
       .collection('Users')
@@ -187,3 +188,16 @@ export async function finishedTutorial(userId) {
   }
 }
 
+export async function updateAvatar(userId, picUrl) {
+  try {
+    const avatarUrl = await firebase
+      .firestore()
+      .collection('Users')
+      .doc(userId)
+      .update({
+        avatar: picUrl
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
