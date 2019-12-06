@@ -9,6 +9,7 @@ class FriendPet extends Component {
     this.state = {
       on: true,
     }
+    this.displayLeftOne
 
     this.intervalId = setInterval(() => {
       this.setState(previousState => {
@@ -22,6 +23,14 @@ class FriendPet extends Component {
   componentDidMount() {
     this.intervalId;
 
+    const friendPetHP = (this.props.friendPet.ChoresHP+this.props.friendPet.ExerciseHP)/2
+
+    const userPetHP = (this.props.userPet.ChoresHP+this.props.userPet.ExerciseHP)/2
+
+    if(friendPetHP >userPetHP){
+
+    }
+
   }
 
   componentWillUnmount() {
@@ -32,9 +41,7 @@ class FriendPet extends Component {
     let friendPetName = this.props.friendPet.Name
     let userPetName = this.props.userPet.Name
 
-    const friendPetHP = (this.props.friendPet.ChoresHP+this.props.friendPet.ExerciseHP)/2
 
-    const userPetHP = (this.props.userPet.ChoresHP+this.props.userPet.ExerciseHP)/2
 
     let sprite = this.state.on
       ? <Image
@@ -45,9 +52,6 @@ class FriendPet extends Component {
         source={require('../../assets/img/cat/CatInteract02b.png')}
         style={{height: 400, width: 300}}
         />
-     if(friendPetHP >userPetHP){
-       console.log('hp is greater')
-     }
     return (
 
       <FriendPetView>
