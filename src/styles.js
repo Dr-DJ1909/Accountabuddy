@@ -6,17 +6,17 @@ export const TopHeader = styled.View`
   justify-content: space-between;
   align-items: center;
   display: flex;
-  background-color: #3A6EA5;
+  background-color: #3a6ea5;
   align-self: flex-start;
   padding-top: 36px;
   width: 100%;
   height: 90px;
   z-index: 2;
-`
+`;
 
 export const PageWrapperView = styled.View`
   flex: 1;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   align-items: center;
   justify-content: center;
   padding-top: 40px;
@@ -34,7 +34,7 @@ export const ProfileWrapperView = styled.View`
 
 export const PageWrapperAlignTopView = styled.View`
   flex: 1;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   align-items: center;
   justify-content: flex-start;
   padding-top: 110px;
@@ -42,7 +42,7 @@ export const PageWrapperAlignTopView = styled.View`
 
 export const PageWrapperKeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   align-items: center;
   justify-content: flex-start;
   padding-top: 70;
@@ -90,9 +90,9 @@ export const FriendPetView = styled.View`
 `;
 export const FriendTextView = styled.View`
   justify-content: space-between;
-  display:flex;
-  flex-direction:row;
-  width:75%;
+  display: flex;
+  flex-direction: row;
+  width: 75%;
 `;
 
 export const AbsolutePositionPetView = styled.View`
@@ -118,7 +118,7 @@ export const TaskView = styled.View`
 `;
 
 export const ProfileView = styled.View`
-  height: 200;
+  height: 150;
   background-color: #dce2f2
   border-style: solid;
   border-width: 6px;
@@ -172,7 +172,7 @@ export const TopHeaderText = styled.Text`
 
 export const HeaderText = styled.Text`
   font-size: 24px;
-  color: #0A369D;
+  color: #0a369d;
 `;
 
 export const BubbleText = styled.Text`
@@ -204,13 +204,13 @@ export const UsersView = styled.View`
 export const MessageText = styled.Text`
   font-size: 16px;
   align-self: center;
-  color: #3A6EA5;
+  color: #3a6ea5;
 `;
 
 export const MessageTextLarge = styled.Text`
   font-size: 20px;
   align-self: center;
-  color: #3A6EA5;
+  color: #3a6ea5;
 `;
 
 export const TaskText = styled.Text`
@@ -248,8 +248,8 @@ export const BlueButton = styled.TouchableOpacity`
 
 export const BlueButtonWidth = styled.TouchableOpacity`
   color: #ffffff;
-  background-color: #3A6EA5;
-  border: solid 2px #3A6EA5;
+  background-color: #3a6ea5;
+  border: solid 2px #3a6ea5;
   border-radius: 1px;
   align-items: center;
   justify-content: center;
@@ -262,8 +262,8 @@ export const BlueButtonWidth = styled.TouchableOpacity`
 
 export const BlueButtonWidthTwo = styled.TouchableOpacity`
   color: #ffffff;
-  background-color: #3A6EA5;
-  border: solid 2px #3A6EA5;
+  background-color: #3a6ea5;
+  border: solid 2px #3a6ea5;
   border-radius: 1px;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Provider,connect} from 'react-redux';
+import {Provider, connect} from 'react-redux';
 import Store from './src/store/index';
 import ApiKeys from './ApiKeys';
 import firebase from 'firebase';
@@ -13,6 +13,7 @@ import NavWrapper from './src/components/NavWrapper';
 import PersistedLogin from './src/components/PersistedLogin';
 import ignoreWarnings from 'react-native-ignore-warnings';
 import {getUser, finishedTutorial} from './src/api/UserRoute';
+import * as Font from 'expo-font';
 // import { createStackNavigator } from 'react-navigation-stack'
 
 ignoreWarnings('Setting a timer');
@@ -22,7 +23,7 @@ const MainNavigator = createSwitchNavigator(
   {
     SignUpLogIn: {screen: SignUpLogIn},
     TestPetScreen: {screen: TestPetScreen},
-    UserNameScreen: {screen:UserNameScreen},
+    UserNameScreen: {screen: UserNameScreen},
     NavWrapper: {screen: NavWrapper}
   },
   {
@@ -36,7 +37,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      loading: true
     };
   }
 
@@ -46,41 +47,49 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
+    this.authSubscription = firebase.auth().onAuthStateChanged(user => {
       this.setState({
         loading: false,
-        user,
+        user
       });
+    });
+
+    Font.loadAsync({
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf'),
+      'FredokaOne-Regular': require('./src/assets/fonts/FredokaOne-Regular.ttf')
     });
   }
 
   render() {
     if (this.state.loading) return null;
     if (this.state.user && !this.props.user.isDoingTutorial) {
-
-      return (
-          <PersistedLogin userKey={this.state.user.uid}/>
-      )
+      return <PersistedLogin userKey={this.state.user.uid} />;
     }
-    return (
-        <AppLogin />
-    );
+    return <AppLogin />;
   }
 }
 
 const mapStateToProps = function(state) {
-
   return {
     user: state.user.user
   };
 };
 
-const ConnectedApp = connect (mapStateToProps, null)(App)
+const ConnectedApp = connect(mapStateToProps, null)(App);
 
-export default function(){
-  return(
+export default function() {
+  return (
     <Provider store={Store}>
-      <ConnectedApp/>
+      <ConnectedApp />
     </Provider>
-  )
+  );
 }
