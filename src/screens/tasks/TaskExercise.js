@@ -23,7 +23,7 @@ const TaskExercise = (props) => {
   if (hp <=1 && hp >= 0.4) {
     image = <ExercisePet />;
   } else {
-    image = <DeadPet />
+    image = (<DeadPet />)
   }
 
   let message;
@@ -40,7 +40,7 @@ const TaskExercise = (props) => {
   return (
     <PageWrapperView>
       <TopHeader>
-        <TopHeaderText>Exercise tasks</TopHeaderText>
+        <TopHeaderText>Exercise Tasks</TopHeaderText>
         <TasksHeader />
       </TopHeader>
       <MessageText>{user.pet.Name}'s health:</MessageText>

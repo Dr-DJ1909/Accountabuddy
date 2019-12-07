@@ -55,37 +55,37 @@ const TasksWrapper = createDrawerNavigator(
     TaskList: {
       screen: TaskList,
       navigationOptions: {
-        drawerLabel: 'Current task list'
+        drawerLabel: 'Current Task List'
       }
     },
     AddTask: {
       screen: AddTask,
       navigationOptions: {
-        drawerLabel: 'Add a new task'
+        drawerLabel: 'Add A New Task'
       }
     },
     TaskExercise: {
       screen: TaskExercise,
       navigationOptions: {
-        drawerLabel: 'Exercise tasks'
+        drawerLabel: 'Exercise Tasks'
       }
     },
     TaskChores: {
       screen: TaskChores,
       navigationOptions: {
-        drawerLabel: 'Chores tasks'
+        drawerLabel: 'Chores Tasks'
       }
     },
     TaskSocial: {
       screen: TaskSocial,
       navigationOptions: {
-        drawerLabel: 'Social tasks'
+        drawerLabel: 'Social Tasks'
       }
     },
     TaskListCompleted: {
       screen: TaskListCompleted,
       navigationOptions: {
-        drawerLabel: 'Task history'
+        drawerLabel: 'Task History'
       }
     }
   },
