@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {LabelText} from '../../styles';
+import React, { Component } from 'react';
+import { LabelText } from '../../styles';
 import {
   Text,
   TextInput,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   button: {
     height: 30,
     flexDirection: 'row',
-    backgroundColor: '#9403fc',
+    backgroundColor: '#0A369D',
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 8,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     padding: 10,
     borderColor: '#ca03fc',
-    backgroundColor: '#fafafa',
+    backgroundColor: '#eeeeee',
     marginLeft: 15,
     marginRight: 15,
     marginTop: 5,

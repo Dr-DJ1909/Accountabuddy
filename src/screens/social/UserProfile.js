@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   Text,
@@ -8,9 +8,9 @@ import {
   Button,
   KeyboardAvoidingView
 } from 'react-native';
-import {ProfileHeaderView, ProfileView} from '../../styles';
-import {getFriendList} from '../../api/FriendsRoute';
-import {getUser, updateBio} from '../../api/UserRoute';
+import { ProfileHeaderView, ProfileView } from '../../styles';
+import { getFriendList } from '../../api/FriendsRoute';
+import { getUser, updateBio } from '../../api/UserRoute';
 import EditProfileInput from '../../components/social/EditProfileInput';
 import ImageUpload from '../../components/social/ImageUpload';
 
@@ -44,15 +44,15 @@ export default class UserProfile extends Component {
   }
   handleBioChange = event => {
     let bio = event.nativeEvent.text;
-    this.setState({bio: bio});
+    this.setState({ bio: bio });
   };
   async handleSubmit(evt) {
     evt.preventDefault();
 
     await updateBio(this.state.userKey, this.state.bio);
-    this.setState({bio: this.state.bio});
-    this.setState({bio: this.state.bio});
-    this.setState({refresh: !refresh});
+    this.setState({ bio: this.state.bio });
+    this.setState({ bio: this.state.bio });
+    this.setState({ refresh: !refresh });
   }
 
   handleClick = event => {
@@ -100,7 +100,7 @@ export default class UserProfile extends Component {
   };
   render() {
     console.log('logged in user info', this.state.user);
-    let {userKey, friends} = this.state;
+    let { userKey, friends } = this.state;
 
     if (this.state.userKey) {
       return (
@@ -110,7 +110,7 @@ export default class UserProfile extends Component {
               <Image
                 style={styles.pic}
                 // source={require('../../assets/catIcon.png')}
-                source={{uri: this.state.user.avatar}}
+                source={{ uri: this.state.user.avatar }}
               />
 
               <Text style={styles.name}>{this.state.user.UserName}</Text>
@@ -119,12 +119,12 @@ export default class UserProfile extends Component {
 
           <View style={styles.content}>
             <View style={styles.item}>
-              <View style={{flex: 1}}>
+              <View style={{ flex: 1 }}>
                 <ProfileView>
                   <Text style={styles.text}>About Me: {this.state.bio}</Text>
                 </ProfileView>
 
-                <View style={{flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                   {this.displayBadge()}
                 </View>
 
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   content: {
-    backgroundColor: '#D8C4E9',
+    backgroundColor: '#5c9ead',
     height: 600,
     alignItems: 'center'
   },
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    color: 'red',
-    fontFamily: 'FredokaOne-Regular'
+    color: '#5c9ead',
+    fontFamily: 'Raleway-Medium'
   }
 });
