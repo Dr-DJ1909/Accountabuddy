@@ -124,7 +124,7 @@ export const ProfileView = styled.View`
   border-width: 6px;
   border-color: #5c9ead;
   padding: 5px;
-  border-radius: 20px;
+  border-radius: 0px;
 
 `;
 
@@ -276,6 +276,7 @@ export const BlueButtonWidth = styled.TouchableOpacity`
   width: 200px;
   elevation: 3;
   margin-bottom: 3px;
+  margin-vertical: 10px;
 `;
 
 export const BlueButtonWidthTwo = styled.TouchableOpacity`
