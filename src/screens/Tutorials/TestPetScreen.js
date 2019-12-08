@@ -39,6 +39,18 @@ export default class TestPetScreen extends Component{
         keyboardVerticalOffset={60}
       >
         <Container style={{ ...styles.container, backgroundColor: '#EFE2E5' }}>
+        <View
+          style = {{
+            display:'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+        <Image
+       source = {require('../../assets/AccountaBuddy.png')}
+       style = {{height:300, width: 300, resizeMode :'contain',}}
+        />
+
+          </View>
         <Form>
             <Item floatingLabel>
               <Label>What's your Pet's Name?</Label>

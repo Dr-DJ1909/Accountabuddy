@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+// import * as font from 'assets/fonts'
 
 export const TopHeader = styled.View`
   position: absolute;

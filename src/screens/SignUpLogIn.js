@@ -86,14 +86,32 @@ class SignUpLogIn extends React.Component {
   };
 
   render() {
+
     return (
       <KeyboardAvoidingView
         style={{flex: 1}}
         behavior="height"
         keyboardVerticalOffset={60}
       >
-        <Container style={{...styles.container, backgroundColor: '#EFE2E5'}}>
+
+
+        <Container style={{
+          ...styles.container, backgroundColor: '#EFE2E5',display:'flex',
+          }}>
+          <View
+          style = {{
+            display:'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+        <Image
+       source = {require('../assets/AccountaBuddy.png')}
+       style = {{height:300, width: 300, resizeMode :'contain',}}
+        />
+
+          </View>
           <Form>
+
             <Item floatingLabel>
               <Label>Email</Label>
               <Input
@@ -116,17 +134,6 @@ class SignUpLogIn extends React.Component {
               style={{marginTop: 10}}
               full
               rounded
-              success
-              onPress={() =>
-                this.loginUser(this.state.email, this.state.password)
-              }
-            >
-              <Text style={{color: 'white'}}>Login</Text>
-            </Button>
-            <Button
-              style={{marginTop: 10}}
-              full
-              rounded
               primary
               onPress={() => this.signUp(this.state.email, this.state.password)}
             >
@@ -135,10 +142,33 @@ class SignUpLogIn extends React.Component {
 
             <Button
               style={{marginTop: 10}}
-              title="Sign in with Google"
-              onPress={() => this.GoogleSignIn()}
+              full
+              rounded
+              info
+              onPress={() =>
+                this.loginUser(this.state.email, this.state.password)
+              }
             >
-              <Text>Log in with Google</Text>
+              <Text style={{color: 'white'}}>Log In</Text>
+            </Button>
+            <Button
+              style={{
+                marginTop: 10,
+                justifyContent:'center',
+              }}
+              full
+              rounded
+              warning
+              title="Sign in with Google"
+
+              onPress={() => this.GoogleSignIn()}
+
+            >
+              <Text
+                style ={{
+                  color: 'white',
+                }}
+              >Log In With Google</Text>
             </Button>
           </Form>
         </Container>
