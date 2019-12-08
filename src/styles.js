@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const TopHeader = styled.View`
   position: absolute;
@@ -23,7 +23,7 @@ export const PageWrapperView = styled.View`
 `;
 
 export const ProfileHeaderView = styled.View`
-  background-color: #644d78;
+  background-color: #e39774;
 `;
 
 export const ProfileWrapperView = styled.View`
@@ -119,10 +119,13 @@ export const TaskView = styled.View`
 
 export const ProfileView = styled.View`
   height: 150;
-  background-color: #dce2f2
+  background-color: #eeeeee
   border-style: solid;
   border-width: 6px;
+  border-color: #5c9ead;
   padding: 5px;
+  border-radius: 0px;
+
 `;
 
 export const TaskBtns = styled.View`
@@ -191,6 +194,7 @@ export const LabelText = styled.Text`
   font-size: 20px;
   align-self: center;
   z-index: 2;
+  color: #ffffff;
 `;
 
 export const UsersView = styled.View`
@@ -272,6 +276,7 @@ export const BlueButtonWidth = styled.TouchableOpacity`
   width: 200px;
   elevation: 3;
   margin-bottom: 3px;
+  margin-vertical: 10px;
 `;
 
 export const BlueButtonWidthTwo = styled.TouchableOpacity`
