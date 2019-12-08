@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const TopHeader = styled.View`
   position: absolute;
@@ -122,8 +122,10 @@ export const ProfileView = styled.View`
   background-color: #eeeeee
   border-style: solid;
   border-width: 6px;
-  border-color: #5c9ead
+  border-color: #5c9ead;
   padding: 5px;
+  border-radius: 20px;
+
 `;
 
 export const TaskBtns = styled.View`

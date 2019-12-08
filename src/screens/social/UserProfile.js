@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Image,
   Text,
@@ -6,22 +6,23 @@ import {
   StyleSheet,
   AsyncStorage,
   Button,
-  KeyboardAvoidingView
-} from 'react-native';
-import { ProfileHeaderView, ProfileView } from '../../styles';
-import { getFriendList } from '../../api/FriendsRoute';
-import { getUser, updateBio } from '../../api/UserRoute';
-import EditProfileInput from '../../components/social/EditProfileInput';
-import ImageUpload from '../../components/social/ImageUpload';
+  KeyboardAvoidingView,
+  TouchableOpacity
+} from "react-native";
+import { ProfileHeaderView, ProfileView } from "../../styles";
+import { getFriendList } from "../../api/FriendsRoute";
+import { getUser, updateBio } from "../../api/UserRoute";
+import EditProfileInput from "../../components/social/EditProfileInput";
+import ImageUpload from "../../components/social/ImageUpload";
 
 export default class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
-      user: '',
-      bio: '',
-      avatar: '',
-      userKey: '',
+      user: "",
+      bio: "",
+      avatar: "",
+      userKey: "",
       friends: [],
       refresh: false,
       showForm: false
@@ -31,7 +32,7 @@ export default class UserProfile extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   async componentDidMount() {
-    let userKey = await AsyncStorage.getItem('userKey');
+    let userKey = await AsyncStorage.getItem("userKey");
     const friends = await getFriendList(userKey);
     let user = await getUser(userKey);
     Promise.all([friends, userKey, user]);
@@ -66,32 +67,32 @@ export default class UserProfile extends Component {
       <Image
         style={styles.badge}
         key="gymBadge"
-        source={require('../../assets/img/badges/Badge_Gym.png')}
+        source={require("../../assets/img/badges/Badge_Gym.png")}
       />
     );
     const choresBadge = (
       <Image
         style={styles.badge}
         key="choresBadge"
-        source={require('../../assets/img/badges/Badge_Chore.png')}
+        source={require("../../assets/img/badges/Badge_Chore.png")}
       />
     );
     const socialBadge = (
       <Image
         style={styles.badge}
         key="socialBadge"
-        source={require('../../assets/img/badges/Badge_Social.png')}
+        source={require("../../assets/img/badges/Badge_Social.png")}
       />
     );
 
     this.state.user.completedTasks.forEach(task => {
-      if (task.category === 'Exercise' && !badges.includes(gymBadge)) {
+      if (task.category === "Exercise" && !badges.includes(gymBadge)) {
         badges.push(gymBadge);
       }
-      if (task.category === 'Chores' && !badges.includes(choresBadge)) {
+      if (task.category === "Chores" && !badges.includes(choresBadge)) {
         badges.push(choresBadge);
       }
-      if (task.category === 'Social' && !badges.includes(socialBadge)) {
+      if (task.category === "Social" && !badges.includes(socialBadge)) {
         badges.push(socialBadge);
       }
     });
@@ -99,7 +100,7 @@ export default class UserProfile extends Component {
     return badges.map(badge => badge);
   };
   render() {
-    console.log('logged in user info', this.state.user);
+    console.log("logged in user info", this.state.user);
     let { userKey, friends } = this.state;
 
     if (this.state.userKey) {
@@ -124,14 +125,17 @@ export default class UserProfile extends Component {
                   <Text style={styles.text}>About Me: {this.state.bio}</Text>
                 </ProfileView>
 
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: "row" }}>
                   {this.displayBadge()}
                 </View>
 
-                <Button
-                  title="Edit Profile"
+                <TouchableOpacity
+                  style={styles.button}
                   onPress={this.handleClick}
-                ></Button>
+                >
+                  <Text style={styles.buttonText}>Edit Profile</Text>
+                </TouchableOpacity>
+
                 {this.state.showForm ? (
                   <KeyboardAvoidingView>
                     <EditProfileInput
@@ -157,33 +161,52 @@ export default class UserProfile extends Component {
 const styles = StyleSheet.create({
   headerText: {
     padding: 20,
-    alignItems: 'center'
+    alignItems: "center"
+  },
+  button: {
+    height: 30,
+    flexDirection: "row",
+    backgroundColor: "#0A369D",
+    borderColor: "white",
+    borderWidth: 0,
+    borderRadius: 10,
+    margin: 5,
+    justifyContent: "center"
+  },
+  buttonText: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "Raleway-Medium",
+    margin: 2
   },
   pic: {
     width: 130,
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: 'white',
+    borderColor: "white",
     marginBottom: 10,
     marginTop: 20
   },
   name: {
     fontSize: 30,
-    color: '#FFFAF0',
-    fontWeight: '700'
+    color: "#FFFAF0",
+    fontWeight: "700",
+    fontFamily: "TepenoSansBold",
+    textTransform: "uppercase",
+    letterSpacing: 2
   },
   content: {
-    backgroundColor: '#5c9ead',
+    backgroundColor: "#5c9ead",
     height: 600,
-    alignItems: 'center'
+    alignItems: "center"
   },
   item: {
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   infoContent: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     paddingLeft: 5
   },
   icon: {
@@ -194,15 +217,15 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 18,
     marginTop: 20,
-    color: '#FFFFFF'
+    color: "#FFFFFF"
   },
   badge: {
     width: 100,
     height: 100
   },
   text: {
-    fontSize: 20,
-    color: '#5c9ead',
-    fontFamily: 'Raleway-Medium'
+    fontSize: 22,
+    color: "#5c9ead",
+    fontFamily: "Raleway-Medium"
   }
 });
