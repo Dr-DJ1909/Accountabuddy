@@ -103,12 +103,16 @@ export default class ImageUpload extends React.Component {
           }}
           onPress={this.selectImage}
         >
-          <Text style={{
-            fontSize: 20,
-            color: "white",
-            fontFamily: "Raleway-Medium",
-            margin: 2
-          }}>Change Profile Photo</Text>
+          <Text
+            style={{
+              fontSize: 20,
+              color: "white",
+              fontFamily: "Raleway-Medium",
+              margin: 2
+            }}
+          >
+            Change Profile Photo
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
