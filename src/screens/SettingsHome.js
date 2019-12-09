@@ -10,19 +10,21 @@ import {
   TopHeaderText,
   PageWrapperAlignTopViewLight
 } from "../styles";
-import { getUserThunk } from "../store/user";
+import { logOutUserThunk } from "../store/user";
 import firebase from "firebase";
 
-logOutUser = async () => {
-  try {
-    await firebase.auth().signOut();
-    AsyncStorage.clear();
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 class SettingsWrapper extends Component {
+  logOutUser = async () => {
+    try {
+      await firebase.auth().signOut();
+      console.log('this.props.user >>>>', this.props.user)
+      this.props.logOutUserAction();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -34,7 +36,7 @@ class SettingsWrapper extends Component {
           <BlueButtonWidthTwo onPress={() => navigate("ChangeInfo")}>
             <ButtonText>Change your username or your pet's name</ButtonText>
           </BlueButtonWidthTwo>
-          <BlueButtonWidth onPress={() => logOutUser()}>
+          <BlueButtonWidth onPress={() => this.logOutUser()}>
             <ButtonText>Log out</ButtonText>
           </BlueButtonWidth>
         </View>
@@ -51,7 +53,7 @@ const mapStateToProps = function (state) {
 
 const mapDispatchToProps = function (dispatch) {
   return {
-    getUserAction: () => dispatch(getUserThunk())
+    logOutUserAction: () => dispatch(logOutUserThunk())
   };
 };
 
