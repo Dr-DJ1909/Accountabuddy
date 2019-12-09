@@ -46,9 +46,21 @@ class UserNameScreen extends Component{
         keyboardVerticalOffset={60}
       >
         <Container style={{ ...styles.container, backgroundColor: '#EFE2E5' }}>
+        <View
+          style = {{
+            display:'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+        <Image
+       source = {require('../../assets/AccountaBuddy.png')}
+       style = {{height:300, width: 300, resizeMode :'contain',}}
+        />
+
+          </View>
         <Form>
             <Item floatingLabel>
-              <Label>What's your User Name? This will be the name that your friends can search you for!</Label>
+              <Text>What's your User Name?</Text>
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"

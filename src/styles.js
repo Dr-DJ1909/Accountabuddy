@@ -22,7 +22,7 @@ export const TopHeader = styled.View`
   display: flex;
   background-color: #E39774;
   align-self: flex-start;
-  padding-top: 36px;
+  padding-top: 40px;
   width: 100%;
   height: 90px;
   z-index: 2;
@@ -353,7 +353,7 @@ export const TextInput = styled.TextInput`
   font-family: 'Raleway-Medium';
 `;
 export const Picker = styled.Picker`
-  height: 50;
+  height: 50px;
   width: 300px;
   margin: 10px;
 `;
