@@ -60,7 +60,7 @@ class UserNameScreen extends Component{
           </View>
         <Form>
             <Item floatingLabel>
-              <Text>What's your User Name?</Text>
+              <Label>What's your username?</Label>
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"

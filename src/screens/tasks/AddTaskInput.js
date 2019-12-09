@@ -19,8 +19,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   TouchableHighlight,
-  AsyncStorage,
-  View
+  AsyncStorage
 } from 'react-native';
 
 

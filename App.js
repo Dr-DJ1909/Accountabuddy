@@ -80,8 +80,9 @@ class App extends Component {
   }
 
   render() {
+    console.log('app.js this.props.user >>>>', this.props.user)
     if (this.state.loading) return null;
-    if (this.state.user && !this.props.user.isDoingTutorial) {
+    if (this.state.user && this.props.user && !this.props.user.isDoingTutorial) {
       return <PersistedLogin userKey={this.state.user.uid} />;
     }
     return <AppLogin />;

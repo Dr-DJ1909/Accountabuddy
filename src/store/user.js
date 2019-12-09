@@ -29,6 +29,7 @@ const initialState = {
 
 const GET_USER = 'GET_USER';
 const GET_USER_KEY = 'GET_USER_KEY';
+const LOGOUT_USER = 'LOGOUT_USER';
 
 const UPDATE_INFO = 'UPDATE_INFO';
 
@@ -132,6 +133,12 @@ const getUserKey = userKey => {
   return {
     type: GET_USER_KEY,
     userKey
+  };
+};
+
+const logOutUser = () => {
+  return {
+    type: LOGOUT_USER
   };
 };
 
@@ -421,6 +428,14 @@ export const getUserKeyThunk = userKey => {
   };
 };
 
+export const logOutUserThunk = () => dispatch => {
+  try {
+    dispatch(logOutUser());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER:
@@ -430,6 +445,10 @@ export const userReducer = (state = initialState, action) => {
     case GET_USER_KEY:
       AsyncStorage.setItem('userKey', action.userKey);
       return {...state, userKey: action.userKey};
+
+    case LOGOUT_USER:
+      AsyncStorage.clear();
+      return {};
 
     case UPDATE_INFO:
       return {...state, user: action.user};
