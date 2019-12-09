@@ -1,5 +1,4 @@
-import styled from 'styled-components/native';
-// import * as font from 'assets/fonts'
+import styled from "styled-components/native";
 
 export const TopHeader = styled.View`
   position: absolute;
@@ -7,24 +6,24 @@ export const TopHeader = styled.View`
   justify-content: space-between;
   align-items: center;
   display: flex;
-  background-color: #3A6EA5;
+  background-color: #3a6ea5;
   align-self: flex-start;
-  padding-top: 36px;
+  padding-top: 40px;
   width: 100%;
   height: 90px;
   z-index: 2;
-`
+`;
 
 export const PageWrapperView = styled.View`
   flex: 1;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   align-items: center;
   justify-content: center;
   padding-top: 40px;
 `;
 
 export const ProfileHeaderView = styled.View`
-  background-color: #644d78;
+  background-color: #e39774;
 `;
 
 export const ProfileWrapperView = styled.View`
@@ -35,7 +34,7 @@ export const ProfileWrapperView = styled.View`
 
 export const PageWrapperAlignTopView = styled.View`
   flex: 1;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   align-items: center;
   justify-content: flex-start;
   padding-top: 110px;
@@ -43,7 +42,7 @@ export const PageWrapperAlignTopView = styled.View`
 
 export const PageWrapperKeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   align-items: center;
   justify-content: flex-start;
   padding-top: 70;
@@ -91,9 +90,9 @@ export const FriendPetView = styled.View`
 `;
 export const FriendTextView = styled.View`
   justify-content: space-between;
-  display:flex;
-  flex-direction:row;
-  width:75%;
+  display: flex;
+  flex-direction: row;
+  width: 75%;
 `;
 
 export const AbsolutePositionPetView = styled.View`
@@ -119,11 +118,14 @@ export const TaskView = styled.View`
 `;
 
 export const ProfileView = styled.View`
-  height: 200;
-  background-color: #dce2f2
+  height: 150;
+  background-color: #eeeeee
   border-style: solid;
   border-width: 6px;
+  border-color: #5c9ead;
   padding: 5px;
+  border-radius: 0px;
+
 `;
 
 export const TaskBtns = styled.View`
@@ -173,7 +175,7 @@ export const TopHeaderText = styled.Text`
 
 export const HeaderText = styled.Text`
   font-size: 24px;
-  color: #0A369D;
+  color: #0a369d;
 `;
 
 export const BubbleText = styled.Text`
@@ -192,6 +194,7 @@ export const LabelText = styled.Text`
   font-size: 20px;
   align-self: center;
   z-index: 2;
+  color: #ffffff;
 `;
 
 export const UsersView = styled.View`
@@ -205,13 +208,13 @@ export const UsersView = styled.View`
 export const MessageText = styled.Text`
   font-size: 16px;
   align-self: center;
-  color: #3A6EA5;
+  color: #3a6ea5;
 `;
 
 export const MessageTextLarge = styled.Text`
   font-size: 20px;
   align-self: center;
-  color: #3A6EA5;
+  color: #3a6ea5;
 `;
 
 export const TaskText = styled.Text`
@@ -247,24 +250,39 @@ export const BlueButton = styled.TouchableOpacity`
   elevation: 3;
 `;
 
-export const BlueButtonWidth = styled.TouchableOpacity`
+export const BlueButtonLarge = styled.TouchableOpacity`
   color: #ffffff;
-  background-color: #3A6EA5;
-  border: solid 2px #3A6EA5;
+  background-color: #0a369d;
+  border: solid 2px #0a369d;
   border-radius: 1px;
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 35px;
+  height: 85px;
+  width: auto;
+  elevation: 3;
+  padding: 10px;
+`;
+
+export const BlueButtonWidth = styled.TouchableOpacity`
+  color: #ffffff;
+  background-color: #3a6ea5;
+  border: solid 2px #3a6ea5;
+  border-radius: 1px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 55px;
   width: 200px;
   elevation: 3;
   margin-bottom: 3px;
+  margin-vertical: 10px;
 `;
 
 export const BlueButtonWidthTwo = styled.TouchableOpacity`
   color: #ffffff;
-  background-color: #3A6EA5;
-  border: solid 2px #3A6EA5;
+  background-color: #3a6ea5;
+  border: solid 2px #3a6ea5;
   border-radius: 1px;
   align-items: center;
   justify-content: center;
@@ -298,7 +316,7 @@ export const TextInput = styled.TextInput`
   padding-left: 15px;
 `;
 export const Picker = styled.Picker`
-  height: 50;
+  height: 50px;
   width: 300px;
   margin: 10px;
 `;
