@@ -74,7 +74,7 @@ class HomePet extends Component {
             style={{width: 300, height: 122}}
           />
           <AbsolutePositionBubbleView>
-            <BubbleText>"I'm doing good today! How about you?"</BubbleText>
+            <BubbleText>"I'm doing great today! How about you?"</BubbleText>
           </AbsolutePositionBubbleView>
           <AddTaskBtnView>
             {/* <Icon

@@ -40,7 +40,7 @@ const TaskExercise = (props) => {
   return (
     <PageWrapperView>
       <TopHeader>
-        <TopHeaderText>Exercise Tasks</TopHeaderText>
+        <TopHeaderText>Exercise Progress</TopHeaderText>
         <TasksHeader />
       </TopHeader>
       <MessageText>{user.pet.Name}'s health:</MessageText>
@@ -48,6 +48,7 @@ const TaskExercise = (props) => {
         width={200}
         value={hp * 100}
         maxValue={100}
+        backgroundColor='#48EFBF'
       />
       <Divider /><Divider />
       {image}

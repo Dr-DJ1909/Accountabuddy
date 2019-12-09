@@ -15,6 +15,7 @@ import {
 } from '../../styles';
 import {
   Text,
+  View,
   StyleSheet,
   KeyboardAvoidingView,
   TouchableHighlight,

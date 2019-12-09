@@ -23,7 +23,8 @@ function TaskItem(props) {
     onOpen: (secId, rowId, direction) => {},
     right: [{onPress: () => {props.delete()}, text: 'Delete', type: 'delete'}],
     rowId: props.index,
-    sectionId: 1
+    sectionId: 1,
+    backgroundColor: '#5C9EAD'
   };
 
   return (

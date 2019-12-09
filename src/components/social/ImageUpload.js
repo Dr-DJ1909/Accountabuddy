@@ -1,7 +1,7 @@
 import * as React from 'react';
 import firebase from 'firebase';
 import '@firebase/firestore';
-import {Button, Image, View, KeyboardAvoidingView} from 'react-native';
+import {Button, Image, View, KeyboardAvoidingView, TouchableOpacity, Text} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -83,7 +83,26 @@ export default class ImageUpload extends React.Component {
     let {image} = this.state;
     return (
       <KeyboardAvoidingView>
-        <Button title="Change Profile Photo" onPress={this.selectImage} />
+        <TouchableOpacity
+          style={{
+            height: 30,
+            flexDirection: "row",
+            backgroundColor: "#0A369D",
+            borderColor: "white",
+            borderWidth: 0,
+            borderRadius: 10,
+            margin: 5,
+            justifyContent: "center"
+          }}
+          onPress={this.selectImage}
+        >
+          <Text style={{
+            fontSize: 20,
+            color: "white",
+            fontFamily: "Raleway-Medium",
+            margin: 2
+          }}>Change Profile Photo</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }

@@ -50,7 +50,7 @@ const TaskSocial = props => {
   return (
     <PageWrapperView>
       <TopHeader>
-        <TopHeaderText>Social Tasks</TopHeaderText>
+        <TopHeaderText>Social Progress</TopHeaderText>
         <TasksHeader />
       </TopHeader>
       <Divider /><Divider /><Divider />
@@ -59,6 +59,7 @@ const TaskSocial = props => {
         width={200}
         value={hp * 100}
         maxValue={100}
+        backgroundColor='#0A369D'
       />
       <Divider /><Divider />
       {image}

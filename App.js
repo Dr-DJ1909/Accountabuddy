@@ -74,6 +74,8 @@ class App extends Component {
       'TepenoSansLightItalic': require("./src/assets/fonts/TepenoSansLightItalic.ttf"),
       'Raleway-Medium': require("./src/assets/fonts/Raleway-Medium.ttf"),
       'Raleway-SemiBold': require("./src/assets/fonts/Raleway-SemiBold.ttf"),
+      'Raleway-ExtraBold': require("./src/assets/fonts/Raleway-ExtraBold.ttf"),
+      'Raleway-Black': require("./src/assets/fonts/Raleway-Black.ttf"),
     });
   }
 

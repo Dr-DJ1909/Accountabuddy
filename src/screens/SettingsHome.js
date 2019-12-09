@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { AsyncStorage, View } from "react-native";
 import {
-  PageWrapperAlignTopView,
   HeaderText,
   BlueButtonWidth,
   BlueButtonWidthTwo,
   ButtonText,
   TopHeader,
-  TopHeaderText
+  TopHeaderText,
+  PageWrapperAlignTopViewLight
 } from "../styles";
 import { getUserThunk } from "../store/user";
 import firebase from "firebase";
@@ -26,7 +26,7 @@ class SettingsWrapper extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <PageWrapperAlignTopView>
+      <PageWrapperAlignTopViewLight>
         <TopHeader>
           <TopHeaderText>Settings</TopHeaderText>
         </TopHeader>
@@ -38,7 +38,7 @@ class SettingsWrapper extends Component {
             <ButtonText>Log out</ButtonText>
           </BlueButtonWidth>
         </View>
-      </PageWrapperAlignTopView>
+      </PageWrapperAlignTopViewLight>
     );
   }
 }
