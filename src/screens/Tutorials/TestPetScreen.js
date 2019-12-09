@@ -53,7 +53,7 @@ export default class TestPetScreen extends Component{
           </View>
         <Form>
             <Item floatingLabel>
-              <Label>What's your Pet's Name?</Label>
+              <Label>What's your pet's name?</Label>
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"
