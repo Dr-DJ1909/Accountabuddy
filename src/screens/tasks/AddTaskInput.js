@@ -10,15 +10,18 @@ import {
   TextInput,
   BlueButton,
   ButtonText,
-  Picker
+  Picker,
+  Divider
 } from '../../styles';
 import {
   Text,
   StyleSheet,
   KeyboardAvoidingView,
   TouchableHighlight,
-  AsyncStorage
+  AsyncStorage,
+  View
 } from 'react-native';
+
 
 export default function AddTaskInput(props) {
   return (
@@ -26,7 +29,7 @@ export default function AddTaskInput(props) {
       <LabelText>What are you going to do?</LabelText>
       <TextInput
         placeholder="Go to the gym"
-        placeholderColor="#c4c3cb"
+        placeholderColor="#C4C3CB"
         onChange={props.handleNameChange}
         defaultValue={props.name}
       />
@@ -34,19 +37,18 @@ export default function AddTaskInput(props) {
       <Picker
         selectedValue={props.category}
         onValueChange={props.handleCategoryChange}
-        mode='dropdown'
+        mode="dropdown"
       >
         <Picker.Item label="Exercise" value="Exercise" />
         <Picker.Item label="Chores" value="Chores" />
         <Picker.Item label="Social" value="Social" />
       </Picker>
-
-      <BlueButton
-        underlayColor="white"
-        onPress={props.handleSubmit}
-      >
-        <ButtonText>Add</ButtonText>
-      </BlueButton>
+      <Divider></Divider>
+      <View style={{ display: "flex", marginTop: 150 }}>
+        <BlueButton underlayColor="white" onPress={props.handleSubmit}>
+          <ButtonText>Add</ButtonText>
+        </BlueButton>
+      </View>
     </PageWrapperKeyboardAvoidingView>
   );
 }

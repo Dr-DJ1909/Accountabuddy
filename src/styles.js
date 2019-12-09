@@ -8,7 +8,7 @@ export const TopHeader = styled.View`
   display: flex;
   background-color: #3a6ea5;
   align-self: flex-start;
-  padding-top: 36px;
+  padding-top: 40px;
   width: 100%;
   height: 90px;
   z-index: 2;
@@ -316,7 +316,7 @@ export const TextInput = styled.TextInput`
   padding-left: 15px;
 `;
 export const Picker = styled.Picker`
-  height: 50;
+  height: 50px;
   width: 300px;
   margin: 10px;
 `;

@@ -58,10 +58,10 @@ class FriendPet extends Component {
        <FriendTextView>
 
         <Text>
-        {friendPetName}
+        Your pet, {userPetName}
         </Text>
         <Text>
-        {userPetName}
+        Your friend's pet, {friendPetName}
         </Text>
 
        </FriendTextView>

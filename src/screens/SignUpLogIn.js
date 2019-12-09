@@ -85,14 +85,34 @@ class SignUpLogIn extends React.Component {
   };
 
   render() {
+
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior="height"
         keyboardVerticalOffset={60}
       >
-        <Container style={{ ...styles.container, backgroundColor: "#EFE2E5" }}>
+
+
+
+        <Container style={{
+          ...styles.container, backgroundColor: '#EFE2E5',display:'flex',
+          }}>
+          <View
+          style = {{
+            display:'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+        <Image
+       source = {require('../assets/AccountaBuddy.png')}
+       style = {{height:300, width: 300, resizeMode :'contain',}}
+        />
+
+          </View>
+
           <Form>
+
             <Item floatingLabel>
               <Label>Email</Label>
               <Input
@@ -115,28 +135,33 @@ class SignUpLogIn extends React.Component {
               style={{ margin: 5, marginTop: 15 }}
               full
               rounded
-              success
-              onPress={() =>
-                this.loginUser(this.state.email, this.state.password)
-              }
+              primary
+              onPress={() => this.signUp(this.state.email, this.state.password)}
             >
+
               <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
                 Log In
               </Text>
+
             </Button>
+
             <Button
               style={{ margin: 5 }}
               full
               rounded
-              primary
-              onPress={() => this.signUp(this.state.email, this.state.password)}
+              info
+              onPress={() =>
+                this.loginUser(this.state.email, this.state.password)
+              }
             >
+
               <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
                 Sign Up
               </Text>
-            </Button>
 
+            </Button>
             <Button
+
               success
               full
               rounded
@@ -144,8 +169,11 @@ class SignUpLogIn extends React.Component {
                 backgroundColor: "red"
               }}
               style={{ margin: 5 }}
+
               onPress={() => this.GoogleSignIn()}
+
             >
+
               <View style={{ flex: 1, justifyContent: "center" }}>
                 <Text
                   style={{
@@ -157,6 +185,7 @@ class SignUpLogIn extends React.Component {
                   Log in with Google
                 </Text>
               </View>
+
             </Button>
           </Form>
         </Container>
