@@ -11,7 +11,8 @@ import {
 import {
   PageWrapperView,
   AbsolutePositionPetView,
-  HeaderText
+  HeaderText,
+  PageWrapperViewLight
 } from '../../styles';
 import {ListItem} from 'react-native-elements';
 import {newFriend, getFriendList} from '../../api/FriendsRoute';
@@ -91,9 +92,9 @@ class UserFriends extends React.Component {
       );
     } else {
       return (
-        <PageWrapperView>
+        <PageWrapperViewLight>
           <Text>No friends yet :( Search for a user and add someone! </Text>
-        </PageWrapperView>
+        </PageWrapperViewLight>
       );
     }
   }

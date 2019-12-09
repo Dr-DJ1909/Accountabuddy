@@ -1,4 +1,18 @@
 import styled from "styled-components/native";
+import {createGlobalStyle} from 'styled-components/native';
+// import Raleway-Medium
+
+// const GlobalStyle = createGlobalStyle`
+//   @font-face {
+//     font-family: pala;
+//     src: url(${pala}) format('truetype');
+//     font-weight: normal;
+//     font-style: normal;
+//   }
+//   html {
+//     font-size: 10px;
+//   }
+// `;
 
 export const TopHeader = styled.View`
   position: absolute;
@@ -6,7 +20,7 @@ export const TopHeader = styled.View`
   justify-content: space-between;
   align-items: center;
   display: flex;
-  background-color: #3a6ea5;
+  background-color: #E39774;
   align-self: flex-start;
   padding-top: 36px;
   width: 100%;
@@ -15,6 +29,14 @@ export const TopHeader = styled.View`
 `;
 
 export const PageWrapperView = styled.View`
+  flex: 1;
+  background-color: #5C9EAD;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+`;
+
+export const PageWrapperViewLight = styled.View`
   flex: 1;
   background-color: #ebebeb;
   align-items: center;
@@ -34,6 +56,14 @@ export const ProfileWrapperView = styled.View`
 
 export const PageWrapperAlignTopView = styled.View`
   flex: 1;
+  background-color: #5C9EAD;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 110px;
+`;
+
+export const PageWrapperAlignTopViewLight = styled.View`
+  flex: 1;
   background-color: #ebebeb;
   align-items: center;
   justify-content: flex-start;
@@ -42,7 +72,7 @@ export const PageWrapperAlignTopView = styled.View`
 
 export const PageWrapperKeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1;
-  background-color: #ebebeb;
+  background-color: #5C9EAD;
   align-items: center;
   justify-content: flex-start;
   padding-top: 70;
@@ -170,31 +200,35 @@ export const TaskNavBtnView = styled.View`
 export const TopHeaderText = styled.Text`
   font-size: 30px;
   color: #fff;
-  font-weight: bold;
+  font-family: 'Raleway-ExtraBold';
 `;
 
 export const HeaderText = styled.Text`
   font-size: 24px;
-  color: #0a369d;
+  color: #fff;
+  font-family: 'Raleway-Medium';
 `;
 
 export const BubbleText = styled.Text`
   font-size: 16px;
   color: #000;
   z-index: 2;
+  font-family: 'Raleway-Medium';
 `;
 
 export const HeaderTasksText = styled.Text`
   font-size: 50px;
   align-self: center;
   z-index: 2;
+  font-family: 'Raleway-Medium';
 `;
 
 export const LabelText = styled.Text`
   font-size: 20px;
   align-self: center;
   z-index: 2;
-  color: #ffffff;
+  color: #fff;
+  font-family: 'Raleway-Medium';
 `;
 
 export const UsersView = styled.View`
@@ -208,20 +242,22 @@ export const UsersView = styled.View`
 export const MessageText = styled.Text`
   font-size: 16px;
   align-self: center;
-  color: #3a6ea5;
+  color: #fff;
+  font-family: 'Raleway-Medium';
 `;
 
 export const MessageTextLarge = styled.Text`
   font-size: 20px;
   align-self: center;
-  color: #3a6ea5;
+  color: #fff;
+  font-family: 'Raleway-Medium';
 `;
 
 export const TaskText = styled.Text`
   font-size: 16px;
-  font-weight: bold;
   align-self: center;
   color: #000000;
+  font-family: 'Raleway-ExtraBold';
 `;
 
 export const OrangeButton = styled.TouchableOpacity`
@@ -266,8 +302,8 @@ export const BlueButtonLarge = styled.TouchableOpacity`
 
 export const BlueButtonWidth = styled.TouchableOpacity`
   color: #ffffff;
-  background-color: #3a6ea5;
-  border: solid 2px #3a6ea5;
+  background-color: #0A369D;
+  border: solid 2px #0A369D;
   border-radius: 1px;
   align-items: center;
   justify-content: center;
@@ -281,8 +317,8 @@ export const BlueButtonWidth = styled.TouchableOpacity`
 
 export const BlueButtonWidthTwo = styled.TouchableOpacity`
   color: #ffffff;
-  background-color: #3a6ea5;
-  border: solid 2px #3a6ea5;
+  background-color: #0A369D;
+  border: solid 2px #0A369D;
   border-radius: 1px;
   align-items: center;
   justify-content: center;
@@ -300,13 +336,13 @@ export const ButtonText = styled.Text`
   margin-left: 5px;
   margin-right: 5px;
   text-transform: uppercase;
-  font-weight: bold;
+  font-family: 'Raleway-ExtraBold';
 `;
 
 export const TextInput = styled.TextInput`
   height: 50;
   font-size: 14;
-  background-color: #ebebeb;
+  background-color: #fff;
   border-color: #0a369d;
   border-width: 4px;
   width: 300px;
@@ -314,6 +350,7 @@ export const TextInput = styled.TextInput`
   margin: 10px;
   padding: 5px;
   padding-left: 15px;
+  font-family: 'Raleway-Medium';
 `;
 export const Picker = styled.Picker`
   height: 50;

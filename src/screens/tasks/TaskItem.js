@@ -17,11 +17,12 @@ function TaskItem(props) {
     autoClose: true,
     onClose: (secid, rowId, direction) => {},
     onOpen: (secId, rowId, direction) => {},
-    left: [{onPress: () => {props.complete()}, text: `Done!`, type: 'primary'}],
+    left: [{onPress: () => {props.complete()}, text: `Done!`, backgroundColor: '#0A369D'}],
     right: [{onPress: () => {props.failed()}, text: `Didn't get it done...`, type: 'delete'}],
     rowId: props.index,
     sectionId: 1,
-    buttonWidth: 150
+    buttonWidth: 150,
+    backgroundColor: '#5C9EAD'
   };
 
   return (

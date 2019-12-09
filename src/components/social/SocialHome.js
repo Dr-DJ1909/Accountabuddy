@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  PageWrapperAlignTopView,
+  PageWrapperAlignTopViewLight,
   HeaderText,
   TopHeaderText,
   TopHeader
@@ -32,7 +32,7 @@ class SocialHome extends Component {
 
   render() {
     return (
-      <PageWrapperAlignTopView>
+      <PageWrapperAlignTopViewLight>
         <TopHeader>
           <TopHeaderText>Social</TopHeaderText>
         </TopHeader>
@@ -59,7 +59,7 @@ class SocialHome extends Component {
             <ButtonText>Friend Requests</ButtonText>
           </BlueButtonWidth>
         </View>
-      </PageWrapperAlignTopView>
+      </PageWrapperAlignTopViewLight>
     );
   }
 }

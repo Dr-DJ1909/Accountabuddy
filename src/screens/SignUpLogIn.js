@@ -137,7 +137,7 @@ class SignUpLogIn extends React.Component {
             </Button>
 
             <Button
-              success
+              warning
               full
               rounded
               buttonStyle={{
@@ -154,7 +154,7 @@ class SignUpLogIn extends React.Component {
                     textAlign: "center"
                   }}
                 >
-                  Log in with Google
+                  Log In With Google
                 </Text>
               </View>
             </Button>

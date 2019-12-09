@@ -10,10 +10,12 @@ import {
   TextInput,
   BlueButton,
   ButtonText,
-  Picker
+  Picker,
+  Divider
 } from '../../styles';
 import {
   Text,
+  View,
   StyleSheet,
   KeyboardAvoidingView,
   TouchableHighlight,
@@ -41,12 +43,12 @@ export default function AddTaskInput(props) {
         <Picker.Item label="Social" value="Social" />
       </Picker>
 
-      <BlueButton
-        underlayColor="white"
-        onPress={props.handleSubmit}
-      >
-        <ButtonText>Add</ButtonText>
-      </BlueButton>
+      <Divider></Divider>
+      <View style={{ display: "flex", marginTop: 150 }}>
+        <BlueButton underlayColor="white" onPress={props.handleSubmit}>
+          <ButtonText>Add</ButtonText>
+        </BlueButton>
+      </View>
     </PageWrapperKeyboardAvoidingView>
   );
 }

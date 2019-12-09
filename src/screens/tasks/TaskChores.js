@@ -44,7 +44,7 @@ const TaskChores = (props) => {
   return (
     <PageWrapperView>
     <TopHeader>
-      <TopHeaderText>Chores</TopHeaderText>
+      <TopHeaderText>Chores Progress</TopHeaderText>
       <TasksHeader />
     </TopHeader>
       <MessageText>{user.pet.Name}'s health:</MessageText>
@@ -52,6 +52,7 @@ const TaskChores = (props) => {
         width={200}
         value={props.hp * 100}
         maxValue={100}
+        backgroundColor='#42D7AC'
       />
       <Divider /><Divider />
       {image}
