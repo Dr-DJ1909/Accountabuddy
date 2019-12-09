@@ -1,28 +1,21 @@
-import React, {Component} from 'react';
-import {
-  PageWrapperView,
-  HeaderText,
-  HeaderTasksText,
-  TaskWrapperView,
-  HeaderWrapperView,
-  LabelText,
-  TaskView
-} from '../../styles';
+import React, { Component } from "react";
+import { LabelText } from "../../styles";
 import {
   Text,
   TextInput,
   StyleSheet,
   KeyboardAvoidingView,
-  TouchableHighlight,
+  TouchableOpacity,
   Picker,
   AsyncStorage
-} from 'react-native';
+} from "react-native";
+import ImageUpload from "../../components/social/ImageUpload";
 
 export default class EditProfileInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bio: ''
+      bio: ""
     };
   }
   render() {
@@ -36,13 +29,13 @@ export default class EditProfileInput extends React.Component {
           defaultValue={this.props.bio}
           style={styles.textInput}
         />
-        <TouchableHighlight
+        <ImageUpload user={this.props.user} uId={this.props.uId} />
+        <TouchableOpacity
           style={styles.button}
-          underlayColor="white"
           onPress={this.props.handleSubmit}
         >
           <Text style={styles.buttonText}>Update</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }
@@ -50,32 +43,33 @@ export default class EditProfileInput extends React.Component {
 const styles = StyleSheet.create({
   button: {
     height: 30,
-    flexDirection: 'row',
-    backgroundColor: '#9403fc',
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 5,
-    marginTop: 5,
-    justifyContent: 'center'
+    flexDirection: "row",
+    backgroundColor: "#0A369D",
+    borderColor: "white",
+    borderWidth: 0,
+    borderRadius: 10,
+    margin: 5,
+    justifyContent: "center"
   },
   buttonText: {
     fontSize: 20,
-    color: 'white'
+    color: "white",
+    fontFamily: "Raleway-Medium",
+    margin: 2
   },
   textInput: {
     height: 150,
-    fontSize: 14,
+    fontSize: 18,
     borderRadius: 10,
-    borderWidth: 5,
+    borderWidth: 0,
     padding: 10,
-    borderColor: '#ca03fc',
-    backgroundColor: '#fafafa',
+    borderColor: "#ca03fc",
+    backgroundColor: "#eeeeee",
     marginLeft: 15,
     marginRight: 15,
     marginTop: 5,
     marginBottom: 5,
     width: 400,
-    alignSelf: 'center'
+    alignSelf: "center"
   }
 });

@@ -17,13 +17,21 @@ class SocialPet extends Component {
       on: true
     };
 
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState(previousState => {
         return {
           on: !previousState.on
         };
       });
     }, 1200);
+  }
+
+  componentDidMount() {
+    this.intervalId;
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   render() {
@@ -40,15 +48,6 @@ class SocialPet extends Component {
     );
     return (
       <PetView>
-        <AbsolutePositionPetView>
-          <AddTaskBtnView>
-            {/* <Icon
-              name='plus-circle'
-              size={40}
-              backgroundColor='#4472CA'
-            /> */}
-          </AddTaskBtnView>
-        </AbsolutePositionPetView>
         {sprite}
       </PetView>
     );

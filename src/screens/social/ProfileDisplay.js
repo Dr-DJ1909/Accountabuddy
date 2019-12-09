@@ -10,18 +10,22 @@ import {
 import {ProfileHeaderView, ProfileView, LabelText} from '../../styles';
 import {getFriendList} from '../../api/FriendsRoute';
 import {getUser, updateBio} from '../../api/UserRoute';
-import FriendPet from './FriendPet'
+import FriendPet from './FriendPet';
 
 export default function ProfileDisplay(props) {
-  let {UserName, bio, email, pet} = props.navigation.state.params.friend;
+  console.log('item', props.navigation.state.params.friend);
+  let {
+    UserName,
+    bio,
+    email,
+    pet,
+    avatar
+  } = props.navigation.state.params.friend;
   return (
     <View>
       <ProfileHeaderView>
         <View style={styles.headerText}>
-          <Image
-            style={styles.pic}
-            source={require('../../assets/catIcon.png')}
-          />
+          <Image style={styles.pic} source={{uri: avatar}} />
 
           <Text style={styles.name}>{UserName}</Text>
         </View>
@@ -34,8 +38,9 @@ export default function ProfileDisplay(props) {
               <Text>{bio}</Text>
             </ProfileView>
             <FriendPet
-            userPet = {props.navigation.state.params.userPet}
-            friendPet = {props.navigation.state.params.friend.pet} />
+              userPet={props.navigation.state.params.userPet}
+              friendPet={props.navigation.state.params.friend.pet}
+            />
           </View>
         </View>
       </View>

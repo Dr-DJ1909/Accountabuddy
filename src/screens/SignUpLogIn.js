@@ -1,5 +1,5 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -8,9 +8,9 @@ import {
   KeyboardAvoidingView,
   AsyncStorage,
   Alert
-} from 'react-native';
-import {Container, Form, Input, Item, Label, Button} from 'native-base';
-import {withNavigation} from 'react-navigation';
+} from "react-native";
+import { Container, Form, Input, Item, Label, Button } from "native-base";
+import { withNavigation } from "react-navigation";
 import {
   newUser,
   googleUser,
@@ -18,66 +18,65 @@ import {
   signInWithGoogleAsync,
   loginUser,
   getUser
-} from '../api/UserRoute';
-import {getUserThunk, getUserKeyThunk} from '../store/user';
+} from "../api/UserRoute";
+import { getUserThunk, getUserKeyThunk } from "../store/user";
 
 class SignUpLogIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
-      imageURI: ''
+      email: "",
+      password: "",
+      imageURI: ""
     };
     this.signUp = this.signUp.bind(this.signUp);
   }
   async GoogleSignIn() {
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
     //msg.user.id
     const msg = await signInWithGoogleAsync();
     const googleSignedIn = await getUser(msg.user.id);
     // console.log('msg>>>>>>', msg);
-    console.log('googleSignedIn>>>>>>', googleSignedIn);
+    console.log("googleSignedIn>>>>>>", googleSignedIn);
     this.props.getUserAction(googleSignedIn);
     this.props.getUserKey(msg.user.id);
-    if (msg.type === 'success') {
-      navigate('NavWrapper');
+    if (msg.type === "success") {
+      navigate("NavWrapper");
     }
   }
 
   signUp = async (email, password) => {
     try {
-      const {navigate} = this.props.navigation;
+      const { navigate } = this.props.navigation;
       let newUserKey = await signUpUser(email, password);
-      console.log('newUserId in signUp', newUserKey);
+      console.log("newUserId in signUp", newUserKey);
       this.props.getUserAction(await getUser(newUserKey));
       this.props.getUserKey(newUserKey);
-      navigate('TestPetScreen');
+      navigate("TestPetScreen");
     } catch (error) {
       console.log(error);
     }
   };
   wrongLoginAlert = () => {
-    alert('Incorrect email or password');
+    alert("Incorrect email or password");
   };
 
   loginUser = async (email, password) => {
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
     try {
       let userKey = await loginUser(email, password);
       if (userKey) {
         const currentUser = await getUser(userKey);
         this.props.getUserAction(currentUser);
         this.props.getUserKey(userKey);
-        if(currentUser.isDoingTutorial){
-          console.log('are you here??????')
-          navigate('TestPetScreen')
-        }
-        else{
-          navigate('NavWrapper');
+        if (currentUser.isDoingTutorial) {
+          console.log("are you here??????");
+          navigate("TestPetScreen");
+        } else {
+          navigate("NavWrapper");
         }
       } else {
-        console.log('wrong');
+        console.log("wrong");
         this.wrongLoginAlert();
       }
     } catch (err) {
@@ -89,10 +88,11 @@ class SignUpLogIn extends React.Component {
 
     return (
       <KeyboardAvoidingView
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         behavior="height"
         keyboardVerticalOffset={60}
       >
+
 
 
         <Container style={{
@@ -110,6 +110,7 @@ class SignUpLogIn extends React.Component {
         />
 
           </View>
+
           <Form>
 
             <Item floatingLabel>
@@ -117,7 +118,7 @@ class SignUpLogIn extends React.Component {
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText={email => this.setState({email})}
+                onChangeText={email => this.setState({ email })}
               />
             </Item>
             <Item floatingLabel>
@@ -126,22 +127,26 @@ class SignUpLogIn extends React.Component {
                 secureTextEntry={true}
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText={password => this.setState({password})}
+                onChangeText={password => this.setState({ password })}
               />
             </Item>
 
             <Button
-              style={{marginTop: 10}}
+              style={{ margin: 5, marginTop: 15 }}
               full
               rounded
               primary
               onPress={() => this.signUp(this.state.email, this.state.password)}
             >
-              <Text style={{color: 'white'}}>Sign Up</Text>
+
+              <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
+                Log In
+              </Text>
+
             </Button>
 
             <Button
-              style={{marginTop: 10}}
+              style={{ margin: 5 }}
               full
               rounded
               info
@@ -149,26 +154,38 @@ class SignUpLogIn extends React.Component {
                 this.loginUser(this.state.email, this.state.password)
               }
             >
-              <Text style={{color: 'white'}}>Log In</Text>
+
+              <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
+                Sign Up
+              </Text>
+
             </Button>
             <Button
-              style={{
-                marginTop: 10,
-                justifyContent:'center',
-              }}
+
+              success
               full
               rounded
-              warning
-              title="Sign in with Google"
+              buttonStyle={{
+                backgroundColor: "red"
+              }}
+              style={{ margin: 5 }}
 
               onPress={() => this.GoogleSignIn()}
 
             >
-              <Text
-                style ={{
-                  color: 'white',
-                }}
-              >Log In With Google</Text>
+
+              <View style={{ flex: 1, justifyContent: "center" }}>
+                <Text
+                  style={{
+                    fontFamily: "Raleway-Medium",
+                    color: "white",
+                    textAlign: "center"
+                  }}
+                >
+                  Log in with Google
+                </Text>
+              </View>
+
             </Button>
           </Form>
         </Container>
@@ -180,9 +197,10 @@ class SignUpLogIn extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    padding: 10
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    padding: 10,
+    alignContent: "center"
   }
 });
 

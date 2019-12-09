@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView } from '../styles';
+import { PageWrapperView, AbsolutePositionPetView, HeaderText, PetView, BubbleText, AbsolutePositionBubbleView, AddTaskBtnView, Divider } from '../styles';
 
 class DeadPet extends Component {
   constructor() {
@@ -9,13 +9,21 @@ class DeadPet extends Component {
       on: true,
     }
 
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState(previousState => {
         return {
           on: !previousState.on,
         };
       });
     }, 1200);
+  }
+
+  componentDidMount() {
+    this.intervalId;
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   render() {
