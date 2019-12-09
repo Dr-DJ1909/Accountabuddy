@@ -130,18 +130,23 @@ class SignUpLogIn extends React.Component {
               />
             </Item>
 
+            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center'}}>
             <Button
-              style={{marginTop: 10}}
+              style={{margin: 5, marginTop: 20, width: 350,
+                alignSelf: 'center'}}
               full
               rounded
               primary
               onPress={() => this.signUp(this.state.email, this.state.password)}
             >
-              <Text style={{color: 'white'}}>Sign Up</Text>
+              <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
+                Sign Up
+              </Text>
             </Button>
 
             <Button
-              style={{marginTop: 10}}
+              style={{margin: 5, marginTop: 10, width: 350,
+                alignSelf: 'center'}}
               full
               rounded
               info
@@ -149,12 +154,16 @@ class SignUpLogIn extends React.Component {
                 this.loginUser(this.state.email, this.state.password)
               }
             >
-              <Text style={{color: 'white'}}>Log In</Text>
+              <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
+                Log In
+              </Text>
             </Button>
             <Button
               style={{
                 marginTop: 10,
+                alignSelf: 'center',
                 justifyContent:'center',
+                width: 350
               }}
               full
               rounded
@@ -165,11 +174,13 @@ class SignUpLogIn extends React.Component {
 
             >
               <Text
-                style ={{
-                  color: 'white',
-                }}
-              >Log In With Google</Text>
+                  style={{
+                    fontFamily: "Raleway-Medium",
+                    color: "white",
+                  }}
+                >Log In With Google</Text>
             </Button>
+            </View>
           </Form>
         </Container>
       </KeyboardAvoidingView>
