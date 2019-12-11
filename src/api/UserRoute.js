@@ -84,21 +84,11 @@ export async function getUser(userId) {
       .collection('Users')
       .doc(userId)
       .get();
-    // console.log(user)
     return user.data(); //returns object
   } catch (error) {
     console.log(error);
   }
 }
-
-// export function updateUser(userKey, ) {
-//   firebase
-//     .firestore()
-//     .collection('users')
-//     .doc(userKey)
-//     .update({
-//     });
-// }
 
 export async function loginUser(email, password) {
   try {
@@ -121,7 +111,6 @@ export async function signInWithGoogleAsync() {
     });
 
     if (result.type === 'success') {
-      console.log('google logged in', result);
       const user = result.user;
       googleUser(user);
       // return { success: result.accessToken };
@@ -143,7 +132,6 @@ export async function getUsers() {
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          // console.log(doc.id, ' => ', doc.data());
           let obj = {
             uId: doc.id,
             email: doc.data().email,
@@ -160,7 +148,6 @@ export async function getUsers() {
 
 export async function updateBio(userId, newBio) {
   try {
-    console.log('args', userId, newBio);
     await firebase
       .firestore()
       .collection('Users')

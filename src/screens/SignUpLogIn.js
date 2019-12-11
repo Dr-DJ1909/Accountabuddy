@@ -36,8 +36,6 @@ class SignUpLogIn extends React.Component {
     //msg.user.id
     const msg = await signInWithGoogleAsync();
     const googleSignedIn = await getUser(msg.user.id);
-    // console.log('msg>>>>>>', msg);
-    console.log('googleSignedIn>>>>>>', googleSignedIn);
     this.props.getUserAction(googleSignedIn);
     this.props.getUserKey(msg.user.id);
     if (msg.type === 'success') {
@@ -49,7 +47,6 @@ class SignUpLogIn extends React.Component {
     try {
       const {navigate} = this.props.navigation;
       let newUserKey = await signUpUser(email, password);
-      console.log('newUserId in signUp', newUserKey);
       this.props.getUserAction(await getUser(newUserKey));
       this.props.getUserKey(newUserKey);
       navigate('TestPetScreen');
@@ -69,11 +66,9 @@ class SignUpLogIn extends React.Component {
         const currentUser = await getUser(userKey);
         this.props.getUserAction(currentUser);
         this.props.getUserKey(userKey);
-        if(currentUser.isDoingTutorial){
-          console.log('are you here??????')
-          navigate('TestPetScreen')
-        }
-        else{
+        if (currentUser.isDoingTutorial) {
+          navigate('TestPetScreen');
+        } else {
           navigate('NavWrapper');
         }
       } else {
@@ -86,32 +81,32 @@ class SignUpLogIn extends React.Component {
   };
 
   render() {
-
     return (
       <KeyboardAvoidingView
         style={{flex: 1}}
         behavior="height"
         keyboardVerticalOffset={60}
       >
-
-
-        <Container style={{
-          ...styles.container, backgroundColor: '#EFE2E5',display:'flex',
-          }}>
+        <Container
+          style={{
+            ...styles.container,
+            backgroundColor: '#EFE2E5',
+            display: 'flex'
+          }}
+        >
           <View
-          style = {{
-            display:'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-        <Image
-       source = {require('../assets/AccountaBuddy.png')}
-       style = {{height:300, width: 300, resizeMode :'contain',}}
-        />
-
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Image
+              source={require('../assets/AccountaBuddy.png')}
+              style={{height: 300, width: 300, resizeMode: 'contain'}}
+            />
           </View>
           <Form>
-
             <Item floatingLabel>
               <Label>Email</Label>
               <Input
@@ -130,56 +125,73 @@ class SignUpLogIn extends React.Component {
               />
             </Item>
 
-            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center'}}>
-            <Button
-              style={{margin: 5, marginTop: 20, width: 350,
-                alignSelf: 'center'}}
-              full
-              rounded
-              primary
-              onPress={() => this.signUp(this.state.email, this.state.password)}
-            >
-              <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
-                Sign Up
-              </Text>
-            </Button>
-
-            <Button
-              style={{margin: 5, marginTop: 10, width: 350,
-                alignSelf: 'center'}}
-              full
-              rounded
-              info
-              onPress={() =>
-                this.loginUser(this.state.email, this.state.password)
-              }
-            >
-              <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
-                Log In
-              </Text>
-            </Button>
-            <Button
+            <View
               style={{
-                marginTop: 10,
-                alignSelf: 'center',
-                justifyContent:'center',
-                width: 350
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center'
               }}
-              full
-              rounded
-              warning
-              title="Sign in with Google"
-
-              onPress={() => this.GoogleSignIn()}
-
             >
-              <Text
+              <Button
+                style={{
+                  margin: 5,
+                  marginTop: 20,
+                  width: 350,
+                  alignSelf: 'center'
+                }}
+                full
+                rounded
+                primary
+                onPress={() =>
+                  this.signUp(this.state.email, this.state.password)
+                }
+              >
+                <Text style={{fontFamily: 'Raleway-Medium', color: 'white'}}>
+                  Sign Up
+                </Text>
+              </Button>
+
+              <Button
+                style={{
+                  margin: 5,
+                  marginTop: 10,
+                  width: 350,
+                  alignSelf: 'center'
+                }}
+                full
+                rounded
+                info
+                onPress={() =>
+                  this.loginUser(this.state.email, this.state.password)
+                }
+              >
+                <Text style={{fontFamily: 'Raleway-Medium', color: 'white'}}>
+                  Log In
+                </Text>
+              </Button>
+              <Button
+                style={{
+                  marginTop: 10,
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  width: 350
+                }}
+                full
+                rounded
+                warning
+                title="Sign in with Google"
+                onPress={() => this.GoogleSignIn()}
+              >
+                <Text
                   style={{
-                    fontFamily: "Raleway-Medium",
-                    color: "white",
+                    fontFamily: 'Raleway-Medium',
+                    color: 'white'
                   }}
-                >Log In With Google</Text>
-            </Button>
+                >
+                  Log In With Google
+                </Text>
+              </Button>
             </View>
           </Form>
         </Container>

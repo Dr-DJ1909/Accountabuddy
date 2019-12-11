@@ -22,7 +22,6 @@ class HomePet extends Component {
       count: 0
     };
 
-
     this.intervalId = setInterval(() => {
       this.setState(previousState => {
         return {
@@ -105,7 +104,6 @@ class HomePet extends Component {
                 });
               }
             }
-            console.log(this.state.count);
           }}
         >
           {sprite}

@@ -34,16 +34,13 @@ export const friendReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER:
       AsyncStorage.setItem('loggedinUser', JSON.stringify(action.user));
-      console.log('the user in state >>>', action.user);
       return {...state, user: action.user};
 
     case GET_USER_KEY:
       AsyncStorage.setItem('userKey', action.userKey);
-      console.log('userKey in state>>>', action.userKey);
       return {...state, userKey: action.userKey};
 
     case ADD_FRIEND:
-      console.log('action.user >>>', action.user);
       return {...state, friends: [...state.friends, action.user]};
 
     case UPDATE_TASK:
