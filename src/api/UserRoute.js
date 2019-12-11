@@ -84,7 +84,7 @@ export async function getUser(userId) {
       .collection('Users')
       .doc(userId)
       .get();
-    return user.data(); //returns object
+    return user.data(); //returns object with user data
   } catch (error) {
     console.log(error);
   }
@@ -146,6 +146,7 @@ export async function getUsers() {
   }
 }
 
+//This function updates the 'bio' field on the user's object with the information passed in as 'newBio'
 export async function updateBio(userId, newBio) {
   try {
     await firebase

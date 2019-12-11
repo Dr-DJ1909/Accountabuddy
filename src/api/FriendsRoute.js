@@ -138,6 +138,7 @@ export async function getRoom(user, friend) {
   }
 }
 
+// The following function returns a users friends list by retrieving the list of user keys in their matching 'friendships' collection on Firebase. The getUser function is called with each friend's user key, returning an object with all of their information. The objects are then pushed into an array to return the friends list.
 export async function getFriendList(userKey) {
   try {
     let friendsList = [];

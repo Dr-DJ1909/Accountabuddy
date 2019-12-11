@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
   PageWrapperAlignTopViewLight,
   HeaderText,
   TopHeaderText,
   TopHeader
-} from "../../styles";
+} from '../../styles';
 import {
   StyleSheet,
   Button,
@@ -14,21 +14,17 @@ import {
   Image,
   KeyboardAvoidingView,
   AsyncStorage
-} from "react-native";
-import { BlueButtonWidth, ButtonText } from "../../styles";
-import { getUserThunk } from "../../store/user";
-import UserProfile from "../../screens/social/UserProfile";
-import { newFriend } from "../../api/FriendsRoute";
-import Chat from "./Chat";
+} from 'react-native';
+import {BlueButtonWidth, ButtonText} from '../../styles';
+import {getUserThunk} from '../../store/user';
+import UserProfile from '../../screens/social/UserProfile';
+import {newFriend} from '../../api/FriendsRoute';
+import Chat from './Chat';
 
 class SocialHome extends Component {
   constructor() {
     super();
   }
-
-  async componentDidMount() { }
-
-  handleSubmit() { }
 
   render() {
     return (
@@ -36,25 +32,25 @@ class SocialHome extends Component {
         <TopHeader>
           <TopHeaderText>Social</TopHeaderText>
         </TopHeader>
-        <View style={{ marginVertical: 50 }}>
+        <View style={{marginVertical: 50}}>
           <BlueButtonWidth
-            onPress={() => this.props.navigation.navigate("UserProfile")}
+            onPress={() => this.props.navigation.navigate('UserProfile')}
           >
             <ButtonText>My Profile</ButtonText>
           </BlueButtonWidth>
           <BlueButtonWidth
-            onPress={() => this.props.navigation.navigate("FriendList")}
+            onPress={() => this.props.navigation.navigate('FriendList')}
           >
             <ButtonText>Friends List</ButtonText>
           </BlueButtonWidth>
           <BlueButtonWidth
-            onPress={() => this.props.navigation.navigate("AddFriend")}
+            onPress={() => this.props.navigation.navigate('AddFriend')}
           >
             <ButtonText>Add friend</ButtonText>
           </BlueButtonWidth>
 
           <BlueButtonWidth
-            onPress={() => this.props.navigation.navigate("FriendRequests")}
+            onPress={() => this.props.navigation.navigate('FriendRequests')}
           >
             <ButtonText>Friend Requests</ButtonText>
           </BlueButtonWidth>
@@ -64,16 +60,17 @@ class SocialHome extends Component {
   }
 }
 
-const mapStateToProps = function (state) {
-  return {
-    user: state.user
-  };
-};
+export default SocialHome;
+// const mapStateToProps = function(state) {
+//   return {
+//     user: state.user
+//   };
+// };
 
-const mapDispatchToProps = function (dispatch) {
-  return {
-    getUserAction: () => dispatch(getUserThunk())
-  };
-};
+// const mapDispatchToProps = function(dispatch) {
+//   return {
+//     getUserAction: () => dispatch(getUserThunk())
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SocialHome);
+// export default connect(mapStateToProps, mapDispatchToProps)(SocialHome);
