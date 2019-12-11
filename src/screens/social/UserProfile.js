@@ -122,7 +122,8 @@ export default class UserProfile extends Component {
             <View style={styles.item}>
               <View style={{ flex: 1 }}>
                 <ProfileView>
-                  <Text style={styles.text}>About Me: {this.state.bio}</Text>
+                  <Text style={styles.text}>About Me: </Text>
+                  <Text style={styles.text}>{this.state.bio}</Text>
                 </ProfileView>
 
                 <View style={{ flexDirection: "row" }}>
@@ -226,6 +227,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 22,
     color: "#5c9ead",
-    fontFamily: "Raleway-Medium"
+    fontFamily: "Raleway-Medium",
+    textAlign: "center"
   }
 });
