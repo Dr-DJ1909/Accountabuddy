@@ -5,27 +5,18 @@ import {
   FlatList,
   StyleSheet,
   AsyncStorage,
-  TouchableOpacity,
   Button
 } from 'react-native';
-import {
-  PageWrapperView,
-  AbsolutePositionPetView,
-  HeaderText
-} from '../../styles';
-import {ListItem, ButtonGroup} from 'react-native-elements';
+import {ListItem} from 'react-native-elements';
 import {
   newFriend,
   getPendingList,
   denyResponse,
-  acceptResponse,
   newChat,
-  addChatRoom,
+  addChatRoom
 } from '../../api/FriendsRoute';
 import {getUsers} from '../../api/UserRoute';
-import Icon from 'react-native-vector-icons/Feather';
-import TasksHeader from '../../components/tasks/TasksHeader';
-import {ScrollView} from 'react-native-gesture-handler';
+
 class FriendRequests extends React.Component {
   constructor() {
     super();
@@ -36,7 +27,7 @@ class FriendRequests extends React.Component {
     };
   }
   async componentDidMount() {
-    let users = await getUsers();
+    let users = await getUsers(); //Retrieves all users
     const userKey = await AsyncStorage.getItem('userKey');
     const friends = await getPendingList(userKey);
     Promise.all([friends, userKey]);
@@ -45,7 +36,6 @@ class FriendRequests extends React.Component {
       userKey: userKey,
       friends: friends
     });
-    console.log('friendReq>>>>', friends);
   }
   renderSeparator = () => {
     return (
@@ -89,9 +79,17 @@ class FriendRequests extends React.Component {
                       onPress={async () => {
                         newFriend(this.state.userKey, item.uId);
                         newFriend(item.uId, this.state.userKey);
-                        let chatRoom = await newChat()
-                        await addChatRoom(this.state.userKey, item.uId, chatRoom)
-                        await addChatRoom(item.uId, this.state.userKey, chatRoom)
+                        let chatRoom = await newChat(); //Adds a chatroom id to firestore
+                        await addChatRoom(
+                          this.state.userKey,
+                          item.uId,
+                          chatRoom
+                        ); // adds the chatroom id to both + only those users.
+                        await addChatRoom(
+                          item.uId,
+                          this.state.userKey,
+                          chatRoom
+                        );
 
                         this.setState({
                           friends: this.state.friends.filter(

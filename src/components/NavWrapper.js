@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import { BackHandler } from 'react-native';
-import { createAppContainer } from 'react-navigation';
+import React, {Component} from 'react';
+import {BackHandler} from 'react-native';
+import {createAppContainer} from 'react-navigation';
 import HomeWrapper from './HomeWrapper';
 import TasksWrapper from './TasksWrapper';
 import SettingsWrapper from './SettingsWrapper';
 import SocialWrapper from './SocialWrapper';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
-import TestPetScreen from '../screens/Tutorials/TestPetScreen'
 
 const bottomTabNavigator = createMaterialBottomTabNavigator(
   {
     Home: {
       screen: HomeWrapper,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
+        tabBarIcon: ({tintColor}) => (
           <Icon name="home" size={23} color={tintColor} />
         )
       }
@@ -22,7 +21,7 @@ const bottomTabNavigator = createMaterialBottomTabNavigator(
     Tasks: {
       screen: TasksWrapper,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
+        tabBarIcon: ({tintColor}) => (
           <Icon name="list" size={23} color={tintColor} />
         )
       }
@@ -30,7 +29,7 @@ const bottomTabNavigator = createMaterialBottomTabNavigator(
     Social: {
       screen: SocialWrapper,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
+        tabBarIcon: ({tintColor}) => (
           <Icon name="users" size={23} color={tintColor} />
         )
       }
@@ -38,11 +37,11 @@ const bottomTabNavigator = createMaterialBottomTabNavigator(
     Settings: {
       screen: SettingsWrapper,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
+        tabBarIcon: ({tintColor}) => (
           <Icon name="settings" size={23} color={tintColor} />
         )
       }
-    },
+    }
   },
   {
     activeColor: '#CFDEE7',
@@ -54,23 +53,24 @@ const bottomTabNavigator = createMaterialBottomTabNavigator(
     backBehavior: 'none',
     resetOnBlur: true
   }
-)
+);
 
 const AppContainer = createAppContainer(bottomTabNavigator);
 
 export default class NavWrapper extends Component {
   constructor(props) {
     super(props);
-    BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
-}
-
-  onBackButtonPressAndroid = () => {
-      return true;
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.onBackButtonPressAndroid
+    );
   }
 
+  onBackButtonPressAndroid = () => {
+    return true;
+  };
+
   render() {
-    return (
-      <AppContainer />
-    );
+    return <AppContainer />;
   }
 }

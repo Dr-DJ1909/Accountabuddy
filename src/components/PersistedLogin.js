@@ -1,15 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  KeyboardAvoidingView,
-  AsyncStorage
-} from 'react-native';
-import { PageWrapperView, HeaderText } from '../styles';
-import { getUser } from '../api/UserRoute';
+import {PageWrapperView, HeaderText} from '../styles';
+import {getUser} from '../api/UserRoute';
 import {getUserThunk, getUserKeyThunk} from '../store/user';
 import NavWrapper from './NavWrapper';
 
@@ -21,31 +13,31 @@ class PersistedLogin extends React.Component {
     };
   }
 
-  persistedUser = async (userKey) => {
+  persistedUser = async userKey => {
     try {
       const currentUser = await getUser(userKey);
       this.props.getUserAction(currentUser);
       this.props.getUserKey(userKey);
-      this.setState({loaded: true})
+      this.setState({loaded: true});
     } catch (err) {
       console.log(err.toString());
     }
-  }
+  };
 
   componentWillMount() {
-    this.persistedUser(this.props.userKey)
+    this.persistedUser(this.props.userKey);
   }
 
   render() {
-    let display = this.state.loaded
-      ? <NavWrapper />
-      : <PageWrapperView>
+    let display = this.state.loaded ? (
+      <NavWrapper />
+    ) : (
+      <PageWrapperView>
         <HeaderText>Loading...</HeaderText>
         <HeaderText>(*＾▽＾)／</HeaderText>
-      </PageWrapperView>;
-    return (
-      display
+      </PageWrapperView>
     );
+    return display;
   }
 }
 
