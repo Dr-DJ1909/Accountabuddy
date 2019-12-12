@@ -22,6 +22,29 @@ This app was built using:
 
 ## Installation
 
+Accountabuddy can be previewed on mobile devices using Expo, which allows users to quickly build and preview React Native applications. 
+
+Run the following commands:
+Npm install 
+Npm install expo-cli --global
+Expo install expo-image-picker
+Expo install expo-font 
+
+Download Expo from the Apple Store to view on an iOS device https://apps.apple.com/app/apple-store/id982107779
+
+Download Expo from Google Play to view on Android device  https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www
+
+The application can also be viewed on the computer using an emulator: 
+
+Android Studio  - https://docs.expo.io/versions/latest/workflow/android-studio-emulator/
+XCode - https://docs.expo.io/versions/latest/workflow/ios-simulator/
+
+
+For more information about running an application on expo, refer to the Expo documentation:
+https://docs.expo.io/versions/latest/
+
+
+
 
 ## Features
 
