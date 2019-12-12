@@ -11,13 +11,7 @@ import {ProfileHeaderView, ProfileView, LabelText} from '../../styles';
 import FriendPet from './FriendPet';
 
 export default function ProfileDisplay(props) {
-  let {
-    UserName,
-    bio,
-    email,
-    pet,
-    avatar
-  } = props.navigation.state.params.friend;
+  let {UserName, bio, pet, avatar} = props.navigation.state.params.friend;
   return (
     <View>
       <ProfileHeaderView>

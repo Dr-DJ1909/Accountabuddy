@@ -28,12 +28,11 @@ function TaskItem(props) {
   };
 
   return (
-    <Swipeout {...swipeSettings}>
       <TaskView>
         <TaskText>Task: {props.item.name}</TaskText>
         <TaskText>Category: {props.item.category}</TaskText>
       </TaskView>
-    </Swipeout>
+
   );
 }
 

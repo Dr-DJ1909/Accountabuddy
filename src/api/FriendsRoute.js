@@ -89,21 +89,22 @@ export async function denyResponse(user, friendId) {
   }
 }
 
-export async function acceptResponse(user, friendId) {
-  try {
-    await firebase
-      .firestore()
-      .collection('FriendRequest')
-      .doc(user)
-      .update({
-        [friendId]: 'accepted'
-      });
-  } catch (error) {
-    console.log('error', error);
-  }
-}
+// export async function acceptResponse(user, friendId) {
+//   try {
+//     await firebase
+//       .firestore()
+//       .collection('FriendRequest')
+//       .doc(user)
+//       .update({
+//         [friendId]: 'accepted'
+//       });
+//   } catch (error) {
+//     console.log('error', error);
+//   }
+// }
 
 export async function userFriendList(user) {
+  //sets the value of friend stored in collection to chat id
   try {
     await firebase
       .firestore()

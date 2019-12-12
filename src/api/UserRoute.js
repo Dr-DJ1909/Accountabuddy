@@ -12,6 +12,7 @@ async function newUser(user) {
       .collection('Users')
       .doc(user.uid)
       .set({
+        //users should start out with these documents initialized in firebase
         email: user.email,
         UserName: '',
         pet: {Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, SocialHP: 1},
@@ -59,18 +60,22 @@ export async function signUpUser(email, password) {
   }
 }
 
-export async function googleUser(user) {
+async function googleUser(user) {
   try {
     await firebase
       .firestore()
       .collection('Users')
-      .doc(user.id)
+      .doc(user.uid)
       .set({
         email: user.email,
         UserName: '',
-        pet: {Name: 'kitty', ChoreHP: 1, GymHP: 1},
-        tasks: [],
-        bio: ''
+        pet: {Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, SocialHP: 1},
+        completedTasks: [],
+        incompleteTasks: [],
+        failedTasks: [],
+        bio: '',
+        avatar: '',
+        isDoingTutorial: true
       });
   } catch (error) {
     console.log('error', error);
@@ -84,7 +89,7 @@ export async function getUser(userId) {
       .collection('Users')
       .doc(userId)
       .get();
-    return user.data(); //returns object with user data
+    return user.data(); //returns user in object format
   } catch (error) {
     console.log(error);
   }
@@ -163,7 +168,6 @@ export async function updateBio(userId, newBio) {
 
 export async function finishedTutorial(userId) {
   try {
-    console.log('args', userId);
     await firebase
       .firestore()
       .collection('Users')

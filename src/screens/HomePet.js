@@ -76,11 +76,7 @@ class HomePet extends Component {
             <BubbleText>"I'm doing great today! How about you?"</BubbleText>
           </AbsolutePositionBubbleView>
           <AddTaskBtnView>
-            {/* <Icon
-              name='plus-circle'
-              size={40}
-              backgroundColor='#4472CA'
-            /> */}
+
           </AddTaskBtnView>
         </AbsolutePositionPetView>
         <DividerLarge />

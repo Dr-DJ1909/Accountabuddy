@@ -14,13 +14,13 @@ class Chat extends Component {
     this.getNewMessages();
   }
   getNewMessages = async () => {
+    //grabs the previous saved messages stored on the chat room id key in firestore. displays it in the chat window in the componentDidMount
     let newMessages = [];
     try {
       const message = await firebase
         .firestore()
         .collection('Chat')
         .doc(this.props.navigation.state.params.item.roomKey);
-
       message.onSnapshot(QuerySnapshot => {
         let currentMessages = QuerySnapshot.data().messages;
         currentMessages.forEach(current => {
@@ -76,6 +76,7 @@ class Chat extends Component {
       user: {
         _id: user,
         name: this.props.user.UserName
+        //labels texts sent by user to be from user in firestore
       },
       createdAt: messages[0].createdAt
     };

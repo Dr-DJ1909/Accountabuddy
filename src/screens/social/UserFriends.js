@@ -51,6 +51,7 @@ class UserFriends extends React.Component {
                       onPress={() => {
                         this.props.navigation.navigate('Chat', {
                           item: item
+                          //passes down the chat id to the chat component that will be loaded
                         });
                       }}
                     />
@@ -63,9 +64,9 @@ class UserFriends extends React.Component {
                         })
                       }
                     />
-                    {/* {navigates to component that provides the format to display each user (item's) information  */}
                   </View>
                 )}
+                // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
                 subtitle={item.UserName}
               />

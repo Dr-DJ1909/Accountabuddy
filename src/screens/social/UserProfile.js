@@ -98,14 +98,28 @@ export default class UserProfile extends Component {
     return badges.map(badge => badge);
   };
   render() {
+<<<<<<< HEAD
     let {userKey, bio, showForm, user} = this.state;
     if (userKey) {
       //checks for logged in user
+=======
+
+    let { userKey, friends } = this.state;
+
+    if (this.state.userKey) {
+>>>>>>> master
       return (
         <View>
           <ProfileHeaderView>
             <View style={styles.headerText}>
+<<<<<<< HEAD
               <Image style={styles.pic} source={{uri: user.avatar}} />
+=======
+              <Image
+                style={styles.pic}
+                source={{ uri: this.state.user.avatar }}
+              />
+>>>>>>> master
 
               <Text style={styles.name}>{user.UserName}</Text>
             </View>

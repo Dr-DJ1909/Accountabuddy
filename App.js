@@ -95,6 +95,7 @@ const mapStateToProps = function(state) {
   };
 };
 
+//Because we want to check if the user is new or not as soon as they sign up or log in to determine where to redirect / send them, we need the entrance component to be connected to the store.
 const ConnectedApp = connect(mapStateToProps, null)(App);
 
 export default function() {
