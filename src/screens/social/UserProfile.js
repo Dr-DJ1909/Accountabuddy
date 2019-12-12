@@ -100,7 +100,7 @@ export default class UserProfile extends Component {
     return badges.map(badge => badge);
   };
   render() {
-    console.log("logged in user info", this.state.user);
+
     let { userKey, friends } = this.state;
 
     if (this.state.userKey) {
@@ -110,7 +110,6 @@ export default class UserProfile extends Component {
             <View style={styles.headerText}>
               <Image
                 style={styles.pic}
-                // source={require('../../assets/catIcon.png')}
                 source={{ uri: this.state.user.avatar }}
               />
 

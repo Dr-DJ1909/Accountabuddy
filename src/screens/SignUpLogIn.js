@@ -33,11 +33,8 @@ class SignUpLogIn extends React.Component {
   }
   async GoogleSignIn() {
     const {navigate} = this.props.navigation;
-    //msg.user.id
     const msg = await signInWithGoogleAsync();
     const googleSignedIn = await getUser(msg.user.id);
-    // console.log('msg>>>>>>', msg);
-    console.log('googleSignedIn>>>>>>', googleSignedIn);
     this.props.getUserAction(googleSignedIn);
     this.props.getUserKey(msg.user.id);
     if (msg.type === 'success') {
@@ -49,9 +46,10 @@ class SignUpLogIn extends React.Component {
     try {
       const {navigate} = this.props.navigation;
       let newUserKey = await signUpUser(email, password);
-      console.log('newUserId in signUp', newUserKey);
+      //adds a document to user collection on signup
       this.props.getUserAction(await getUser(newUserKey));
       this.props.getUserKey(newUserKey);
+      //puts document on store immediately
       navigate('TestPetScreen');
     } catch (error) {
       console.log(error);
@@ -67,10 +65,10 @@ class SignUpLogIn extends React.Component {
       let userKey = await loginUser(email, password);
       if (userKey) {
         const currentUser = await getUser(userKey);
+        //information is immediately grabbed from firebase and put on redux state upon logging in. Most cases will usually send the person to the homescreen.
         this.props.getUserAction(currentUser);
         this.props.getUserKey(userKey);
         if(currentUser.isDoingTutorial){
-          console.log('are you here??????')
           navigate('TestPetScreen')
         }
         else{
@@ -86,14 +84,12 @@ class SignUpLogIn extends React.Component {
   };
 
   render() {
-
     return (
       <KeyboardAvoidingView
         style={{flex: 1}}
         behavior="height"
         keyboardVerticalOffset={60}
       >
-
 
         <Container style={{
           ...styles.container, backgroundColor: '#EFE2E5',display:'flex',
@@ -108,10 +104,8 @@ class SignUpLogIn extends React.Component {
        source = {require('../assets/AccountaBuddy.png')}
        style = {{height:300, width: 300, resizeMode :'contain',}}
         />
-
           </View>
           <Form>
-
             <Item floatingLabel>
               <Label>Email</Label>
               <Input
@@ -137,8 +131,7 @@ class SignUpLogIn extends React.Component {
               full
               rounded
               primary
-              onPress={() => this.signUp(this.state.email, this.state.password)}
-            >
+              onPress={() => this.signUp(this.state.email, this.state.password)}>
               <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
                 Sign Up
               </Text>

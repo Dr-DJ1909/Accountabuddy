@@ -14,7 +14,7 @@ how we have connected firebase, redux, and asyncstorage (example using signup/lo
 
 1. in the signup/login component, the loginUser function calls the firebase api function, handles the promise, and passes the resulting user object into a getUserAction thunk.
 
-2. the thunk dispatches the user object. in the reducer, we set the user obj to asyncstorage, and set the user to the redux store simultaneously.
+2. the thunk dispatches the user object. in the thunk, we get and set the user to asyncstorage as well as make any neccesary updates in the firestore. In the reducer, we set the user to the redux state.
 
 3. profit!
 
@@ -108,20 +108,6 @@ const deleteTaskAction = user => {
   };
 };
 
-// const failedTaskAction = (user) =>{
-//   return{
-//     type:FAILED_TASK,
-//     user
-//   }
-// }
-
-// const updateTask = (user) =>{
-//   return{
-//     type:UPDATE_TASK,
-//     user
-//   }
-// }
-
 const getUser = user => {
   return {
     type: GET_USER,
@@ -162,6 +148,13 @@ export const updateInfoThunk = (username, petName) => {
 
 export const decreaseChoreHPThunk = failedTask => {
   return async function(dispatch) {
+    /*
+    These HP thunks work similarly:
+    1) Grab user info from asyncstorage. This info is stored from the user upon login.
+    2) update firebase to both put the task info the correct category + change the          appropriate HP.
+    3) Set the new changes back into asyncstorage for future use
+    4) dispatch to action to change state.
+    */
     try {
       const userKey = await AsyncStorage.getItem('userKey');
       const retrievedData = await AsyncStorage.getItem('loggedinUser');
@@ -241,27 +234,6 @@ export const decreaseSocialHPThunk = failedTask => {
   };
 };
 
-export const updateTaskThunk = updatedTask => {
-  return async function(dispatch) {
-    try {
-      const userKey = await AsyncStorage.getItem('userKey');
-      TaskComplete(userKey, updatedTask); //updates firebase
-      const retrievedData = await AsyncStorage.getItem('loggedinUser');
-      const user = JSON.parse(retrievedData);
-      user.completedTasks.push(updatedTask); //updates asyncStorage
-      let newIncomplete = user.incompleteTasks.filter(current => {
-        if (current.id != updatedTask.id) {
-          return current;
-        }
-      });
-      user.incompleteTasks = newIncomplete;
-      AsyncStorage.setItem('loggedinUser', JSON.stringify(user));
-      dispatch(updateTask(user)); //uses user object to update redux store
-    } catch (error) {
-      console.error(error);
-    }
-  };
-};
 
 export const increaseChoreHPThunk = completedTask => {
   return async function(dispatch) {
@@ -368,28 +340,8 @@ export const getAllTasksThunk = allTasks => {
   };
 };
 
-// export const failedTaskThunk = failedTask =>{
-//   return async function(dispatch){
-//     try {
-//       const userKey = await AsyncStorage.getItem('userKey')
-//       TaskFailed(userKey,failedTask)
-//       const retrievedData = await AsyncStorage.getItem('loggedinUser')
-//       const user = JSON.parse(retrievedData)
-//       user.failedTasks.push(failedTask)
-//       let newIncomplete = user.incompleteTasks.filter((current) =>{
-//       if(current.name != failedTask.name){
-//         return current}
-//       })
-//       user.incompleteTasks = newIncomplete
-//       AsyncStorage.setItem('loggedinUser', JSON.stringify(user))
-//       dispatch(failedTaskAction(user))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
-
 export const deleteTaskThunk = deletedTask => {
+
   return async function(dispatch) {
     try {
       const userKey = await AsyncStorage.getItem('userKey');
@@ -429,6 +381,7 @@ export const getUserKeyThunk = userKey => {
 };
 
 export const logOutUserThunk = () => dispatch => {
+  //erases the user from both async storage and reducer state. This clears room for subsequent and different logins in the same session.
   try {
     dispatch(logOutUser());
   } catch (error) {
@@ -455,12 +408,6 @@ export const userReducer = (state = initialState, action) => {
 
     case ADD_TASK:
       return {...state, user: action.user};
-
-    // case UPDATE_TASK:
-    //   return {...state,user:action.user}
-
-    // case FAILED_TASK:
-    //   return{...state,user:action.user}
 
     case DELETE_TASK:
       return {...state, user: action.user};

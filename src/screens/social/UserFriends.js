@@ -62,6 +62,7 @@ class UserFriends extends React.Component {
                 onPress={() =>{
                   this.props.navigation.navigate('Chat', {
                     item:item,
+                    //passes down the chat id to the chat component that will be loaded
                     })
                 }
                   }/>
