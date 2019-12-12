@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {GiftedChat} from 'react-native-gifted-chat';
-import {PageWrapperAlignTopView} from '../../styles';
 import {newChat, newMessage, previousMessages} from '../../api/ChatRoute';
 import firebase from 'firebase';
-//import {QuerySnapshot} from '@firebase/firestore-types';
 
 class Chat extends Component {
   constructor(props) {

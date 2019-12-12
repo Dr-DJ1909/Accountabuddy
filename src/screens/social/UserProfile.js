@@ -131,6 +131,7 @@ export default class UserProfile extends Component {
                 {/*renders form to edit profile based on status of 'showForm' on state*/}
                 {showForm ? (
                   <KeyboardAvoidingView>
+                    {/*component with a form that can be edited*/}
                     <EditProfileInput
                       handleSubmit={this.handleSubmit}
                       handleBioChange={this.handleBioChange}

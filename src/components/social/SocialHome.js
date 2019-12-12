@@ -2,19 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
   PageWrapperAlignTopViewLight,
-  HeaderText,
   TopHeaderText,
   TopHeader
 } from '../../styles';
-import {
-  StyleSheet,
-  Button,
-  View,
-  Text,
-  Image,
-  KeyboardAvoidingView,
-  AsyncStorage
-} from 'react-native';
+import {View} from 'react-native';
 import {BlueButtonWidth, ButtonText} from '../../styles';
 import {getUserThunk} from '../../store/user';
 import UserProfile from '../../screens/social/UserProfile';
@@ -61,16 +52,3 @@ class SocialHome extends Component {
 }
 
 export default SocialHome;
-// const mapStateToProps = function(state) {
-//   return {
-//     user: state.user
-//   };
-// };
-
-// const mapDispatchToProps = function(dispatch) {
-//   return {
-//     getUserAction: () => dispatch(getUserThunk())
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(SocialHome);

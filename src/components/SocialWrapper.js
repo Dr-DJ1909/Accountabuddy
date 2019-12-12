@@ -8,8 +8,6 @@ import FriendRequests from '../screens/social/FriendRequests';
 import Chat from '../components/social/Chat';
 import ProfileDisplay from '../screens/social/ProfileDisplay';
 
-//Creates the navigation for the social screens
-
 const SocialWrapper = createSwitchNavigator(
   {
     SocialHome: {

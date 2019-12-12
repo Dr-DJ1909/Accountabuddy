@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import '@firebase/firestore';
 import {getUser} from './UserRoute';
 
+//adds id of new friend to user's document in friendship collection
 export async function newFriend(user, friendId) {
   try {
     await firebase
@@ -227,7 +228,3 @@ export async function getSentList(key) {
     console.log('error in getSentList', error);
   }
 }
-
-// export async function ChatLog(){
-
-// }

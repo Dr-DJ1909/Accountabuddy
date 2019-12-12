@@ -8,8 +8,6 @@ import {
   Button
 } from 'react-native';
 import {ProfileHeaderView, ProfileView, LabelText} from '../../styles';
-import {getFriendList} from '../../api/FriendsRoute';
-import {getUser, updateBio} from '../../api/UserRoute';
 import FriendPet from './FriendPet';
 
 export default function ProfileDisplay(props) {
