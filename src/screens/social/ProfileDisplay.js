@@ -8,19 +8,10 @@ import {
   Button
 } from "react-native";
 import { ProfileHeaderView, ProfileView, LabelText } from "../../styles";
-import { getFriendList } from "../../api/FriendsRoute";
-import { getUser, updateBio } from "../../api/UserRoute";
 import FriendPet from "./FriendPet";
 
 export default function ProfileDisplay(props) {
-  console.log("item", props.navigation.state.params.friend);
-  let {
-    UserName,
-    bio,
-    email,
-    pet,
-    avatar
-  } = props.navigation.state.params.friend;
+  let { UserName, bio, pet, avatar } = props.navigation.state.params.friend;
   return (
     <View>
       <ProfileHeaderView>

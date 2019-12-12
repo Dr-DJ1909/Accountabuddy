@@ -16,35 +16,41 @@ export async function newFriend(user, friendId) {
   }
 }
 
-export async function addChatRoom(user, friendId, chatRoom){
+export async function addChatRoom(user, friendId, chatRoom) {
   try {
     await firebase
-    .firestore()
-    .collection('Friendships')
-    .doc(user)
-    .update({
-      [friendId]:chatRoom
-    })
+      .firestore()
+      .collection('Friendships')
+      .doc(user)
+      .update({
+        [friendId]: chatRoom
+      });
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
 export async function newChat() {
-  let chatRoom =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-   try {
-     await firebase
-     .firestore()
-     .collection('Chat')
-     .doc(chatRoom)
-     .set({
-       messages:[]
-       })
-        return chatRoom
-   } catch (error) {
-     console.error(error)
-   }
- }
+  let chatRoom =
+    Math.random()
+      .toString(36)
+      .substring(2, 15) +
+    Math.random()
+      .toString(36)
+      .substring(2, 15);
+  try {
+    await firebase
+      .firestore()
+      .collection('Chat')
+      .doc(chatRoom)
+      .set({
+        messages: []
+      });
+    return chatRoom;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export async function requestFriend(user, friendId) {
   //user is targetId, friendId is loggedIn user Id
@@ -82,21 +88,22 @@ export async function denyResponse(user, friendId) {
   }
 }
 
-export async function acceptResponse(user, friendId) {
-  try {
-    await firebase
-      .firestore()
-      .collection('FriendRequest')
-      .doc(user)
-      .update({
-        [friendId]: 'accepted'
-      });
-  } catch (error) {
-    console.log('error', error);
-  }
-}
+// export async function acceptResponse(user, friendId) {
+//   try {
+//     await firebase
+//       .firestore()
+//       .collection('FriendRequest')
+//       .doc(user)
+//       .update({
+//         [friendId]: 'accepted'
+//       });
+//   } catch (error) {
+//     console.log('error', error);
+//   }
+// }
 
 export async function userFriendList(user) {
+  //sets the value of friend stored in collection to chat id
   try {
     await firebase
       .firestore()
@@ -119,19 +126,16 @@ export async function userPendingList(user) {
     console.log('error', error);
   }
 }
-export async function getRoom(user,friend){
+export async function getRoom(user, friend) {
   try {
-    console.log('what is friend here', friend)
     let friends = await firebase
-    .firestore()
-    .collection('Friendships')
-    .doc(user)
-    .get()
-    console.log('what do i get back?',friends.data())
-    console.log('friend room', friends.data()[friend])
-    return friends.data()[friend]
+      .firestore()
+      .collection('Friendships')
+      .doc(user)
+      .get();
+    return friends.data()[friend];
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -149,8 +153,8 @@ export async function getFriendList(userKey) {
       });
     for (let key in data) {
       let friend = await getUser(key);
-       let roomKey = await getRoom(userKey,key)
-       friend.roomKey = roomKey
+      let roomKey = await getRoom(userKey, key);
+      friend.roomKey = roomKey;
       friendsList.push(friend);
     }
     return friendsList;
@@ -223,7 +227,3 @@ export async function getSentList(key) {
     console.log('error in getSentList', error);
   }
 }
-
-// export async function ChatLog(){
-
-// }

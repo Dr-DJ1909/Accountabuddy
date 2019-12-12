@@ -1,21 +1,19 @@
-import React, { Component } from "react";
-import { LabelText } from "../../styles";
+import React, {Component} from 'react';
+import {LabelText} from '../../styles';
 import {
   Text,
   TextInput,
   StyleSheet,
   KeyboardAvoidingView,
-  TouchableOpacity,
-  Picker,
-  AsyncStorage
-} from "react-native";
-import ImageUpload from "../../components/social/ImageUpload";
+  TouchableOpacity
+} from 'react-native';
+import ImageUpload from '../../components/social/ImageUpload';
 
 export default class EditProfileInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bio: ""
+      bio: ''
     };
   }
   render() {
@@ -43,18 +41,18 @@ export default class EditProfileInput extends React.Component {
 const styles = StyleSheet.create({
   button: {
     height: 30,
-    flexDirection: "row",
-    backgroundColor: "#0A369D",
-    borderColor: "white",
+    flexDirection: 'row',
+    backgroundColor: '#0A369D',
+    borderColor: 'white',
     borderWidth: 0,
     borderRadius: 10,
     margin: 5,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   buttonText: {
     fontSize: 20,
-    color: "white",
-    fontFamily: "Raleway-Medium",
+    color: 'white',
+    fontFamily: 'Raleway-Medium',
     margin: 2
   },
   textInput: {
@@ -63,13 +61,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0,
     padding: 10,
-    borderColor: "#ca03fc",
-    backgroundColor: "#eeeeee",
+    borderColor: '#ca03fc',
+    backgroundColor: '#eeeeee',
     marginLeft: 15,
     marginRight: 15,
     marginTop: 5,
     marginBottom: 5,
     width: 400,
-    alignSelf: "center"
+    alignSelf: 'center'
   }
 });
