@@ -116,7 +116,6 @@ export async function signInWithGoogleAsync() {
     });
 
     if (result.type === 'success') {
-      console.log('google logged in', result);
       const user = result.user;
       googleUser(user);
       // return { success: result.accessToken };
@@ -152,6 +151,7 @@ export async function getUsers() {
   }
 }
 
+//This function updates the 'bio' field on the user's object with the information passed in as 'newBio'
 export async function updateBio(userId, newBio) {
   try {
     await firebase
