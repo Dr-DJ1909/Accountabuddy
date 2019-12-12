@@ -7,9 +7,7 @@ import {
 } from '../../styles';
 import {View} from 'react-native';
 import {BlueButtonWidth, ButtonText} from '../../styles';
-import {getUserThunk} from '../../store/user';
 import UserProfile from '../../screens/social/UserProfile';
-import {newFriend} from '../../api/FriendsRoute';
 import Chat from './Chat';
 
 class SocialHome extends Component {
