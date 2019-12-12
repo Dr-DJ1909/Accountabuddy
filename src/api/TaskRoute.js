@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import firebase from 'firebase';
 import '@firebase/firestore';
 
+//firestore is unable to push / pop from a field array. We updated the entire array whenever we wanted to add / delete an element from our tasks document using arrayRemove and arrayUnion
+
 export async function newTask(userId, task) {
   try {
     await firebase

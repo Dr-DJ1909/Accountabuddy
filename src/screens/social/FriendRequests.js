@@ -45,7 +45,6 @@ class FriendRequests extends React.Component {
       userKey: userKey,
       friends: friends
     });
-    console.log('friendReq>>>>', friends);
   }
   renderSeparator = () => {
     return (
@@ -89,8 +88,8 @@ class FriendRequests extends React.Component {
                       onPress={async () => {
                         newFriend(this.state.userKey, item.uId);
                         newFriend(item.uId, this.state.userKey);
-                        let chatRoom = await newChat()
-                        await addChatRoom(this.state.userKey, item.uId, chatRoom)
+                        let chatRoom = await newChat() //Adds a chatroom id to firestore
+                        await addChatRoom(this.state.userKey, item.uId, chatRoom) // adds the chatroom id to both + only those users.
                         await addChatRoom(item.uId, this.state.userKey, chatRoom)
 
                         this.setState({

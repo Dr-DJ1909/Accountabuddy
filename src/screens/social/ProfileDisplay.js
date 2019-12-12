@@ -13,7 +13,7 @@ import {getUser, updateBio} from '../../api/UserRoute';
 import FriendPet from './FriendPet';
 
 export default function ProfileDisplay(props) {
-  console.log('item', props.navigation.state.params.friend);
+
   let {
     UserName,
     bio,

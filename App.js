@@ -80,7 +80,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('app.js this.props.user >>>>', this.props.user)
     if (this.state.loading) return null;
     if (this.state.user && this.props.user && !this.props.user.isDoingTutorial) {
       return <PersistedLogin userKey={this.state.user.uid} />;
@@ -95,6 +94,7 @@ const mapStateToProps = function (state) {
   };
 };
 
+//Because we want to check if the user is new or not as soon as they sign up or log in to determine where to redirect / send them, we need the entrance component to be connected to the store.
 const ConnectedApp = connect(mapStateToProps, null)(App);
 
 export default function () {
