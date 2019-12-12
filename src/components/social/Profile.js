@@ -21,7 +21,6 @@ import TasksHeader from '../../components/tasks/TasksHeader';
 import EditProfileInput from '../social/EditProfileInput';
 
 export default function Profile(props) {
-  console.log('profile props', props);
   return (
     <ProfileView>
       <Text>About Me: {props.bio}</Text>
