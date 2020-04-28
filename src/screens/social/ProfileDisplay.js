@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   Text,
@@ -7,13 +7,12 @@ import {
   AsyncStorage,
   Button
 } from 'react-native';
-import {ProfileHeaderView, ProfileView, LabelText} from '../../styles';
-import {getFriendList} from '../../api/FriendsRoute';
-import {getUser, updateBio} from '../../api/UserRoute';
+import { ProfileHeaderView, ProfileView, LabelText } from '../../styles';
+import { getFriendList } from '../../api/FriendsRoute';
+import { getUser, updateBio } from '../../api/UserRoute';
 import FriendPet from './FriendPet';
 
 export default function ProfileDisplay(props) {
-  console.log('item', props.navigation.state.params.friend);
   let {
     UserName,
     bio,
@@ -25,14 +24,14 @@ export default function ProfileDisplay(props) {
     <View>
       <ProfileHeaderView>
         <View style={styles.headerText}>
-          <Image style={styles.pic} source={{uri: avatar}} />
+          <Image style={styles.pic} source={{ uri: avatar }} />
 
           <Text style={styles.name}>{UserName}</Text>
         </View>
       </ProfileHeaderView>
       <View style={styles.content}>
         <View style={styles.item}>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <ProfileView>
               <LabelText>About Me:</LabelText>
               <Text>{bio}</Text>

@@ -1,8 +1,8 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
 import * as Google from 'expo-google-app-auth';
-import {GoogleID} from '../../ApiKeys';
-import {userFriendList, userPendingList} from '../api/FriendsRoute';
+import { GoogleID } from '../../ApiKeys';
+import { userFriendList, userPendingList } from '../api/FriendsRoute';
 // import {debug} from 'util';
 
 async function newUser(user) {
@@ -14,7 +14,7 @@ async function newUser(user) {
       .set({
         email: user.email,
         UserName: '',
-        pet: {Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, SocialHP: 1},
+        pet: { Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, SocialHP: 1 },
         completedTasks: [],
         incompleteTasks: [],
         failedTasks: [],
@@ -68,7 +68,7 @@ export async function googleUser(user) {
       .set({
         email: user.email,
         UserName: '',
-        pet: {Name: 'kitty', ChoreHP: 1, GymHP: 1},
+        pet: { Name: 'kitty', ChoreHP: 1, GymHP: 1 },
         tasks: [],
         bio: ''
       });
@@ -121,16 +121,15 @@ export async function signInWithGoogleAsync() {
     });
 
     if (result.type === 'success') {
-      console.log('google logged in', result);
       const user = result.user;
       googleUser(user);
       // return { success: result.accessToken };
       return result;
     } else {
-      return {cancelled: true};
+      return { cancelled: true };
     }
   } catch (e) {
-    return {error: e};
+    return { error: e };
   }
 }
 
@@ -141,9 +140,9 @@ export async function getUsers() {
       .firestore()
       .collection('Users')
       .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          // console.log(doc.id, ' => ', doc.data());
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+
           let obj = {
             uId: doc.id,
             email: doc.data().email,
@@ -160,7 +159,7 @@ export async function getUsers() {
 
 export async function updateBio(userId, newBio) {
   try {
-    console.log('args', userId, newBio);
+
     await firebase
       .firestore()
       .collection('Users')
@@ -175,7 +174,7 @@ export async function updateBio(userId, newBio) {
 
 export async function finishedTutorial(userId) {
   try {
-    console.log('args', userId);
+
     await firebase
       .firestore()
       .collection('Users')

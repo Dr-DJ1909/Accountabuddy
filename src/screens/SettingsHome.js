@@ -18,7 +18,6 @@ class SettingsWrapper extends Component {
   logOutUser = async () => {
     try {
       await firebase.auth().signOut();
-      console.log('this.props.user >>>>', this.props.user)
       this.props.logOutUserAction();
     } catch (error) {
       console.error(error);

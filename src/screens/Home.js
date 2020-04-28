@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Image} from 'react-native';
-import {Header} from 'react-native-elements';
+import React, { Component } from 'react';
+import { Image } from 'react-native';
+import { Header } from 'react-native-elements';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
