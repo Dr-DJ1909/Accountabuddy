@@ -13,23 +13,35 @@ class Chat extends Component {
     };
   }
   getNewMessages = async () => {
-    let newMessages = []
     try {
       const message = await firebase
         .firestore()
         .collection('Chat')
         .doc(this.props.navigation.state.params.item.roomKey)
+
       message.onSnapshot((QuerySnapshot) => {
         let currentMessages = QuerySnapshot.data().messages
-        currentMessages.forEach((current) => {
-          let date = current.createdAt.toDate()
-          current.createdAt = date
-        })
-        this.setState({
-          messages: currentMessages.reverse()
-        })
+        if (currentMessages.length === 0) return ''//covers no messages edge
+
+        let latestMessage = currentMessages[currentMessages.length - 1]
+
+        latestMessage.createdAt = latestMessage.createdAt.toDate()
+        if (this.state.messages.length === 0) {
+          this.setState({
+            messages: [latestMessage]
+          })
+        }
+
+
+        if (latestMessage.createdAt.toString() === this.state.messages[0].createdAt.toString()) {
+          return ''
+        }//covers first render edge to avoid duplicate
+        else {
+          this.setState({
+            messages: [latestMessage, ...this.state.messages]
+          })
+        }
       })
-      return newMessages.messages
     }
 
     catch (error) {
@@ -37,7 +49,6 @@ class Chat extends Component {
     }
   }
   async componentDidMount() {
-    this.getNewMessages()
     try {
       let loadChat = await previousMessages(this.props.navigation.state.params.item.roomKey)
       loadChat.messages.reverse()
@@ -48,6 +59,7 @@ class Chat extends Component {
       this.setState({
         messages: loadChat.messages
       })
+      this.getNewMessages()
     } catch (error) {
       console.error(error)
     }
@@ -67,9 +79,7 @@ class Chat extends Component {
   }
 
   async onSend(messages) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages)
-    }))
+
     let user = this.props.userKey
     messages[0].author = user
     let messageObject = {
@@ -83,6 +93,9 @@ class Chat extends Component {
     }
 
     newMessage(this.props.navigation.state.params.item.roomKey, messageObject)
+    // this.setState(previousState => ({
+    //   messages: GiftedChat.append(previousState.messages, messages)
+    // }))
   }
 }
 
