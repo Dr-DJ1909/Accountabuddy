@@ -5,15 +5,12 @@ import {
   View,
   StyleSheet,
   AsyncStorage,
-  Button,
   KeyboardAvoidingView,
   TouchableOpacity
 } from "react-native";
 import { ProfileHeaderView, ProfileView } from "../../styles";
-import { getFriendList } from "../../api/FriendsRoute";
 import { getUser, updateBio } from "../../api/UserRoute";
 import EditProfileInput from "../../components/social/EditProfileInput";
-import ImageUpload from "../../components/social/ImageUpload";
 
 export default class UserProfile extends Component {
   constructor() {
@@ -23,7 +20,6 @@ export default class UserProfile extends Component {
       bio: "",
       avatar: "",
       userKey: "",
-      friends: [],
       refresh: false,
       showForm: false
     };
@@ -33,34 +29,36 @@ export default class UserProfile extends Component {
   }
   async componentDidMount() {
     let userKey = await AsyncStorage.getItem("userKey");
-    const friends = await getFriendList(userKey);
     let user = await getUser(userKey);
-    Promise.all([friends, userKey, user]);
+    Promise.all([userKey, user]);
     this.setState({
       userKey: userKey,
       user: user,
-      friends: friends,
       bio: user.bio
     });
   }
+  //updates information in profile's Bio 'EditProfileInput' component with inputted text
   handleBioChange = event => {
     let bio = event.nativeEvent.text;
     this.setState({ bio: bio });
   };
+  //calls the updateBio function to add the form's bio information to the database and show on user's profile
   async handleSubmit(evt) {
     evt.preventDefault();
 
     await updateBio(this.state.userKey, this.state.bio);
     this.setState({ bio: this.state.bio });
-    this.setState({ bio: this.state.bio });
-    this.setState({ refresh: !refresh });
+    this.setState({ refresh: !this.state.refresh });
   }
 
+  //triggers the display of 'edit profile' form
   handleClick = event => {
     return this.setState({
       showForm: !this.state.showForm
     });
   };
+
+  //Displays images for user's earned badges based on a check of user's completed tasks history
   displayBadge = () => {
     let badges = [];
     const gymBadge = (
@@ -100,20 +98,18 @@ export default class UserProfile extends Component {
     return badges.map(badge => badge);
   };
   render() {
-    let { userKey, friends } = this.state;
 
-    if (this.state.userKey) {
+    let { userKey, bio, showForm, user } = this.state;
+    if (userKey) {
+      //checks for logged in user
+
       return (
         <View>
           <ProfileHeaderView>
             <View style={styles.headerText}>
-              <Image
-                style={styles.pic}
-                // source={require('../../assets/catIcon.png')}
-                source={{ uri: this.state.user.avatar }}
-              />
+              <Image style={styles.pic} source={{ uri: user.avatar }} />
 
-              <Text style={styles.name}>{this.state.user.UserName}</Text>
+              <Text style={styles.name}>{user.UserName}</Text>
             </View>
           </ProfileHeaderView>
 
@@ -121,7 +117,8 @@ export default class UserProfile extends Component {
             <View style={styles.item}>
               <View style={{ flex: 1 }}>
                 <ProfileView>
-                  <Text style={styles.text}>About Me: {this.state.bio}</Text>
+                  <Text style={styles.text}>About Me: </Text>
+                  <Text style={styles.text}>{this.state.bio}</Text>
                 </ProfileView>
 
                 <View style={{ flexDirection: "row" }}>
@@ -134,15 +131,16 @@ export default class UserProfile extends Component {
                 >
                   <Text style={styles.buttonText}>Edit Profile</Text>
                 </TouchableOpacity>
-
-                {this.state.showForm ? (
+                {/*renders form to edit profile based on status of 'showForm' on state*/}
+                {showForm ? (
                   <KeyboardAvoidingView>
+                    {/*component with a form that can be edited*/}
                     <EditProfileInput
                       handleSubmit={this.handleSubmit}
                       handleBioChange={this.handleBioChange}
-                      bio={this.state.bio}
-                      user={this.state.user}
-                      uId={this.state.userKey}
+                      bio={bio}
+                      user={user}
+                      uId={userKey}
                     />
                   </KeyboardAvoidingView>
                 ) : null}
@@ -203,21 +201,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: "row"
   },
-  infoContent: {
-    flex: 1,
-    alignItems: "flex-start",
-    paddingLeft: 5
-  },
-  icon: {
-    width: 30,
-    height: 30,
-    marginTop: 20
-  },
-  info: {
-    fontSize: 18,
-    marginTop: 20,
-    color: "#FFFFFF"
-  },
+
   badge: {
     width: 100,
     height: 100
@@ -225,6 +209,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 22,
     color: "#5c9ead",
-    fontFamily: "Raleway-Medium"
+    fontFamily: "Raleway-Medium",
+    textAlign: "center"
   }
 });

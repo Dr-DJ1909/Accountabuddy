@@ -1,6 +1,8 @@
 import { AsyncStorage } from 'react-native';
 import { newFriend, getFriendList } from '../api/FriendsRoute';
 
+// To be connected to components?
+
 const initialState = {
   friends: [],
   allUsers: []
@@ -35,16 +37,14 @@ export const friendReducer = (state = initialState, action) => {
     case GET_USER:
       AsyncStorage.setItem('loggedinUser', JSON.stringify(action.user));
 
-      return { ...state, user: action.user };
+      return {...state, user: action.user};
 
     case GET_USER_KEY:
       AsyncStorage.setItem('userKey', action.userKey);
-
-      return { ...state, userKey: action.userKey };
+      return {...state, userKey: action.userKey};
 
     case ADD_FRIEND:
-
-      return { ...state, friends: [...state.friends, action.user] };
+      return {...state, friends: [...state.friends, action.user]};
 
     case UPDATE_TASK:
       return { ...state, user: action.user };

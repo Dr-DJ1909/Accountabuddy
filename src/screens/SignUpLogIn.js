@@ -32,8 +32,8 @@ class SignUpLogIn extends React.Component {
     this.signUp = this.signUp.bind(this.signUp);
   }
   async GoogleSignIn() {
-    const { navigate } = this.props.navigation;
-    //msg.user.id
+
+    const {navigate} = this.props.navigation;
     const msg = await signInWithGoogleAsync();
     const googleSignedIn = await getUser(msg.user.id);
 
@@ -49,8 +49,11 @@ class SignUpLogIn extends React.Component {
       const { navigate } = this.props.navigation;
       let newUserKey = await signUpUser(email, password);
 
+      //adds a document to user collection on signup
+
       this.props.getUserAction(await getUser(newUserKey));
       this.props.getUserKey(newUserKey);
+      //puts document on store immediately
       navigate('TestPetScreen');
     } catch (error) {
       console.log(error);
@@ -66,13 +69,14 @@ class SignUpLogIn extends React.Component {
       let userKey = await loginUser(email, password);
       if (userKey) {
         const currentUser = await getUser(userKey);
+        //information is immediately grabbed from firebase and put on redux state upon logging in. Most cases will usually send the person to the homescreen.
         this.props.getUserAction(currentUser);
         this.props.getUserKey(userKey);
         if (currentUser.isDoingTutorial) {
 
-          navigate('TestPetScreen')
-        }
-        else {
+          navigate('TestPetScreen');
+        } else {
+
           navigate('NavWrapper');
         }
       } else {
@@ -84,7 +88,6 @@ class SignUpLogIn extends React.Component {
   };
 
   render() {
-
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -92,24 +95,28 @@ class SignUpLogIn extends React.Component {
         keyboardVerticalOffset={60}
       >
 
-
-        <Container style={{
-          ...styles.container, backgroundColor: '#EFE2E5', display: 'flex',
-        }}>
+        <Container
+          style={{
+            ...styles.container,
+            backgroundColor: '#EFE2E5',
+            display: 'flex'
+          }}
+        >
           <View
             style={{
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+
+              alignItems: 'center'
+            }}
+          >
             <Image
               source={require('../assets/AccountaBuddy.png')}
-              style={{ height: 300, width: 300, resizeMode: 'contain', }}
+              style={{height: 300, width: 300, resizeMode: 'contain'}}
             />
 
           </View>
           <Form>
-
             <Item floatingLabel>
               <Label>Email</Label>
               <Input
@@ -128,25 +135,44 @@ class SignUpLogIn extends React.Component {
               />
             </Item>
 
-            <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
+
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center'
+              }}
+            >
               <Button
                 style={{
-                  margin: 5, marginTop: 20, width: 350,
+                  margin: 5,
+                  marginTop: 20,
+                  width: 350,
+
                   alignSelf: 'center'
                 }}
                 full
                 rounded
                 primary
-                onPress={() => this.signUp(this.state.email, this.state.password)}
+
+                onPress={() =>
+                  this.signUp(this.state.email, this.state.password)
+                }
               >
-                <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
+                <Text style={{fontFamily: 'Raleway-Medium', color: 'white'}}>
                   Sign Up
-              </Text>
+                </Text>
+
               </Button>
 
               <Button
                 style={{
-                  margin: 5, marginTop: 10, width: 350,
+
+                  margin: 5,
+                  marginTop: 10,
+                  width: 350,
+
                   alignSelf: 'center'
                 }}
                 full
@@ -156,9 +182,11 @@ class SignUpLogIn extends React.Component {
                   this.loginUser(this.state.email, this.state.password)
                 }
               >
-                <Text style={{ fontFamily: "Raleway-Medium", color: "white" }}>
+
+                <Text style={{fontFamily: 'Raleway-Medium', color: 'white'}}>
                   Log In
-              </Text>
+                </Text>
+
               </Button>
               <Button
                 style={{
@@ -177,10 +205,14 @@ class SignUpLogIn extends React.Component {
               >
                 <Text
                   style={{
-                    fontFamily: "Raleway-Medium",
-                    color: "white",
+                    fontFamily: 'Raleway-Medium',
+                    color: 'white'
                   }}
-                >Log In With Google</Text>
+
+                >
+                  Log In With Google
+                </Text>
+
               </Button>
             </View>
           </Form>

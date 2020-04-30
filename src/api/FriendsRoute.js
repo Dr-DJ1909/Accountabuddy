@@ -24,14 +24,17 @@ export async function addChatRoom(user, friendId, chatRoom) {
       .doc(user)
       .update({
         [friendId]: chatRoom
-      })
+      });
+
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
 export async function newChat() {
+
   let chatRoom = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
   try {
     await firebase
       .firestore()
@@ -39,10 +42,11 @@ export async function newChat() {
       .doc(chatRoom)
       .set({
         messages: []
-      })
-    return chatRoom
+
+      });
+    return chatRoom;
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
@@ -82,21 +86,22 @@ export async function denyResponse(user, friendId) {
   }
 }
 
-export async function acceptResponse(user, friendId) {
-  try {
-    await firebase
-      .firestore()
-      .collection('FriendRequest')
-      .doc(user)
-      .update({
-        [friendId]: 'accepted'
-      });
-  } catch (error) {
-    console.log('error', error);
-  }
-}
+// export async function acceptResponse(user, friendId) {
+//   try {
+//     await firebase
+//       .firestore()
+//       .collection('FriendRequest')
+//       .doc(user)
+//       .update({
+//         [friendId]: 'accepted'
+//       });
+//   } catch (error) {
+//     console.log('error', error);
+//   }
+// }
 
 export async function userFriendList(user) {
+  //sets the value of friend stored in collection to chat id
   try {
     await firebase
       .firestore()
@@ -121,16 +126,15 @@ export async function userPendingList(user) {
 }
 export async function getRoom(user, friend) {
   try {
-
     let friends = await firebase
       .firestore()
       .collection('Friendships')
       .doc(user)
-      .get()
 
-    return friends.data()[friend]
+      .get();
+    return friends.data()[friend];
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -148,8 +152,9 @@ export async function getFriendList(userKey) {
       });
     for (let key in data) {
       let friend = await getUser(key);
-      let roomKey = await getRoom(userKey, key)
-      friend.roomKey = roomKey
+
+      let roomKey = await getRoom(userKey, key);
+      friend.roomKey = roomKey;
       friendsList.push(friend);
     }
     return friendsList;
@@ -222,7 +227,3 @@ export async function getSentList(key) {
     console.log('error in getSentList', error);
   }
 }
-
-// export async function ChatLog(){
-
-// }

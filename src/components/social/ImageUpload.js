@@ -52,8 +52,10 @@ export default class ImageUpload extends React.Component {
   }
   componentDidMount() {
     this.getPermissionAsync();
+
     const uId = this.props.uId;
     const email = this.props.user.email;
+
   }
 
   getPermissionAsync = async () => {
@@ -79,7 +81,9 @@ export default class ImageUpload extends React.Component {
     }
   };
   render() {
+
     let { image } = this.state;
+
     return (
       <KeyboardAvoidingView>
         <TouchableOpacity

@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import '@firebase/firestore';
 
 
-
+//messages are all stored directly in firestore, along with the id of sender and the time sent. firebase calls written here write and read to the store respectivelty
 export async function newMessage(chatRoom,messageObject) {
   try {
     await firebase
