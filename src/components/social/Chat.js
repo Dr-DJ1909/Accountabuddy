@@ -18,9 +18,10 @@ class Chat extends Component {
         .firestore()
         .collection('Chat')
         .doc(this.props.navigation.state.params.item.roomKey)
-
       message.onSnapshot((QuerySnapshot) => {
         let currentMessages = QuerySnapshot.data().messages
+        //attaches a listener for the message object
+
         if (currentMessages.length === 0) return ''//covers no messages edge
 
         let latestMessage = currentMessages[currentMessages.length - 1]
@@ -30,8 +31,7 @@ class Chat extends Component {
           this.setState({
             messages: [latestMessage]
           })
-        }
-
+        }//covers first message edge
 
         if (latestMessage.createdAt.toString() === this.state.messages[0].createdAt.toString()) {
           return ''
@@ -53,8 +53,7 @@ class Chat extends Component {
       let loadChat = await previousMessages(this.props.navigation.state.params.item.roomKey)
       loadChat.messages.reverse()
       loadChat.messages.forEach((current) => {
-        let date = current.createdAt.toDate()
-        current.createdAt = date
+        current.createdAt = current.createdAt.toDate()
       })
       this.setState({
         messages: loadChat.messages
@@ -91,11 +90,7 @@ class Chat extends Component {
       },
       createdAt: messages[0].createdAt
     }
-
     newMessage(this.props.navigation.state.params.item.roomKey, messageObject)
-    // this.setState(previousState => ({
-    //   messages: GiftedChat.append(previousState.messages, messages)
-    // }))
   }
 }
 
