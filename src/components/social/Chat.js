@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Text } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat';
 import { newMessage, previousMessages } from '../../api/ChatRoute'
 import firebase from 'firebase';
@@ -18,9 +19,9 @@ class Chat extends Component {
         .firestore()
         .collection('Chat')
         .doc(this.props.navigation.state.params.item.roomKey)
-      message.onSnapshot((QuerySnapshot) => {
+      message.onSnapshot((QuerySnapshot) => {//attaches a listener for the message object
         let currentMessages = QuerySnapshot.data().messages
-        //attaches a listener for the message object
+
 
         if (currentMessages.length === 0) return ''//covers no messages edge
 
@@ -66,14 +67,17 @@ class Chat extends Component {
 
   render() {
     return (
-      <GiftedChat
-        messages={this.state.messages}
-        onSend={messages => this.onSend(messages)}
-        user={{
-          _id: this.props.userKey,
-          name: this.props.user.UserName
-        }}
-      />
+      <>
+        <Text></Text>
+        <GiftedChat
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          user={{
+            _id: this.props.userKey,
+            name: this.props.user.UserName
+          }}
+        />
+      </>
     );
   }
 
