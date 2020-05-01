@@ -1,5 +1,5 @@
-import {AsyncStorage} from 'react-native';
-import {newFriend, getFriendList} from '../api/FriendsRoute';
+import { AsyncStorage } from 'react-native';
+import { newFriend, getFriendList } from '../api/FriendsRoute';
 
 // To be connected to components?
 
@@ -20,7 +20,7 @@ const addFriend = user => {
 };
 
 export const addFriendThunk = newFriend => {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       const retrievedData = await AsyncStorage.getItem('loggedinUser');
       const user = JSON.parse(retrievedData);
@@ -36,6 +36,7 @@ export const friendReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER:
       AsyncStorage.setItem('loggedinUser', JSON.stringify(action.user));
+
       return {...state, user: action.user};
 
     case GET_USER_KEY:
@@ -46,13 +47,13 @@ export const friendReducer = (state = initialState, action) => {
       return {...state, friends: [...state.friends, action.user]};
 
     case UPDATE_TASK:
-      return {...state, user: action.user};
+      return { ...state, user: action.user };
 
     case FAILED_TASK:
-      return {...state, user: action.user};
+      return { ...state, user: action.user };
 
     case DELETE_TASK:
-      return {...state, user: action.user};
+      return { ...state, user: action.user };
 
     default:
       return state;

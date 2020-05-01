@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,7 @@ import {
   AsyncStorage,
   Button
 } from 'react-native';
-import {ListItem} from 'react-native-elements';
+
 import {
   newFriend,
   getPendingList,
@@ -15,7 +15,11 @@ import {
   newChat,
   addChatRoom
 } from '../../api/FriendsRoute';
-import {getUsers} from '../../api/UserRoute';
+
+import { getUsers } from '../../api/UserRoute';
+import Icon from 'react-native-vector-icons/Feather';
+import TasksHeader from '../../components/tasks/TasksHeader';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class FriendRequests extends React.Component {
   constructor() {
@@ -54,14 +58,14 @@ class FriendRequests extends React.Component {
     let friends = this.state.friends;
     if (this.state.friends.length) {
       return (
-        <View style={{flex: 1, paddingTop: 70}}>
+        <View style={{ flex: 1, paddingTop: 70 }}>
           <FlatList
             extraData={this.state}
             data={this.state.friends}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <ListItem
                 rightElement={() => (
-                  <View style={{flex: 1, flexDirection: 'row'}}>
+                  <View style={{ flex: 1, flexDirection: 'row' }}>
                     <Button
                       title="Deny"
                       onPress={() => {

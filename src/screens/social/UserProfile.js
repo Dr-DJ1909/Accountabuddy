@@ -98,9 +98,11 @@ export default class UserProfile extends Component {
     return badges.map(badge => badge);
   };
   render() {
+
     let { userKey, bio, showForm, user } = this.state;
     if (userKey) {
       //checks for logged in user
+
       return (
         <View>
           <ProfileHeaderView>

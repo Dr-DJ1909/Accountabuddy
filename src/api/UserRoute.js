@@ -1,8 +1,8 @@
 import firebase from 'firebase';
 import '@firebase/firestore';
 import * as Google from 'expo-google-app-auth';
-import {GoogleID} from '../../ApiKeys';
-import {userFriendList, userPendingList} from '../api/FriendsRoute';
+import { GoogleID } from '../../ApiKeys';
+import { userFriendList, userPendingList } from '../api/FriendsRoute';
 // import {debug} from 'util';
 
 async function newUser(user) {
@@ -15,7 +15,7 @@ async function newUser(user) {
         //users should start out with these documents initialized in firebase
         email: user.email,
         UserName: '',
-        pet: {Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, SocialHP: 1},
+        pet: { Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, SocialHP: 1 },
         completedTasks: [],
         incompleteTasks: [],
         failedTasks: [],
@@ -121,10 +121,10 @@ export async function signInWithGoogleAsync() {
       // return { success: result.accessToken };
       return result;
     } else {
-      return {cancelled: true};
+      return { cancelled: true };
     }
   } catch (e) {
-    return {error: e};
+    return { error: e };
   }
 }
 
@@ -135,8 +135,10 @@ export async function getUsers() {
       .firestore()
       .collection('Users')
       .get()
+
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
+
           let obj = {
             uId: doc.id,
             email: doc.data().email,
@@ -154,6 +156,7 @@ export async function getUsers() {
 //This function updates the 'bio' field on the user's object with the information passed in as 'newBio'
 export async function updateBio(userId, newBio) {
   try {
+
     await firebase
       .firestore()
       .collection('Users')
@@ -168,6 +171,7 @@ export async function updateBio(userId, newBio) {
 
 export async function finishedTutorial(userId) {
   try {
+
     await firebase
       .firestore()
       .collection('Users')

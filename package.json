@@ -2,7 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "rnpm": {
     "assets": [
-	    "./src/assets/fonts/"
+      "./src/assets/fonts/"
     ]
   },
   "scripts": {
@@ -38,6 +38,7 @@
     "expo": "^35.0.0",
     "expo-font": "~7.0.0",
     "expo-google-app-auth": "^7.0.0",
+    "expo-image-picker": "^8.1.0",
     "firebase": "^7.4.0",
     "native-base": "^2.13.8",
     "react": "16.8.3",

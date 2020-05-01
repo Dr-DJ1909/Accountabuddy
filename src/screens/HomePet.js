@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Image, TouchableOpacity, Text} from 'react-native';
+import React, { Component } from 'react';
+import { Image, TouchableOpacity, Text } from 'react-native';
 import {
   PageWrapperView,
   AbsolutePositionPetView,
@@ -57,20 +57,20 @@ class HomePet extends Component {
     let sprite = this.state.on ? (
       <Image
         source={require('../assets/img/cat/CatWave01.png')}
-        style={{height: 300, width: 300}}
+        style={{ height: 300, width: 300 }}
       />
     ) : (
-      <Image
-        source={require('../assets/img/cat/CatWave02.png')}
-        style={{height: 300, width: 300}}
-      />
-    );
+        <Image
+          source={require('../assets/img/cat/CatWave02.png')}
+          style={{ height: 300, width: 300 }}
+        />
+      );
     return (
       <PetView>
         <AbsolutePositionPetView>
           <Image
             source={require('../assets/img/vfx/ChatBubble01.png')}
-            style={{width: 300, height: 122}}
+            style={{ width: 300, height: 122 }}
           />
           <AbsolutePositionBubbleView>
             <BubbleText>"I'm doing great today! How about you?"</BubbleText>
