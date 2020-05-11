@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat';
 import { newMessage, previousMessages } from '../../api/ChatRoute'
 import firebase from 'firebase';
+import { ChatHeader } from '../../styles'
 
 class Chat extends Component {
   constructor(props) {
@@ -22,19 +22,14 @@ class Chat extends Component {
       message.onSnapshot((QuerySnapshot) => {//attaches a listener for the message object
         let currentMessages = QuerySnapshot.data().messages
 
-
         if (currentMessages.length === 0) return ''//covers no messages edge
 
         let latestMessage = currentMessages[currentMessages.length - 1]
 
         latestMessage.createdAt = latestMessage.createdAt.toDate()
-        if (this.state.messages.length === 0) {
-          this.setState({
-            messages: [latestMessage]
-          })
-        }//covers first message edge
 
-        if (latestMessage.createdAt.toString() === this.state.messages[0].createdAt.toString()) {
+
+        if (this.state.messages[0] && latestMessage.createdAt.toString() === this.state.messages[0].createdAt.toString()) {
           return ''
         }//covers first render edge to avoid duplicate
         else {
@@ -68,7 +63,9 @@ class Chat extends Component {
   render() {
     return (
       <>
-        <Text></Text>
+        <ChatHeader
+          style={{}}
+        >{this.props.navigation.state.params.item.UserName}</ChatHeader>
         <GiftedChat
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}

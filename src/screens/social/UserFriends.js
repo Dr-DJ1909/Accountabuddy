@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -14,13 +14,13 @@ import {
   HeaderText,
   PageWrapperViewLight
 } from '../../styles';
-import {ListItem} from 'react-native-elements';
-import {newFriend, getFriendList} from '../../api/FriendsRoute';
-import {getUsers} from '../../api/UserRoute';
+import { ListItem } from 'react-native-elements';
+import { newFriend, getFriendList } from '../../api/FriendsRoute';
+import { getUsers } from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import ProfileDisplay from './ProfileDisplay';
-import {ScrollView} from 'react-native-gesture-handler';
-import {getUser} from '../../api/UserRoute'
+import { ScrollView } from 'react-native-gesture-handler';
+import { getUser } from '../../api/UserRoute'
 
 class UserFriends extends React.Component {
   constructor() {
@@ -29,7 +29,7 @@ class UserFriends extends React.Component {
       users: [],
       userKey: '',
       friends: [],
-      user:{}
+      user: {}
     };
   }
   async componentDidMount() {
@@ -41,42 +41,42 @@ class UserFriends extends React.Component {
     this.setState({
       userKey: userKey,
       friends: friends,
-      user:user
+      user: user
     });
   }
   render() {
     let friends = this.state.friends;
-
-    if (this.state.friends.length) {
+    if (friends.length) {
       return (
-        <View style={{flex: 1, paddingTop: 70}}>
+        <View style={{ flex: 1, paddingTop: 70 }}>
           <FlatList
             extraData={this.state}
             data={this.state.friends}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <ListItem
-              rightElement={ () =>(
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                <Button
-                title='Chat'
-                onPress={() =>{
-                  this.props.navigation.navigate('Chat', {
-                    item:item,
-                    })
-                }
-                  }/>
-                <Button
-                    title="View Profile"
-                    onPress={() =>
-                      this.props.navigation.navigate('ProfileDisplay', {
-                        friend: item,
-                        userPet: this.state.user.pet
-                      })
-                    }
-                  />
-                </View>
+                rightElement={() => (
+                  <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <Button
+                      title='Chat'
+                      onPress={() => {
+                        this.props.navigation.navigate('Chat', {
+                          item: item,
 
-              )
+                        })
+                      }
+                      } />
+                    <Button
+                      title="View Profile"
+                      onPress={() =>
+                        this.props.navigation.navigate('ProfileDisplay', {
+                          friend: item,
+                          userPet: this.state.user.pet
+                        })
+                      }
+                    />
+                  </View>
+
+                )
                 }
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}

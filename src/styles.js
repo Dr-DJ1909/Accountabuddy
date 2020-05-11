@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import {createGlobalStyle} from 'styled-components/native';
+import { createGlobalStyle } from 'styled-components/native';
 // import Raleway-Medium
 
 // const GlobalStyle = createGlobalStyle`
@@ -357,3 +357,8 @@ export const Picker = styled.Picker`
   width: 300px;
   margin: 10px;
 `;
+export const ChatHeader = styled.Text`
+  padding-top:50px;
+  align-self: center;
+  font-size:25;
+`
