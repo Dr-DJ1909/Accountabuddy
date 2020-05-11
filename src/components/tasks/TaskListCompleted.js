@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   PageWrapperView,
@@ -25,6 +25,7 @@ class TaskListCompleted extends Component {
   constructor() {
     super();
 
+
   }
 
   render() {
@@ -36,15 +37,15 @@ class TaskListCompleted extends Component {
         </TopHeader>
         <DividerHeader />
         <FlatList
-          style={{flex: 2, width: '100%'}}
+          style={{ flex: 2, width: '100%' }}
           data={this.props.completedTasks}
           ItemSeparatorComponent={renderSeparator}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item, index}) => {
+          renderItem={({ item, index }) => {
             return (
               <TaskItemCompleted
                 item={item}
-                style={{flex: 1}}
+                style={{ flex: 1 }}
                 index={index}
 
               />
@@ -70,17 +71,19 @@ renderSeparator = () => {
   );
 };
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
   return {
     user: state.user.user,
     completedTasks: state.user.user.completedTasks
   }
 }
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
   return {
+
     updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
     deleteTaskAction: task => dispatch(deleteTaskThunk(task)),
+
   }
 }
 

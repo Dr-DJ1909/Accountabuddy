@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
   StyleSheet,
   View,
@@ -9,8 +9,8 @@ import {
   AsyncStorage,
   Alert
 } from 'react-native';
-import {Container, Form, Input, Item, Label, Button} from 'native-base';
-import {withNavigation} from 'react-navigation';
+import { Container, Form, Input, Item, Label, Button } from 'native-base';
+import { withNavigation } from 'react-navigation';
 import {
   newUser,
   googleUser,
@@ -19,7 +19,7 @@ import {
   loginUser,
   getUser
 } from '../api/UserRoute';
-import {getUserThunk, getUserKeyThunk} from '../store/user';
+import { getUserThunk, getUserKeyThunk } from '../store/user';
 
 class SignUpLogIn extends React.Component {
   constructor(props) {
@@ -32,9 +32,11 @@ class SignUpLogIn extends React.Component {
     this.signUp = this.signUp.bind(this.signUp);
   }
   async GoogleSignIn() {
+
     const {navigate} = this.props.navigation;
     const msg = await signInWithGoogleAsync();
     const googleSignedIn = await getUser(msg.user.id);
+
     this.props.getUserAction(googleSignedIn);
     this.props.getUserKey(msg.user.id);
     if (msg.type === 'success') {
@@ -44,9 +46,9 @@ class SignUpLogIn extends React.Component {
 
   signUp = async (email, password) => {
     try {
-      const {navigate} = this.props.navigation;
+      const { navigate } = this.props.navigation;
       let newUserKey = await signUpUser(email, password);
-      //adds a document to user collection on signup
+
       this.props.getUserAction(await getUser(newUserKey));
       this.props.getUserKey(newUserKey);
       //puts document on store immediately
@@ -60,7 +62,7 @@ class SignUpLogIn extends React.Component {
   };
 
   loginUser = async (email, password) => {
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
     try {
       let userKey = await loginUser(email, password);
       if (userKey) {
@@ -71,10 +73,10 @@ class SignUpLogIn extends React.Component {
         if (currentUser.isDoingTutorial) {
           navigate('TestPetScreen');
         } else {
+
           navigate('NavWrapper');
         }
       } else {
-        console.log('wrong');
         this.wrongLoginAlert();
       }
     } catch (err) {
@@ -85,10 +87,11 @@ class SignUpLogIn extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         behavior="height"
         keyboardVerticalOffset={60}
       >
+
         <Container
           style={{
             ...styles.container,
@@ -96,10 +99,12 @@ class SignUpLogIn extends React.Component {
             display: 'flex'
           }}
         >
+
           <View
             style={{
               display: 'flex',
               justifyContent: 'center',
+
               alignItems: 'center'
             }}
           >
@@ -107,6 +112,7 @@ class SignUpLogIn extends React.Component {
               source={require('../assets/AccountaBuddy.png')}
               style={{height: 300, width: 300, resizeMode: 'contain'}}
             />
+
           </View>
           <Form>
             <Item floatingLabel>
@@ -114,7 +120,7 @@ class SignUpLogIn extends React.Component {
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText={email => this.setState({email})}
+                onChangeText={email => this.setState({ email })}
               />
             </Item>
             <Item floatingLabel>
@@ -123,9 +129,10 @@ class SignUpLogIn extends React.Component {
                 secureTextEntry={true}
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText={password => this.setState({password})}
+                onChangeText={password => this.setState({ password })}
               />
             </Item>
+
 
             <View
               style={{
@@ -140,11 +147,13 @@ class SignUpLogIn extends React.Component {
                   margin: 5,
                   marginTop: 20,
                   width: 350,
+
                   alignSelf: 'center'
                 }}
                 full
                 rounded
                 primary
+
                 onPress={() =>
                   this.signUp(this.state.email, this.state.password)
                 }
@@ -152,13 +161,16 @@ class SignUpLogIn extends React.Component {
                 <Text style={{fontFamily: 'Raleway-Medium', color: 'white'}}>
                   Sign Up
                 </Text>
+
               </Button>
 
               <Button
                 style={{
+
                   margin: 5,
                   marginTop: 10,
                   width: 350,
+
                   alignSelf: 'center'
                 }}
                 full
@@ -168,9 +180,11 @@ class SignUpLogIn extends React.Component {
                   this.loginUser(this.state.email, this.state.password)
                 }
               >
+
                 <Text style={{fontFamily: 'Raleway-Medium', color: 'white'}}>
                   Log In
                 </Text>
+
               </Button>
               <Button
                 style={{
@@ -183,16 +197,20 @@ class SignUpLogIn extends React.Component {
                 rounded
                 warning
                 title="Sign in with Google"
+
                 onPress={() => this.GoogleSignIn()}
+
               >
                 <Text
                   style={{
                     fontFamily: 'Raleway-Medium',
                     color: 'white'
                   }}
+
                 >
                   Log In With Google
                 </Text>
+
               </Button>
             </View>
           </Form>
@@ -211,13 +229,13 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
   return {
     user: state.user
   };
 };
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
   return {
     getUserAction: user => dispatch(getUserThunk(user)),
     getUserKey: userKey => dispatch(getUserKeyThunk(userKey))

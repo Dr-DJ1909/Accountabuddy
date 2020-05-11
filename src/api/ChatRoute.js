@@ -2,28 +2,29 @@ import firebase from 'firebase';
 import '@firebase/firestore';
 
 
-//messages are all stored directly in firestore, along with the id of sender and the time sent. firebase calls written here write and read to the store respectivelty
-export async function newMessage(chatRoom,messageObject) {
+
+export async function newMessage(chatRoom, messageObject) {
+
   try {
     await firebase
-    .firestore()
-    .collection('Chat')
-    .doc(chatRoom)
-    .update({
-      messages:firebase.firestore.FieldValue.arrayUnion(messageObject)
+      .firestore()
+      .collection('Chat')
+      .doc(chatRoom)
+      .update({
+        messages: firebase.firestore.FieldValue.arrayUnion(messageObject)
       })
   } catch (error) {
     console.error(error)
   }
 }
 
-export async function previousMessages(chatRoom){
+export async function previousMessages(chatRoom) {
   try {
     let previousMessages = await firebase
-    .firestore()
-    .collection('Chat')
-    .doc(chatRoom)
-    .get()
+      .firestore()
+      .collection('Chat')
+      .doc(chatRoom)
+      .get()
     return previousMessages.data()
   } catch (error) {
     console.error(error)

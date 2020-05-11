@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -13,14 +13,15 @@ import {
   HeaderText,
   ProfileView
 } from '../../styles';
-import {ListItem} from 'react-native-elements';
-import {newFriend, getFriendList} from '../../api/FriendsRoute';
-import {getUsers, updateBio} from '../../api/UserRoute';
+import { ListItem } from 'react-native-elements';
+import { newFriend, getFriendList } from '../../api/FriendsRoute';
+import { getUsers, updateBio } from '../../api/UserRoute';
 import Icon from 'react-native-vector-icons/Feather';
 import TasksHeader from '../../components/tasks/TasksHeader';
 import EditProfileInput from '../social/EditProfileInput';
 
 export default function Profile(props) {
+
   return (
     <ProfileView>
       <Text>About Me: {props.bio}</Text>

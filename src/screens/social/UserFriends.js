@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -7,11 +7,21 @@ import {
   AsyncStorage,
   Button
 } from 'react-native';
-import {PageWrapperViewLight} from '../../styles';
-import {ListItem} from 'react-native-elements';
-import {getFriendList} from '../../api/FriendsRoute';
+
+import {
+  PageWrapperView,
+  AbsolutePositionPetView,
+  HeaderText,
+  PageWrapperViewLight
+} from '../../styles';
+import { ListItem } from 'react-native-elements';
+import { newFriend, getFriendList } from '../../api/FriendsRoute';
+import { getUsers } from '../../api/UserRoute';
+import Icon from 'react-native-vector-icons/Feather';
 import ProfileDisplay from './ProfileDisplay';
-import {getUser} from '../../api/UserRoute';
+import { ScrollView } from 'react-native-gesture-handler';
+import { getUser } from '../../api/UserRoute'
+
 
 class UserFriends extends React.Component {
   constructor() {
@@ -38,23 +48,25 @@ class UserFriends extends React.Component {
 
     if (friends.length) {
       return (
-        <View style={{flex: 1, paddingTop: 70}}>
+        <View style={{ flex: 1, paddingTop: 70 }}>
           <FlatList
             extraData={this.state}
-            data={friends}
-            renderItem={({item}) => (
+
+            data={this.state.friends}
+            renderItem={({ item }) => (
               <ListItem
                 rightElement={() => (
-                  <View style={{flex: 1, flexDirection: 'row'}}>
+                  <View style={{ flex: 1, flexDirection: 'row' }}>
                     <Button
-                      title="Chat"
+                      title='Chat'
                       onPress={() => {
                         this.props.navigation.navigate('Chat', {
-                          item: item
-                          //passes down the chat id to the chat component that will be loaded
-                        });
-                      }}
-                    />
+                          item: item,
+
+                        })
+                      }
+                      } />
+
                     <Button
                       title="View Profile"
                       onPress={() =>
@@ -65,7 +77,9 @@ class UserFriends extends React.Component {
                       }
                     />
                   </View>
-                )}
+                )
+                }
+
                 // leftAvatar={{source: {uri: item.picture.thumbnail}}}
                 title={item.email}
                 subtitle={item.UserName}
