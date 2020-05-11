@@ -4,6 +4,7 @@ import '@firebase/firestore';
 
 
 export async function newMessage(chatRoom, messageObject) {
+
   try {
     await firebase
       .firestore()

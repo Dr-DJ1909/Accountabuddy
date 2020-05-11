@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+
+import React, { Component } from "react";
+
 import {
   Image,
   Text,
@@ -6,6 +8,7 @@ import {
   StyleSheet,
   AsyncStorage,
   Button
+
 } from 'react-native';
 import { ProfileHeaderView, ProfileView, LabelText } from '../../styles';
 import { getFriendList } from '../../api/FriendsRoute';
@@ -33,8 +36,8 @@ export default function ProfileDisplay(props) {
         <View style={styles.item}>
           <View style={{ flex: 1 }}>
             <ProfileView>
-              <LabelText>About Me:</LabelText>
-              <Text>{bio}</Text>
+              <Text style={styles.text}>About Me:</Text>
+              <Text style={styles.text}>{bio}</Text>
             </ProfileView>
             <FriendPet
               userPet={props.navigation.state.params.userPet}
@@ -48,34 +51,41 @@ export default function ProfileDisplay(props) {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontSize: 22,
+    color: "#5c9ead",
+    fontFamily: "Raleway-Medium",
+    textAlign: "center"
+  },
   headerText: {
     padding: 20,
-    alignItems: 'center'
+    alignItems: "center"
   },
   pic: {
     width: 130,
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: 'white',
-    marginBottom: 10
+    borderColor: "white",
+    marginBottom: 10,
+    marginTop: 20
   },
   name: {
     fontSize: 20,
-    color: '#FFFAF0',
-    fontWeight: '700'
+    color: "#FFFAF0",
+    fontWeight: "700"
   },
   content: {
-    backgroundColor: '#D8C4E9',
+    backgroundColor: "#D8C4E9",
     height: 600,
-    alignItems: 'center'
+    alignItems: "center"
   },
   item: {
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   infoContent: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     paddingLeft: 5
   },
   icon: {
@@ -86,6 +96,6 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 18,
     marginTop: 20,
-    color: '#FFFFFF'
+    color: "#FFFFFF"
   }
 });

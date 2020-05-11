@@ -30,6 +30,7 @@ const TaskChores = (props) => {
     image = <DeadPet />
   }
 
+  //messages will display in accordance to hp recorded in store.
   let message;
   if (hp <= 1 && hp >= 0.7) {
     message = <MessageText>{user.pet.Name}'s room is sparkling clean!</MessageText>

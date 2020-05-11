@@ -12,6 +12,7 @@ async function newUser(user) {
       .collection('Users')
       .doc(user.uid)
       .set({
+        //users should start out with these documents initialized in firebase
         email: user.email,
         UserName: '',
         pet: { Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, SocialHP: 1 },
@@ -59,18 +60,24 @@ export async function signUpUser(email, password) {
   }
 }
 
-export async function googleUser(user) {
+async function googleUser(user) {
   try {
     await firebase
       .firestore()
       .collection('Users')
-      .doc(user.id)
+      .doc(user.uid)
       .set({
         email: user.email,
         UserName: '',
-        pet: { Name: 'kitty', ChoreHP: 1, GymHP: 1 },
-        tasks: [],
-        bio: ''
+
+        pet: {Name: 'Kitty', ChoresHP: 1, ExerciseHP: 1, SocialHP: 1},
+        completedTasks: [],
+        incompleteTasks: [],
+        failedTasks: [],
+        bio: '',
+        avatar: '',
+        isDoingTutorial: true
+
       });
   } catch (error) {
     console.log('error', error);
@@ -84,21 +91,11 @@ export async function getUser(userId) {
       .collection('Users')
       .doc(userId)
       .get();
-    // console.log(user)
-    return user.data(); //returns object
+    return user.data(); //returns user in object format
   } catch (error) {
     console.log(error);
   }
 }
-
-// export function updateUser(userKey, ) {
-//   firebase
-//     .firestore()
-//     .collection('users')
-//     .doc(userKey)
-//     .update({
-//     });
-// }
 
 export async function loginUser(email, password) {
   try {
@@ -140,8 +137,9 @@ export async function getUsers() {
       .firestore()
       .collection('Users')
       .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
+
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
 
           let obj = {
             uId: doc.id,
@@ -157,6 +155,7 @@ export async function getUsers() {
   }
 }
 
+//This function updates the 'bio' field on the user's object with the information passed in as 'newBio'
 export async function updateBio(userId, newBio) {
   try {
 

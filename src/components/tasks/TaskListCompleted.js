@@ -24,10 +24,7 @@ import TasksHeader from './TasksHeader';
 class TaskListCompleted extends Component {
   constructor() {
     super();
-    this.delete.bind(this)
-  }
 
-  delete(unwantedTask) {
 
   }
 
@@ -50,6 +47,7 @@ class TaskListCompleted extends Component {
                 item={item}
                 style={{ flex: 1 }}
                 index={index}
+
               />
             );
           }}
@@ -82,8 +80,10 @@ const mapStateToProps = function (state) {
 
 const mapDispatchToProps = function (dispatch) {
   return {
-    updateTaskAction: (task) => dispatch(updateTaskThunk(task)),
-    deleteTaskAction: (task) => dispatch(deleteTaskThunk(task))
+
+    updateTaskAction:(task) => dispatch(updateTaskThunk(task)),
+    deleteTaskAction: task => dispatch(deleteTaskThunk(task)),
+
   }
 }
 
